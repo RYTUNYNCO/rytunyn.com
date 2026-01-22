@@ -1,27 +1,26 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RYTUNYN : ARCHITECT OF HAPPINESS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600;800&display=swap');
 
-        /* * PURE CSS ARCHITECTURE 
-         * NO JAVASCRIPT
+        /* * PURE CSS ARCHITECTURE - MOBILE OPTIMIZED 
+         * Designed by Super-intelligent Narrative Intelligence
          */
         
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #000000;
+            background-color: #050505; /* Slightly lighter black for mobile contrast */
             overflow-x: hidden;
             height: 100%;
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        body::-webkit-scrollbar { 
-            display: none; /* Chrome/Safari */
+            -webkit-tap-highlight-color: transparent; /* Remove blue tap box on mobile */
         }
 
+        /* Container ensures the SVG fits width but allows scrolling */
         .svg-container {
             width: 100%;
             height: auto;
@@ -33,13 +32,11 @@
         svg {
             width: 100%;
             max-width: 800px;
-            /* Height compressed from 12000px to 4200px for density */
-            height: 4200px; 
+            height: auto; /* Maintains aspect ratio automatically */
             display: block;
         }
 
-        /* * ANIMATION ENGINE
-         */
+        /* * ANIMATION ENGINE */
 
         .breathe {
             animation: breathe-anim 6s infinite ease-in-out;
@@ -50,7 +47,6 @@
             50% { transform: scale(1.02); filter: drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
         }
 
-        /* Pulse for connection nodes */
         .pulse {
             animation: pulse-anim 4s infinite ease-in-out;
         }
@@ -59,8 +55,7 @@
             50% { r: 5; opacity: 1; stroke-width: 2px; }
         }
 
-        /* * INTERACTION ENGINE (HOVER)
-         */
+        /* * INTERACTION ENGINE (Hybrid: Hover for Desktop, Always Visible for Mobile) */
         .sequence-item {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -69,7 +64,7 @@
 
         .sequence-item text {
             transition: all 0.3s ease;
-            opacity: 0.7;
+            opacity: 0.7; /* Default desktop opacity */
         }
         
         .sequence-item circle {
@@ -78,30 +73,30 @@
 
         .sequence-item line {
             transition: all 0.5s ease;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 0;
         }
 
-        /* Hover Effects */
-        .sequence-item:hover text {
-            fill: #FFFFFF !important;
-            opacity: 1 !important;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.05em; /* Subtle expansion */
-        }
-        
-        .sequence-item:hover circle {
-            r: 6;
-            fill: #FFFFFF;
-            filter: drop-shadow(0 0 8px #FFF);
+        /* Hover Effects (Desktop) */
+        @media (hover: hover) {
+            .sequence-item:hover text {
+                fill: #FFFFFF !important;
+                opacity: 1 !important;
+                text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+                letter-spacing: 0.05em;
+            }
+            
+            .sequence-item:hover circle {
+                r: 6;
+                fill: #FFFFFF;
+                filter: drop-shadow(0 0 8px #FFF);
+            }
+
+            .sequence-item:hover line {
+                stroke: #FFFFFF;
+                stroke-width: 2;
+            }
         }
 
-        .sequence-item:hover line {
-            stroke: #FFFFFF;
-            stroke-width: 2;
-        }
-
-        /* Fonts */
+        /* Fonts Base Definitions */
         .font-serif { font-family: 'Cinzel', serif; }
         .font-sans { font-family: 'Inter', sans-serif; letter-spacing: 0.05em; }
         
@@ -120,12 +115,55 @@
             to { stroke-dashoffset: 1000; }
         }
 
+        /* =========================================
+           MOBILE OPTIMIZATION CORE (Responsive CSS)
+           ========================================= */
+        @media (max-width: 600px) {
+            
+            /* 1. VISIBILITY: Make text fully visible without hover (since mobile has no hover) */
+            .sequence-item text {
+                opacity: 1 !important;
+                fill: #DDDDDD !important; /* Slightly brighter for readability */
+            }
+            
+            /* 2. TYPOGRAPHY SCALING: Drastically increase font sizes to compensate for SVG shrinking */
+            .text-header { font-size: 80px; } /* 60px -> 80px */
+            .text-subheader { font-size: 34px; letter-spacing: 0.1em; } /* 24px -> 34px, reduce spacing */
+            
+            .text-stage { 
+                font-size: 26px; /* 14px -> 26px */
+                fill: #888; /* Lighter for better contrast */
+                font-weight: 800;
+            }
+
+            .text-item { 
+                font-size: 32px; /* 20px -> 32px */
+                fill: #AAA;
+            }
+            
+            .text-item-bold { 
+                font-size: 42px; /* 28px -> 42px */
+                fill: #FFF;
+            }
+
+            /* 3. GEOMETRY ADJUSTMENTS: Thicker lines for small screens */
+            .sequence-item line { stroke-width: 2px !important; }
+            .sequence-item circle.pulse { r: 6 !important; stroke-width: 3px !important; }
+            
+            /* Adjust Footer for readability */
+            .text-footer { font-size: 24px !important; }
+
+            /* Increase breathing circle size on mobile */
+            .breathe { animation-duration: 4s; } /* Faster breathe for mobile attention */
+        }
+
     </style>
 </head>
 <body>
 
 <div class="svg-container">
-    <svg viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin slice">
+    <!-- Preserving aspect ratio but allowing width to be responsive -->
+    <svg viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
         
         <defs>
             <linearGradient id="grad-main" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -142,14 +180,14 @@
             </linearGradient>
         </defs>
 
-        <!-- Subtle Background Grid to remove emptiness -->
+        <!-- Subtle Background Grid -->
         <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
             <rect width="1" height="1" fill="#222"></rect>
         </pattern>
         <rect width="100%" height="100%" fill="url(#grid)"></rect>
 
         <!-- Central Nervous System (Main Line) -->
-        <line x1="400" y1="200" x2="400" y2="4000" stroke="url(#grad-main)" stroke-width="1"></line>
+        <line x1="400" y1="200" x2="400" y2="4000" stroke="url(#grad-main)" stroke-width="2"></line>
 
         <!-- ==============================================
              HERO SECTION (y: 0 - 600)
@@ -158,18 +196,17 @@
             <text x="400" y="300" text-anchor="middle" fill="#FFFFFF" class="font-serif text-header">RYTUNYN</text>
             <text x="400" y="350" text-anchor="middle" fill="#FFFFFF" class="font-sans text-subheader">HAPPINESS ENGINEER</text>
             
-            <line x1="250" y1="380" x2="550" y2="380" stroke="url(#grad-gold)" stroke-width="1"></line>
-            <text x="400" y="410" text-anchor="middle" fill="#888888" font-size="12" class="font-sans" letter-spacing="0.3em">THE ARCHITECT'S CANVAS</text>
+            <line x1="200" y1="380" x2="600" y2="380" stroke="url(#grad-gold)" stroke-width="1"></line>
+            <text x="400" y="410" text-anchor="middle" fill="#888888" font-size="16" class="font-sans text-stage" letter-spacing="0.3em">THE ARCHITECT'S CANVAS</text>
         </g>
 
         <!-- Scroll Indicator -->
-        <path d="M 400 500 L 400 550" stroke="#FFF" stroke-width="1" opacity="0.5"></path>
-        <circle cx="400" cy="555" r="2" fill="#FFF" class="pulse"></circle>
+        <path d="M 400 500 L 400 550" stroke="#FFF" stroke-width="2" opacity="0.5"></path>
+        <circle cx="400" cy="555" r="4" fill="#FFF" class="pulse"></circle>
 
 
         <!-- ==============================================
              STAGE 01: IDENTITY SHOCK (y: 600 - 1200)
-             Compact Spacing: Every ~100px
              ============================================== -->
         
         <g transform="translate(0, 700)">
@@ -181,7 +218,7 @@
                 <line x1="400" y1="50" x2="350" y2="50" stroke="#444" stroke-width="1"></line>
                 <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
                 <text x="340" y="58" text-anchor="end" class="font-sans text-item-bold">MIRROR PARADOX</text>
-                <text x="340" y="85" text-anchor="end" class="font-sans text-item" font-size="12">AUTHENTICITY</text>
+                <text x="340" y="90" text-anchor="end" class="font-sans text-item">AUTHENTICITY</text>
             </g>
 
             <!-- Item 2: Right -->
@@ -215,7 +252,7 @@
             <!-- Item 6: Center -->
             <g class="sequence-item">
                 <circle cx="400" cy="550" r="5" fill="#333" stroke="#FFF"></circle>
-                <text x="400" y="580" text-anchor="middle" class="font-sans text-item-bold" letter-spacing="0.2em">UNLEARNING</text>
+                <text x="400" y="585" text-anchor="middle" class="font-sans text-item-bold" letter-spacing="0.2em">UNLEARNING</text>
             </g>
         </g>
 
@@ -273,7 +310,7 @@
             <!-- Item 13 -->
             <g class="sequence-item">
                 <circle cx="400" cy="550" r="5" fill="#333" stroke="#FFF"></circle>
-                <text x="400" y="580" text-anchor="middle" class="font-sans text-item-bold">AVAILABILITY</text>
+                <text x="400" y="585" text-anchor="middle" class="font-sans text-item-bold">AVAILABILITY</text>
             </g>
         </g>
 
@@ -324,7 +361,7 @@
             <!-- Item 19 -->
              <g class="sequence-item">
                 <circle cx="400" cy="470" r="5" fill="#333" stroke="#FFF"></circle>
-                <text x="400" y="500" text-anchor="middle" class="font-sans text-item-bold">HERO'S JOURNEY</text>
+                <text x="400" y="505" text-anchor="middle" class="font-sans text-item-bold">HERO'S JOURNEY</text>
             </g>
         </g>
 
@@ -375,7 +412,7 @@
             <!-- Item 25 -->
             <g class="sequence-item">
                 <circle cx="400" cy="470" r="5" fill="#333" stroke="#FFF"></circle>
-                <text x="400" y="500" text-anchor="middle" class="font-sans text-item-bold">GIFT ECONOMY</text>
+                <text x="400" y="505" text-anchor="middle" class="font-sans text-item-bold">GIFT ECONOMY</text>
             </g>
         </g>
 
@@ -438,14 +475,14 @@
         
         <g transform="translate(0, 4100)">
             <line x1="350" y1="0" x2="450" y2="0" stroke="#555" stroke-width="1"></line>
-            <text x="400" y="30" text-anchor="middle" fill="#444" font-size="14" class="font-sans">RYTUNYN © 2026</text>
+            <text x="400" y="30" text-anchor="middle" fill="#444" font-size="24" class="font-sans text-footer">RYTUNYN © 2026</text>
             <a href="mailto:rytunyn@rytunyn.com" style="cursor: pointer;">
-                <text x="400" y="50" text-anchor="middle" fill="#666" font-size="15" class="font-sans" letter-spacing="0.1em">rytunyn@rytunyn.com</text>
+                <text x="400" y="60" text-anchor="middle" fill="#666" font-size="24" class="font-sans text-footer" letter-spacing="0.1em">rytunyn@rytunyn.com</text>
             </a>
         </g>
 
     </svg>
 </div>
 
-
-</body></html>
+</body>
+</html>
