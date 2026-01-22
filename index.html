@@ -63,8 +63,10 @@
         /* Default State */
         .sequence-item text {
             transition: all 0.5s ease;
-            opacity: 0.2; /* Dimmed further for contrast */
+            opacity: 0.3; /* Dimmed further for contrast */
             fill: #555;
+            /* Text Shadow for better legibility over the line */
+            text-shadow: 0px 0px 5px rgba(0,0,0,1); 
         }
         
         .sequence-item circle {
@@ -85,7 +87,9 @@
         .sequence-item:hover text {
             fill: #FFFFFF !important;
             opacity: 1 !important;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            text-shadow: 
+                0 0 10px rgba(0,0,0, 1), /* Strong outline against axis line */
+                0 0 20px rgba(255, 255, 255, 0.6); /* Glow */
             letter-spacing: 0.05em;
         }
         
@@ -116,25 +120,23 @@
         }
 
         /* =========================================
-           MOBILE OPTIMIZATION V3: CENTER & SPACE
+           MOBILE OPTIMIZATION: CENTER & PENETRATE
            ========================================= */
         @media (max-width: 600px) {
             
             /* 1. Header Adjustment */
-            .text-header { font-size: 60px; } /* Prevent wrapping */
+            .text-header { font-size: 60px; } 
             .text-subheader { font-size: 24px; letter-spacing: 0.1em; }
             
-            /* 2. Axis Line */
-            /* Keep it centered, but dim it so text pops */
+            /* 2. Axis Line - Visible but subtle */
             .axis-line {
-                stroke-opacity: 0.3;
+                stroke-opacity: 0.4;
             }
 
             /* 3. Stage Title: Centered & Big */
             .text-stage {
                 font-size: 32px;
                 text-anchor: middle !important;
-                /* Remove transform shifts from previous version */
                 transform: none !important; 
                 fill: #888;
                 font-weight: 800;
@@ -142,25 +144,30 @@
             }
             .stage-line { display: none; }
 
-            /* 4. Item Restructuring: CENTER EVERYTHING */
-            
-            /* Remove horizontal shifts */
+            /* 4. Center Everything */
             .sequence-item circle { transform: none !important; }
+            .sequence-item line { display: none; } /* Hide horizontal connectors */
             
-            /* Hide the connecting horizontal lines on mobile */
-            .sequence-item line { display: none; }
-            
-            /* Force Text Center */
+            /* Force Text Center - CSS Override */
             .sequence-item text {
                 text-anchor: middle !important;
-                font-size: 42px !important; /* Large readable text */
-                /* Reset any previous transforms */
+                font-size: 42px !important;
                 transform: none !important;
-                /* Move text BELOW the circle node slightly */
-                /* This is handled in JS layout or dy */
+                /* Add background-like shadow to separate from line */
+                paint-order: stroke fill;
+                stroke: #050505;
+                stroke-width: 6px;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            /* Reset Active Text Stroke (keep it white/glowy) */
+            .sequence-item.active text {
+                fill: #FFF !important;
+                stroke: #050505; /* Keep stroke for contrast against line */
+                stroke-width: 6px;
             }
 
-            /* Disable Left/Right/Center Side shifts */
+            /* Disable Left/Right shifts from desktop logic */
             .left-side text, .right-side text, .center-side text {
                 transform: none !important;
             }
@@ -168,7 +175,7 @@
             /* Footer */
             .text-footer { font-size: 24px !important; }
             
-            /* Active Animation: Simple Scale */
+            /* Animation */
             .sequence-item.active text {
                 transform: scale(1.05); 
                 transition: transform 0.5s ease;
@@ -179,7 +186,6 @@
 <body>
 
 <div class="svg-container">
-    <!-- ViewBox will be updated by JS on mobile -->
     <svg id="main-svg" viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
         
         <defs>
@@ -448,10 +454,10 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         
-        /* 1. INTERACTION ENGINE (Scroll Observer) */
+        /* 1. INTERACTION ENGINE */
         const observerOptions = {
             root: null,
-            rootMargin: "-45% 0px -45% 0px", // Sharp focus in center
+            rootMargin: "-45% 0px -45% 0px",
             threshold: 0
         };
 
@@ -468,20 +474,20 @@
         const items = document.querySelectorAll('.sequence-item');
         items.forEach(item => observer.observe(item));
 
-        /* 2. LAYOUT ENGINE (Mobile Vertical Expansion & Centering) */
+        /* 2. LAYOUT ENGINE (Mobile Centering) */
         function optimizeLayoutForMobile() {
             if (window.innerWidth <= 600) {
-                console.log("Layout Engine: Applying Extreme Spacing for Mobile...");
+                console.log("Layout Engine: Applying Center Penetration for Mobile...");
                 
                 const svg = document.getElementById('main-svg');
                 const axisLine = document.getElementById('axis-line');
                 const footer = document.getElementById('footer-group');
                 
                 // Hyper-Spacing Configuration
-                const MOBILE_ITEM_GAP = 400; // Increased to 400px to prevent overlap
-                const MOBILE_STAGE_PAD = 600; // Large gap between stages
+                const MOBILE_ITEM_GAP = 400; // Large spacing to prevent overlap
+                const MOBILE_STAGE_PAD = 600; 
 
-                let currentY = 900; // Start Y lower for Hero breathing room
+                let currentY = 900; 
 
                 const stages = [1, 2, 3, 4, 5];
                 
@@ -489,78 +495,50 @@
                     const stageGroup = document.getElementById(`stage-${stageNum}`);
                     if (!stageGroup) return;
 
-                    // 1. Position the Stage Group
+                    // 1. Move Stage
                     stageGroup.setAttribute('transform', `translate(0, ${currentY})`);
 
-                    // 2. Expand items vertically within the stage
+                    // 2. Adjust items
                     const stageItems = stageGroup.querySelectorAll('.sequence-item');
                     let maxItemY = 0;
 
                     stageItems.forEach((item, index) => {
                         let newItemY;
                         
-                        // Special handling for Final Node
                         if (item.getAttribute('data-index') === '31') {
                             newItemY = (stageItems.length - 1) * MOBILE_ITEM_GAP + 200;
                         } else {
-                            // Linear stacking
                             newItemY = 100 + (index * MOBILE_ITEM_GAP);
                         }
 
-                        // On mobile, we also need to center the text visually in Y relative to the node
-                        // The CSS centers X. Here we shift Y.
-                        // The text inside SVG is relative to its <g>.
-                        // We shift the whole <g> (item).
-                        
+                        // Shift Y logic
                         const originalY = parseInt(item.getAttribute('data-y') || 0);
                         const shiftY = newItemY - originalY;
                         
-                        // Force X to 400 (Center) by ignoring original x positions (handled in CSS mostly)
-                        // But CSS 'transform: none' restores original SVG coordinates.
-                        // Wait, original SVG has x=350/450. CSS transform:none keeps them there.
-                        // We need to shift X to 0 relative to axis? No, we need them at x=400.
-                        // Left items are at 350/340. To get to 400, need +50/+60.
-                        // Right items are at 450/460. To get to 400, need -50/-60.
-                        // This X-shift is best done here in JS to be precise, OR we let CSS text-anchor handle text
-                        // but the CIRCLE needs to be at 400.
-                        
-                        // Correct Logic:
-                        // The 'left-side' circle is at cx=400 (mostly) or shifted?
-                        // In HTML above:
-                        // Left Item: line x1=400... circle cx=400. Ah, circles are ALREADY at 400!
-                        // The text was at x=340 or x=460.
-                        // So if we set CSS `text-anchor: middle`, text aligns around its x.
-                        // x=340 middle -> visually left.
-                        // We need to change the `x` attribute of text to 400? 
-                        // SVG attributes are hard to override with CSS alone for 'x'.
-                        // Let's force X shift in JS.
+                        // FORCE CENTER ALIGNMENT LOGIC
+                        const textEls = item.querySelectorAll('text');
+                        textEls.forEach(textEl => {
+                            // Directly modify SVG attributes for strict centering
+                            textEl.setAttribute('x', '400');
+                            textEl.setAttribute('text-anchor', 'middle');
+                        });
 
-                        const textEl = item.querySelector('text');
-                        if (textEl) textEl.setAttribute('x', '400'); // Force text center
-                        const textEl2 = item.querySelectorAll('text')[1]; // Subtext
-                        if (textEl2) textEl2.setAttribute('x', '400');
-
-                        // Apply the Vertical Shift
                         item.setAttribute('transform', `translate(0, ${shiftY})`);
                         
                         if (newItemY > maxItemY) maxItemY = newItemY;
                     });
 
-                    // Advance Y for next stage
                     currentY += maxItemY + MOBILE_STAGE_PAD;
                 });
 
-                // 3. Update Footer
                 footer.setAttribute('transform', `translate(0, ${currentY})`);
 
-                // 4. Extend Canvas
                 const totalHeight = currentY + 500;
                 axisLine.setAttribute('y2', totalHeight);
                 svg.setAttribute('viewBox', `0 0 800 ${totalHeight}`);
             }
         }
 
-        // Execute Layout Engine
         optimizeLayoutForMobile();
     });
 </script>
