@@ -7,20 +7,19 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600;800&display=swap');
 
-        /* * PURE CSS ARCHITECTURE - MOBILE OPTIMIZED 
+        /* * PURE CSS ARCHITECTURE - RESPONSIVE TIMELINE ENGINE 
          * Designed by Super-intelligent Narrative Intelligence
          */
         
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #050505; /* Slightly lighter black for mobile contrast */
+            background-color: #050505;
             overflow-x: hidden;
             height: 100%;
-            -webkit-tap-highlight-color: transparent; /* Remove blue tap box on mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Container ensures the SVG fits width but allows scrolling */
         .svg-container {
             width: 100%;
             height: auto;
@@ -32,12 +31,11 @@
         svg {
             width: 100%;
             max-width: 800px;
-            height: auto; /* Maintains aspect ratio automatically */
+            height: auto;
             display: block;
         }
 
         /* * ANIMATION ENGINE */
-
         .breathe {
             animation: breathe-anim 6s infinite ease-in-out;
             transform-origin: center;
@@ -55,58 +53,60 @@
             50% { r: 5; opacity: 1; stroke-width: 2px; }
         }
 
-        /* * INTERACTION ENGINE (Hybrid: Hover for Desktop, Always Visible for Mobile) */
+        /* * INTERACTION ENGINE */
         .sequence-item {
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             pointer-events: all;
         }
 
+        /* Default State */
         .sequence-item text {
-            transition: all 0.3s ease;
-            opacity: 0.7; /* Default desktop opacity */
+            transition: all 0.5s ease;
+            opacity: 0.2; /* Dimmed further for contrast */
+            fill: #555;
         }
         
         .sequence-item circle {
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            fill: #333;
+            stroke: none;
         }
 
+        /* Hide lines by default on mobile via opacity logic later, but style here */
         .sequence-item line {
             transition: all 0.5s ease;
+            stroke: #333;
+            stroke-width: 1;
         }
 
-        /* Hover Effects (Desktop) */
-        @media (hover: hover) {
-            .sequence-item:hover text {
-                fill: #FFFFFF !important;
-                opacity: 1 !important;
-                text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
-                letter-spacing: 0.05em;
-            }
-            
-            .sequence-item:hover circle {
-                r: 6;
-                fill: #FFFFFF;
-                filter: drop-shadow(0 0 8px #FFF);
-            }
-
-            .sequence-item:hover line {
-                stroke: #FFFFFF;
-                stroke-width: 2;
-            }
+        /* Active State */
+        .sequence-item.active text,
+        .sequence-item:hover text {
+            fill: #FFFFFF !important;
+            opacity: 1 !important;
+            text-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.05em;
+        }
+        
+        .sequence-item.active circle,
+        .sequence-item:hover circle {
+            r: 8; /* Larger nodes on active */
+            fill: #FFFFFF;
+            filter: drop-shadow(0 0 15px #FFF);
         }
 
-        /* Fonts Base Definitions */
+        /* Fonts */
         .font-serif { font-family: 'Cinzel', serif; }
         .font-sans { font-family: 'Inter', sans-serif; letter-spacing: 0.05em; }
         
         .text-header { font-size: 60px; letter-spacing: 0.1em; font-weight: 700; }
         .text-subheader { font-size: 24px; letter-spacing: 0.2em; font-weight: 400; }
         .text-stage { font-size: 14px; letter-spacing: 0.3em; fill: #666; font-weight: 600; }
-        .text-item { font-size: 20px; letter-spacing: 0.05em; fill: #CCC; font-weight: 400; }
-        .text-item-bold { font-size: 28px; letter-spacing: -0.02em; fill: #EEE; font-weight: 700; }
+        .text-item { font-size: 20px; letter-spacing: 0.05em; font-weight: 400; }
+        .text-item-bold { font-size: 28px; letter-spacing: -0.02em; font-weight: 700; }
+        .text-footer { font-size: 24px; letter-spacing: 0.1em; }
 
-        /* Stage Divider Line Animation */
         .stage-line {
             stroke-dasharray: 10;
             animation: dash 60s linear infinite;
@@ -116,54 +116,71 @@
         }
 
         /* =========================================
-           MOBILE OPTIMIZATION CORE (Responsive CSS)
+           MOBILE OPTIMIZATION V3: CENTER & SPACE
            ========================================= */
         @media (max-width: 600px) {
             
-            /* 1. VISIBILITY: Make text fully visible without hover (since mobile has no hover) */
-            .sequence-item text {
-                opacity: 1 !important;
-                fill: #DDDDDD !important; /* Slightly brighter for readability */
+            /* 1. Header Adjustment */
+            .text-header { font-size: 60px; } /* Prevent wrapping */
+            .text-subheader { font-size: 24px; letter-spacing: 0.1em; }
+            
+            /* 2. Axis Line */
+            /* Keep it centered, but dim it so text pops */
+            .axis-line {
+                stroke-opacity: 0.3;
             }
-            
-            /* 2. TYPOGRAPHY SCALING: Drastically increase font sizes to compensate for SVG shrinking */
-            .text-header { font-size: 80px; } /* 60px -> 80px */
-            .text-subheader { font-size: 34px; letter-spacing: 0.1em; } /* 24px -> 34px, reduce spacing */
-            
-            .text-stage { 
-                font-size: 26px; /* 14px -> 26px */
-                fill: #888; /* Lighter for better contrast */
+
+            /* 3. Stage Title: Centered & Big */
+            .text-stage {
+                font-size: 32px;
+                text-anchor: middle !important;
+                /* Remove transform shifts from previous version */
+                transform: none !important; 
+                fill: #888;
                 font-weight: 800;
+                letter-spacing: 0.1em;
+            }
+            .stage-line { display: none; }
+
+            /* 4. Item Restructuring: CENTER EVERYTHING */
+            
+            /* Remove horizontal shifts */
+            .sequence-item circle { transform: none !important; }
+            
+            /* Hide the connecting horizontal lines on mobile */
+            .sequence-item line { display: none; }
+            
+            /* Force Text Center */
+            .sequence-item text {
+                text-anchor: middle !important;
+                font-size: 42px !important; /* Large readable text */
+                /* Reset any previous transforms */
+                transform: none !important;
+                /* Move text BELOW the circle node slightly */
+                /* This is handled in JS layout or dy */
             }
 
-            .text-item { 
-                font-size: 32px; /* 20px -> 32px */
-                fill: #AAA;
-            }
-            
-            .text-item-bold { 
-                font-size: 42px; /* 28px -> 42px */
-                fill: #FFF;
+            /* Disable Left/Right/Center Side shifts */
+            .left-side text, .right-side text, .center-side text {
+                transform: none !important;
             }
 
-            /* 3. GEOMETRY ADJUSTMENTS: Thicker lines for small screens */
-            .sequence-item line { stroke-width: 2px !important; }
-            .sequence-item circle.pulse { r: 6 !important; stroke-width: 3px !important; }
-            
-            /* Adjust Footer for readability */
+            /* Footer */
             .text-footer { font-size: 24px !important; }
-
-            /* Increase breathing circle size on mobile */
-            .breathe { animation-duration: 4s; } /* Faster breathe for mobile attention */
+            
+            /* Active Animation: Simple Scale */
+            .sequence-item.active text {
+                transform: scale(1.05); 
+                transition: transform 0.5s ease;
+            }
         }
-
     </style>
 </head>
 <body>
 
 <div class="svg-container">
-    <!-- Preserving aspect ratio but allowing width to be responsive -->
-    <svg viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+    <!-- ViewBox will be updated by JS on mobile -->
+    <svg id="main-svg" viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
         
         <defs>
             <linearGradient id="grad-main" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -172,7 +189,6 @@
                 <stop offset="90%" style="stop-color:#FFF;stop-opacity:0.3"></stop>
                 <stop offset="100%" style="stop-color:#000;stop-opacity:0"></stop>
             </linearGradient>
-            
             <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" style="stop-color:#FFF;stop-opacity:0"></stop>
                 <stop offset="50%" style="stop-color:#FFF;stop-opacity:1"></stop>
@@ -180,288 +196,236 @@
             </linearGradient>
         </defs>
 
-        <!-- Subtle Background Grid -->
         <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
             <rect width="1" height="1" fill="#222"></rect>
         </pattern>
         <rect width="100%" height="100%" fill="url(#grid)"></rect>
 
-        <!-- Central Nervous System (Main Line) -->
-        <line x1="400" y1="200" x2="400" y2="4000" stroke="url(#grad-main)" stroke-width="2"></line>
+        <!-- Central Axis -->
+        <line id="axis-line" class="axis-line" x1="400" y1="200" x2="400" y2="4000" stroke="url(#grad-main)" stroke-width="2"></line>
 
-        <!-- ==============================================
-             HERO SECTION (y: 0 - 600)
-             ============================================== -->
+        <!-- HERO SECTION -->
         <g class="breathe">
             <text x="400" y="300" text-anchor="middle" fill="#FFFFFF" class="font-serif text-header">RYTUNYN</text>
             <text x="400" y="350" text-anchor="middle" fill="#FFFFFF" class="font-sans text-subheader">HAPPINESS ENGINEER</text>
-            
             <line x1="200" y1="380" x2="600" y2="380" stroke="url(#grad-gold)" stroke-width="1"></line>
-            <text x="400" y="410" text-anchor="middle" fill="#888888" font-size="16" class="font-sans text-stage" letter-spacing="0.3em">THE ARCHITECT'S CANVAS</text>
+            <text x="400" y="410" text-anchor="middle" fill="#888888" font-size="16" class="font-sans text-stage center-side" letter-spacing="0.3em">THE ARCHITECT'S CANVAS</text>
         </g>
 
         <!-- Scroll Indicator -->
-        <path d="M 400 500 L 400 550" stroke="#FFF" stroke-width="2" opacity="0.5"></path>
-        <circle cx="400" cy="555" r="4" fill="#FFF" class="pulse"></circle>
+        <g class="center-side">
+            <path d="M 400 500 L 400 550" stroke="#FFF" stroke-width="2" opacity="0.5"></path>
+            <circle cx="400" cy="555" r="4" fill="#FFF" class="pulse"></circle>
+        </g>
 
-
-        <!-- ==============================================
-             STAGE 01: IDENTITY SHOCK (y: 600 - 1200)
-             ============================================== -->
-        
-        <g transform="translate(0, 700)">
+        <!-- STAGE 01 -->
+        <g id="stage-1" transform="translate(0, 700)">
             <text x="400" y="-40" text-anchor="middle" class="font-sans text-stage">STAGE 01 : IDENTITY SHOCK</text>
-            <line x1="400" y1="-20" x2="400" y2="0" stroke="#FFF" stroke-width="1"></line>
+            <line class="axis-line" x1="400" y1="-20" x2="400" y2="0" stroke="#FFF" stroke-width="1"></line>
 
-            <!-- Item 1: Left -->
-            <g class="sequence-item">
-                <line x1="400" y1="50" x2="350" y2="50" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="1" data-y="50">
+                <line x1="400" y1="50" x2="350" y2="50"></line>
+                <circle cx="400" cy="50" r="3"></circle>
                 <text x="340" y="58" text-anchor="end" class="font-sans text-item-bold">MIRROR PARADOX</text>
                 <text x="340" y="90" text-anchor="end" class="font-sans text-item">AUTHENTICITY</text>
             </g>
 
-            <!-- Item 2: Right -->
-            <g class="sequence-item">
-                <line x1="400" y1="150" x2="450" y2="150" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="150" r="3" fill="#FFF" class="pulse" style="animation-delay: 0.5s;"></circle>
+            <g class="sequence-item right-side" data-index="2" data-y="150">
+                <line x1="400" y1="150" x2="450" y2="150"></line>
+                <circle cx="400" cy="150" r="3"></circle>
                 <text x="460" y="158" text-anchor="start" class="font-sans text-item">DATA vs WISDOM</text>
             </g>
 
-            <!-- Item 3: Left -->
-            <g class="sequence-item">
-                <line x1="400" y1="250" x2="350" y2="250" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="250" r="3" fill="#FFF" class="pulse" style="animation-delay: 1s;"></circle>
+            <g class="sequence-item left-side" data-index="3" data-y="250">
+                <line x1="400" y1="250" x2="350" y2="250"></line>
+                <circle cx="400" cy="250" r="3"></circle>
                 <text x="340" y="258" text-anchor="end" class="font-sans text-item">DIGITAL DYSMORPHIA</text>
             </g>
 
-            <!-- Item 4: Right (Big) -->
-            <g class="sequence-item">
-                <line x1="400" y1="350" x2="450" y2="350" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="350" r="4" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="4" data-y="350">
+                <line x1="400" y1="350" x2="450" y2="350"></line>
+                <circle cx="400" cy="350" r="4"></circle>
                 <text x="460" y="358" text-anchor="start" class="font-sans text-item-bold">MASTER'S SEAT</text>
             </g>
 
-            <!-- Item 5: Left -->
-            <g class="sequence-item">
-                <line x1="400" y1="450" x2="350" y2="450" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="450" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="5" data-y="450">
+                <line x1="400" y1="450" x2="350" y2="450"></line>
+                <circle cx="400" cy="450" r="3"></circle>
                 <text x="340" y="458" text-anchor="end" class="font-sans text-item">HUMAN SEMANTICS</text>
             </g>
 
-            <!-- Item 6: Center -->
-            <g class="sequence-item">
-                <circle cx="400" cy="550" r="5" fill="#333" stroke="#FFF"></circle>
+            <g class="sequence-item center-side" data-index="6" data-y="550">
+                <circle cx="400" cy="550" r="5"></circle>
                 <text x="400" y="585" text-anchor="middle" class="font-sans text-item-bold" letter-spacing="0.2em">UNLEARNING</text>
             </g>
         </g>
 
-
-        <!-- ==============================================
-             STAGE 02: COGNITIVE ENGINEERING (y: 1400 - 2000)
-             ============================================== -->
-
-        <g transform="translate(0, 1400)">
+        <!-- STAGE 02 -->
+        <g id="stage-2" transform="translate(0, 1400)">
             <line x1="300" y1="-50" x2="500" y2="-50" stroke="#333" stroke-width="1" class="stage-line"></line>
             <text x="400" y="-30" text-anchor="middle" class="font-sans text-stage">STAGE 02 : COGNITIVE ENGINEERING</text>
 
-            <!-- Item 7 -->
-            <g class="sequence-item">
-                <line x1="400" y1="50" x2="450" y2="50" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="7" data-y="50">
+                <line x1="400" y1="50" x2="450" y2="50"></line>
+                <circle cx="400" cy="50" r="3"></circle>
                 <text x="460" y="58" text-anchor="start" class="font-sans text-item-bold">SYSTEM 1 &amp; 2</text>
             </g>
 
-            <!-- Item 8 -->
-            <g class="sequence-item">
-                <line x1="400" y1="130" x2="350" y2="130" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="130" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="8" data-y="130">
+                <line x1="400" y1="130" x2="350" y2="130"></line>
+                <circle cx="400" cy="130" r="3"></circle>
                 <text x="340" y="138" text-anchor="end" class="font-sans text-item">COGNITIVE EASE</text>
             </g>
 
-            <!-- Item 9 -->
-            <g class="sequence-item">
-                <line x1="400" y1="210" x2="450" y2="210" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="210" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="9" data-y="210">
+                <line x1="400" y1="210" x2="450" y2="210"></line>
+                <circle cx="400" cy="210" r="3"></circle>
                 <text x="460" y="218" text-anchor="start" class="font-sans text-item">FRAMING EFFECT</text>
             </g>
 
-            <!-- Item 10 -->
-            <g class="sequence-item">
-                <line x1="400" y1="290" x2="350" y2="290" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="290" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="10" data-y="290">
+                <line x1="400" y1="290" x2="350" y2="290"></line>
+                <circle cx="400" cy="290" r="3"></circle>
                 <text x="340" y="298" text-anchor="end" class="font-sans text-item-bold">LOSS AVERSION</text>
             </g>
 
-            <!-- Item 11 -->
-            <g class="sequence-item">
-                <line x1="400" y1="370" x2="450" y2="370" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="370" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="11" data-y="370">
+                <line x1="400" y1="370" x2="450" y2="370"></line>
+                <circle cx="400" cy="370" r="3"></circle>
                 <text x="460" y="378" text-anchor="start" class="font-sans text-item">ANCHORING</text>
             </g>
 
-             <!-- Item 12 -->
-            <g class="sequence-item">
-                <line x1="400" y1="450" x2="350" y2="450" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="450" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="12" data-y="450">
+                <line x1="400" y1="450" x2="350" y2="450"></line>
+                <circle cx="400" cy="450" r="3"></circle>
                 <text x="340" y="458" text-anchor="end" class="font-sans text-item">CURIOSITY GAP</text>
             </g>
             
-            <!-- Item 13 -->
-            <g class="sequence-item">
-                <circle cx="400" cy="550" r="5" fill="#333" stroke="#FFF"></circle>
+            <g class="sequence-item center-side" data-index="13" data-y="550">
+                <circle cx="400" cy="550" r="5"></circle>
                 <text x="400" y="585" text-anchor="middle" class="font-sans text-item-bold">AVAILABILITY</text>
             </g>
         </g>
 
-
-        <!-- ==============================================
-             STAGE 03: NARRATIVE ARCHITECTURE (y: 2100 - 2700)
-             ============================================== -->
-
-        <g transform="translate(0, 2100)">
+        <!-- STAGE 03 -->
+        <g id="stage-3" transform="translate(0, 2100)">
             <line x1="300" y1="-50" x2="500" y2="-50" stroke="#333" stroke-width="1" class="stage-line"></line>
             <text x="400" y="-30" text-anchor="middle" class="font-sans text-stage">STAGE 03 : NARRATIVE ARCHITECTURE</text>
 
-            <!-- Item 14 -->
-            <g class="sequence-item">
-                <line x1="400" y1="50" x2="350" y2="50" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="14" data-y="50">
+                <line x1="400" y1="50" x2="350" y2="50"></line>
+                <circle cx="400" cy="50" r="3"></circle>
                 <text x="340" y="58" text-anchor="end" class="font-sans text-item-bold">ETHOS / PATHOS / LOGOS</text>
             </g>
 
-            <!-- Item 15 -->
-            <g class="sequence-item">
-                <line x1="400" y1="130" x2="450" y2="130" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="130" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="15" data-y="130">
+                <line x1="400" y1="130" x2="450" y2="130"></line>
+                <circle cx="400" cy="130" r="3"></circle>
                 <text x="460" y="138" text-anchor="start" class="font-sans text-item">STORY SPINE</text>
             </g>
 
-            <!-- Item 16 -->
-            <g class="sequence-item">
-                <line x1="400" y1="210" x2="350" y2="210" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="210" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="16" data-y="210">
+                <line x1="400" y1="210" x2="350" y2="210"></line>
+                <circle cx="400" cy="210" r="3"></circle>
                 <text x="340" y="218" text-anchor="end" class="font-sans text-item-bold">NEURAL COUPLING</text>
             </g>
 
-            <!-- Item 17 -->
-            <g class="sequence-item">
-                <line x1="400" y1="290" x2="450" y2="290" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="290" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="17" data-y="290">
+                <line x1="400" y1="290" x2="450" y2="290"></line>
+                <circle cx="400" cy="290" r="3"></circle>
                 <text x="460" y="298" text-anchor="start" class="font-sans text-item">65% NARRATIVE RULE</text>
             </g>
 
-            <!-- Item 18 -->
-            <g class="sequence-item">
-                <line x1="400" y1="370" x2="350" y2="370" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="370" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="18" data-y="370">
+                <line x1="400" y1="370" x2="350" y2="370"></line>
+                <circle cx="400" cy="370" r="3"></circle>
                 <text x="340" y="378" text-anchor="end" class="font-sans text-item">NEGATION OF NEGATION</text>
             </g>
             
-            <!-- Item 19 -->
-             <g class="sequence-item">
-                <circle cx="400" cy="470" r="5" fill="#333" stroke="#FFF"></circle>
+             <g class="sequence-item center-side" data-index="19" data-y="470">
+                <circle cx="400" cy="470" r="5"></circle>
                 <text x="400" y="505" text-anchor="middle" class="font-sans text-item-bold">HERO'S JOURNEY</text>
             </g>
         </g>
 
-
-        <!-- ==============================================
-             STAGE 04: MARKET & INFLUENCE (y: 2700 - 3300)
-             ============================================== -->
-
-        <g transform="translate(0, 2700)">
+        <!-- STAGE 04 -->
+        <g id="stage-4" transform="translate(0, 2700)">
             <line x1="300" y1="-50" x2="500" y2="-50" stroke="#333" stroke-width="1" class="stage-line"></line>
             <text x="400" y="-30" text-anchor="middle" class="font-sans text-stage">STAGE 04 : MARKET &amp; INFLUENCE</text>
 
-            <!-- Item 20 -->
-            <g class="sequence-item">
-                <line x1="400" y1="50" x2="450" y2="50" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="20" data-y="50">
+                <line x1="400" y1="50" x2="450" y2="50"></line>
+                <circle cx="400" cy="50" r="3"></circle>
                 <text x="460" y="58" text-anchor="start" class="font-sans text-item-bold">SCARCITY</text>
             </g>
 
-            <!-- Item 21 -->
-            <g class="sequence-item">
-                <line x1="400" y1="130" x2="350" y2="130" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="130" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="21" data-y="130">
+                <line x1="400" y1="130" x2="350" y2="130"></line>
+                <circle cx="400" cy="130" r="3"></circle>
                 <text x="340" y="138" text-anchor="end" class="font-sans text-item">RECIPROCITY LOOP</text>
             </g>
 
-            <!-- Item 22 -->
-            <g class="sequence-item">
-                <line x1="400" y1="210" x2="450" y2="210" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="210" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="22" data-y="210">
+                <line x1="400" y1="210" x2="450" y2="210"></line>
+                <circle cx="400" cy="210" r="3"></circle>
                 <text x="460" y="218" text-anchor="start" class="font-sans text-item">SOCIAL PROOF</text>
             </g>
 
-            <!-- Item 23 -->
-            <g class="sequence-item">
-                <line x1="400" y1="290" x2="350" y2="290" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="290" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="23" data-y="290">
+                <line x1="400" y1="290" x2="350" y2="290"></line>
+                <circle cx="400" cy="290" r="3"></circle>
                 <text x="340" y="298" text-anchor="end" class="font-sans text-item-bold">VALUE VOTING</text>
             </g>
             
-            <!-- Item 24 -->
-            <g class="sequence-item">
-                <line x1="400" y1="370" x2="450" y2="370" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="370" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="24" data-y="370">
+                <line x1="400" y1="370" x2="450" y2="370"></line>
+                <circle cx="400" cy="370" r="3"></circle>
                 <text x="460" y="378" text-anchor="start" class="font-sans text-item">END OF RETIREMENT</text>
             </g>
 
-            <!-- Item 25 -->
-            <g class="sequence-item">
-                <circle cx="400" cy="470" r="5" fill="#333" stroke="#FFF"></circle>
+            <g class="sequence-item center-side" data-index="25" data-y="470">
+                <circle cx="400" cy="470" r="5"></circle>
                 <text x="400" y="505" text-anchor="middle" class="font-sans text-item-bold">GIFT ECONOMY</text>
             </g>
         </g>
 
-
-        <!-- ==============================================
-             STAGE 05: TRANSCENDENCE (y: 3300 - 3900)
-             ============================================== -->
-
-        <g transform="translate(0, 3300)">
+        <!-- STAGE 05 -->
+        <g id="stage-5" transform="translate(0, 3300)">
             <line x1="300" y1="-50" x2="500" y2="-50" stroke="#333" stroke-width="1" class="stage-line"></line>
             <text x="400" y="-30" text-anchor="middle" class="font-sans text-stage">STAGE 05 : TRANSCENDENCE</text>
 
-            <!-- Item 26 -->
-            <g class="sequence-item">
-                <line x1="400" y1="50" x2="350" y2="50" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="50" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="26" data-y="50">
+                <line x1="400" y1="50" x2="350" y2="50"></line>
+                <circle cx="400" cy="50" r="3"></circle>
                 <text x="340" y="58" text-anchor="end" class="font-sans text-item">GHOST IN MACHINE</text>
             </g>
 
-            <!-- Item 27 -->
-            <g class="sequence-item">
-                <line x1="400" y1="130" x2="450" y2="130" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="130" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="27" data-y="130">
+                <line x1="400" y1="130" x2="450" y2="130"></line>
+                <circle cx="400" cy="130" r="3"></circle>
                 <text x="460" y="138" text-anchor="start" class="font-sans text-item-bold">DIGITAL IMMORTALITY</text>
             </g>
 
-            <!-- Item 28 -->
-            <g class="sequence-item">
-                <line x1="400" y1="210" x2="350" y2="210" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="210" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="28" data-y="210">
+                <line x1="400" y1="210" x2="350" y2="210"></line>
+                <circle cx="400" cy="210" r="3"></circle>
                 <text x="340" y="218" text-anchor="end" class="font-sans text-item">RATCHET EFFECT</text>
             </g>
 
-            <!-- Item 29 -->
-            <g class="sequence-item">
-                <line x1="400" y1="290" x2="450" y2="290" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="290" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item right-side" data-index="29" data-y="290">
+                <line x1="400" y1="290" x2="450" y2="290"></line>
+                <circle cx="400" cy="290" r="3"></circle>
                 <text x="460" y="298" text-anchor="start" class="font-sans text-item-bold">SENTIENCE</text>
             </g>
             
-            <!-- Item 30 -->
-            <g class="sequence-item">
-                <line x1="400" y1="370" x2="350" y2="370" stroke="#444" stroke-width="1"></line>
-                <circle cx="400" cy="370" r="3" fill="#FFF" class="pulse"></circle>
+            <g class="sequence-item left-side" data-index="30" data-y="370">
+                <line x1="400" y1="370" x2="350" y2="370"></line>
+                <circle cx="400" cy="370" r="3"></circle>
                 <text x="340" y="378" text-anchor="end" class="font-sans text-item">EXTENDED SELF</text>
             </g>
 
             <!-- FINAL NODE -->
-            <g class="sequence-item" transform="translate(0, 500)">
+            <g class="sequence-item center-side" transform="translate(0, 500)" data-index="31" data-y="500">
                 <circle cx="400" cy="0" r="60" fill="none" stroke="#FFF" stroke-width="0.5" class="breathe"></circle>
                 <circle cx="400" cy="0" r="50" fill="#111"></circle>
                 <text x="400" y="5" text-anchor="middle" fill="#FFF" class="font-serif text-item-bold" font-size="20">TRANSCENDENTAL</text>
@@ -469,11 +433,8 @@
             </g>
         </g>
 
-        <!-- ==============================================
-             FOOTER (y: 4100)
-             ============================================== -->
-        
-        <g transform="translate(0, 4100)">
+        <!-- FOOTER -->
+        <g id="footer-group" transform="translate(0, 4100)">
             <line x1="350" y1="0" x2="450" y2="0" stroke="#555" stroke-width="1"></line>
             <text x="400" y="30" text-anchor="middle" fill="#444" font-size="24" class="font-sans text-footer">RYTUNYN © 2026</text>
             <a href="mailto:rytunyn@rytunyn.com" style="cursor: pointer;">
@@ -483,6 +444,126 @@
 
     </svg>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        /* 1. INTERACTION ENGINE (Scroll Observer) */
+        const observerOptions = {
+            root: null,
+            rootMargin: "-45% 0px -45% 0px", // Sharp focus in center
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        const items = document.querySelectorAll('.sequence-item');
+        items.forEach(item => observer.observe(item));
+
+        /* 2. LAYOUT ENGINE (Mobile Vertical Expansion & Centering) */
+        function optimizeLayoutForMobile() {
+            if (window.innerWidth <= 600) {
+                console.log("Layout Engine: Applying Extreme Spacing for Mobile...");
+                
+                const svg = document.getElementById('main-svg');
+                const axisLine = document.getElementById('axis-line');
+                const footer = document.getElementById('footer-group');
+                
+                // Hyper-Spacing Configuration
+                const MOBILE_ITEM_GAP = 400; // Increased to 400px to prevent overlap
+                const MOBILE_STAGE_PAD = 600; // Large gap between stages
+
+                let currentY = 900; // Start Y lower for Hero breathing room
+
+                const stages = [1, 2, 3, 4, 5];
+                
+                stages.forEach(stageNum => {
+                    const stageGroup = document.getElementById(`stage-${stageNum}`);
+                    if (!stageGroup) return;
+
+                    // 1. Position the Stage Group
+                    stageGroup.setAttribute('transform', `translate(0, ${currentY})`);
+
+                    // 2. Expand items vertically within the stage
+                    const stageItems = stageGroup.querySelectorAll('.sequence-item');
+                    let maxItemY = 0;
+
+                    stageItems.forEach((item, index) => {
+                        let newItemY;
+                        
+                        // Special handling for Final Node
+                        if (item.getAttribute('data-index') === '31') {
+                            newItemY = (stageItems.length - 1) * MOBILE_ITEM_GAP + 200;
+                        } else {
+                            // Linear stacking
+                            newItemY = 100 + (index * MOBILE_ITEM_GAP);
+                        }
+
+                        // On mobile, we also need to center the text visually in Y relative to the node
+                        // The CSS centers X. Here we shift Y.
+                        // The text inside SVG is relative to its <g>.
+                        // We shift the whole <g> (item).
+                        
+                        const originalY = parseInt(item.getAttribute('data-y') || 0);
+                        const shiftY = newItemY - originalY;
+                        
+                        // Force X to 400 (Center) by ignoring original x positions (handled in CSS mostly)
+                        // But CSS 'transform: none' restores original SVG coordinates.
+                        // Wait, original SVG has x=350/450. CSS transform:none keeps them there.
+                        // We need to shift X to 0 relative to axis? No, we need them at x=400.
+                        // Left items are at 350/340. To get to 400, need +50/+60.
+                        // Right items are at 450/460. To get to 400, need -50/-60.
+                        // This X-shift is best done here in JS to be precise, OR we let CSS text-anchor handle text
+                        // but the CIRCLE needs to be at 400.
+                        
+                        // Correct Logic:
+                        // The 'left-side' circle is at cx=400 (mostly) or shifted?
+                        // In HTML above:
+                        // Left Item: line x1=400... circle cx=400. Ah, circles are ALREADY at 400!
+                        // The text was at x=340 or x=460.
+                        // So if we set CSS `text-anchor: middle`, text aligns around its x.
+                        // x=340 middle -> visually left.
+                        // We need to change the `x` attribute of text to 400? 
+                        // SVG attributes are hard to override with CSS alone for 'x'.
+                        // Let's force X shift in JS.
+
+                        const textEl = item.querySelector('text');
+                        if (textEl) textEl.setAttribute('x', '400'); // Force text center
+                        const textEl2 = item.querySelectorAll('text')[1]; // Subtext
+                        if (textEl2) textEl2.setAttribute('x', '400');
+
+                        // Apply the Vertical Shift
+                        item.setAttribute('transform', `translate(0, ${shiftY})`);
+                        
+                        if (newItemY > maxItemY) maxItemY = newItemY;
+                    });
+
+                    // Advance Y for next stage
+                    currentY += maxItemY + MOBILE_STAGE_PAD;
+                });
+
+                // 3. Update Footer
+                footer.setAttribute('transform', `translate(0, ${currentY})`);
+
+                // 4. Extend Canvas
+                const totalHeight = currentY + 500;
+                axisLine.setAttribute('y2', totalHeight);
+                svg.setAttribute('viewBox', `0 0 800 ${totalHeight}`);
+            }
+        }
+
+        // Execute Layout Engine
+        optimizeLayoutForMobile();
+    });
+</script>
 
 </body>
 </html>
