@@ -1,23 +1,27 @@
-<html data-google-analytics-opt-out="" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
-<title>RYTUNYN : ARCHITECT OF HAPPINESS</title>
-<style>
+<html data-google-analytics-opt-out="" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <link href="favicon.svg" rel="icon" type="image/svg+xml" />
+    <title>RYTUNYN : ARCHITECT OF HAPPINESS</title>
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600;800&display=swap');
 
         /* * PURE CSS ARCHITECTURE - RESPONSIVE TIMELINE ENGINE 
          * Designed by Super-intelligent Narrative Intelligence
          */
-        
-        body, html {
+
+        body,
+        html {
             margin: 0;
             padding: 0;
             background-color: #050505;
             overflow-x: hidden;
             height: 100%;
             -webkit-tap-highlight-color: transparent;
-            touch-action: pan-y; /* 모바일 터치 스크롤 방향 명시 */
+            touch-action: pan-y;
+            /* 모바일 터치 스크롤 방향 명시 */
         }
 
         .svg-container {
@@ -40,17 +44,38 @@
             animation: breathe-anim 6s infinite ease-in-out;
             transform-origin: center;
         }
+
         @keyframes breathe-anim {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
-            50% { transform: scale(1.02); filter: drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            }
+
+            50% {
+                transform: scale(1.02);
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            }
         }
 
         .pulse {
             animation: pulse-anim 4s infinite ease-in-out;
         }
+
         @keyframes pulse-anim {
-            0%, 100% { r: 3; opacity: 0.5; }
-            50% { r: 5; opacity: 1; stroke-width: 2px; }
+
+            0%,
+            100% {
+                r: 3;
+                opacity: 0.5;
+            }
+
+            50% {
+                r: 5;
+                opacity: 1;
+                stroke-width: 2px;
+            }
         }
 
         /* 모바일 흐르는 연결선 애니메이션 */
@@ -60,24 +85,47 @@
             opacity: 0.4;
             stroke-dasharray: 15 20;
             animation: flow-dash 3s linear infinite;
-            filter: drop-shadow(0 0 4px rgba(255,255,255,0.6));
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
         }
+
         @keyframes flow-dash {
-            to { stroke-dashoffset: -70; }
+            to {
+                stroke-dashoffset: -70;
+            }
         }
 
         .flow-dot {
             fill: #FFF;
             opacity: 0;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)) drop-shadow(0 0 15px rgba(255,255,255,0.5));
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
         }
-        .flow-dot:nth-child(odd) { animation: flow-dot-anim 5s ease-in-out infinite; }
-        .flow-dot:nth-child(even) { animation: flow-dot-anim 5s ease-in-out infinite 2.5s; }
+
+        .flow-dot:nth-child(odd) {
+            animation: flow-dot-anim 5s ease-in-out infinite;
+        }
+
+        .flow-dot:nth-child(even) {
+            animation: flow-dot-anim 5s ease-in-out infinite 2.5s;
+        }
+
         @keyframes flow-dot-anim {
-            0% { opacity: 0; transform: translateY(0); }
-            10% { opacity: 0.9; }
-            90% { opacity: 0.9; }
-            100% { opacity: 0; transform: translateY(120px); }
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            90% {
+                opacity: 0.9;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(120px);
+            }
         }
 
         /* * INTERACTION ENGINE */
@@ -90,12 +138,13 @@
         /* Default State */
         .sequence-item text {
             transition: all 0.5s ease;
-            opacity: 0.3; /* Dimmed further for contrast */
+            opacity: 0.3;
+            /* Dimmed further for contrast */
             fill: #555;
             /* Text Shadow for better legibility over the line */
-            text-shadow: 0px 0px 5px rgba(0,0,0,1); 
+            text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
         }
-        
+
         .sequence-item circle {
             transition: all 0.5s ease;
             fill: #333;
@@ -116,54 +165,90 @@
         svg g.sequence-item:hover text {
             fill: #FFFFFF !important;
             opacity: 1 !important;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) 
-                    drop-shadow(0 0 25px rgba(255, 255, 255, 0.7))
-                    drop-shadow(0 0 50px rgba(255, 255, 255, 0.4)) !important;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 25px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 50px rgba(255, 255, 255, 0.4)) !important;
             letter-spacing: 0.05em;
         }
-        
+
         svg .sequence-item.active circle,
         svg .sequence-item:hover circle,
         svg g.sequence-item.active circle,
         svg g.sequence-item:hover circle {
             fill: #FFFFFF !important;
-            filter: drop-shadow(0 0 15px #FFF) drop-shadow(0 0 35px rgba(255,255,255,0.6)) !important;
+            filter: drop-shadow(0 0 15px #FFF) drop-shadow(0 0 35px rgba(255, 255, 255, 0.6)) !important;
         }
-        
+
         svg .sequence-item.active line,
         svg .sequence-item:hover line,
         svg g.sequence-item.active line,
         svg g.sequence-item:hover line {
             stroke: #FFFFFF !important;
             stroke-width: 2 !important;
-            filter: drop-shadow(0 0 12px rgba(255,255,255,0.7)) !important;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7)) !important;
         }
 
         /* Fonts */
-        .font-serif { font-family: 'Cinzel', serif; }
-        .font-sans { font-family: 'Inter', sans-serif; letter-spacing: 0.05em; }
-        
-        .text-header { font-size: 60px; letter-spacing: 0.1em; font-weight: 700; }
-        .text-subheader { font-size: 24px; letter-spacing: 0.2em; font-weight: 400; }
-        .text-stage { font-size: 14px; letter-spacing: 0.3em; fill: #666; font-weight: 600; }
-        .text-item { font-size: 20px; letter-spacing: 0.05em; font-weight: 400; }
-        .text-item-bold { font-size: 28px; letter-spacing: -0.02em; font-weight: 700; }
-        .text-footer { font-size: 24px; letter-spacing: 0.1em; }
+        .font-serif {
+            font-family: 'Cinzel', serif;
+        }
+
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .text-header {
+            font-size: 60px;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .text-subheader {
+            font-size: 24px;
+            letter-spacing: 0.2em;
+            font-weight: 400;
+        }
+
+        .text-stage {
+            font-size: 14px;
+            letter-spacing: 0.3em;
+            fill: #666;
+            font-weight: 600;
+        }
+
+        .text-item {
+            font-size: 20px;
+            letter-spacing: 0.05em;
+            font-weight: 400;
+        }
+
+        .text-item-bold {
+            font-size: 28px;
+            letter-spacing: -0.02em;
+            font-weight: 700;
+        }
+
+        .text-footer {
+            font-size: 24px;
+            letter-spacing: 0.1em;
+        }
 
         /* Footer Styles */
         .footer-text {
             transition: all 0.3s ease;
         }
+
         .footer-link {
             cursor: pointer;
         }
+
         .footer-email:hover .footer-link {
             fill: #FFFFFF !important;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.5));
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
         }
+
         #footer-group text:hover {
             fill: #FFFFFF !important;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.5));
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
         }
 
         /* Fixed Logo Styles */
@@ -177,43 +262,72 @@
             display: block;
             transition: transform 0.3s ease, filter 0.3s ease;
         }
+
         .fixed-logo:hover {
             transform: scale(1.1);
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.6));
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
         }
+
         .logo-svg {
             width: 100%;
             height: 100%;
         }
+
         .logo-line {
             opacity: 0;
             animation: logo-draw 0.5s ease forwards;
         }
-        .logo-line-1 { animation-delay: 0.2s; }
-        .logo-line-2 { animation-delay: 0.5s; }
-        .logo-line-3 { animation-delay: 0.8s; }
+
+        .logo-line-1 {
+            animation-delay: 0.2s;
+        }
+
+        .logo-line-2 {
+            animation-delay: 0.5s;
+        }
+
+        .logo-line-3 {
+            animation-delay: 0.8s;
+        }
+
         @keyframes logo-draw {
-            0% { opacity: 0; transform: translateX(-10px); }
-            100% { opacity: 1; transform: translateX(0); }
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .stage-line {
             stroke-dasharray: 10;
             animation: dash 60s linear infinite;
         }
+
         @keyframes dash {
-            to { stroke-dashoffset: 1000; }
+            to {
+                stroke-dashoffset: 1000;
+            }
         }
 
         /* =========================================
            MOBILE OPTIMIZATION: CENTER & PENETRATE
            ========================================= */
         @media (max-width: 600px) {
-            
+
             /* 1. Header Adjustment */
-            .text-header { font-size: 60px; } 
-            .text-subheader { font-size: 24px; letter-spacing: 0.1em; }
-            
+            .text-header {
+                font-size: 60px;
+            }
+
+            .text-subheader {
+                font-size: 24px;
+                letter-spacing: 0.1em;
+            }
+
             /* 2. Axis Line - Visible but subtle */
             .axis-line {
                 stroke-opacity: 0.4;
@@ -223,16 +337,24 @@
             .text-stage {
                 font-size: 32px;
                 text-anchor: middle !important;
-                transform: none !important; 
+                transform: none !important;
                 fill: #888;
                 font-weight: 800;
                 letter-spacing: 0.1em;
             }
-            .stage-line { display: none; }
+
+            .stage-line {
+                display: none;
+            }
 
             /* 4. Center Everything */
-            .sequence-item circle { transform: none !important; }
-            .sequence-item line { display: none; }
+            .sequence-item circle {
+                transform: none !important;
+            }
+
+            .sequence-item line {
+                display: none;
+            }
 
             /* Force Text Center - Same style as PC */
             .sequence-item text {
@@ -242,13 +364,17 @@
             }
 
             /* Disable Left/Right shifts from desktop logic */
-            .left-side text, .right-side text, .center-side text {
+            .left-side text,
+            .right-side text,
+            .center-side text {
                 transform: none !important;
             }
 
             /* Footer */
-            .text-footer { font-size: 24px !important; }
-            
+            .text-footer {
+                font-size: 24px !important;
+            }
+
             /* Footer email and copyright - larger for mobile */
             #footer-group text {
                 font-size: 28px !important;
@@ -264,866 +390,918 @@
         }
     </style>
 </head>
+
 <body>
-<!-- Fixed Logo -->
-<a aria-label="RYTUNYN Home" class="fixed-logo" href="/">
-<svg class="logo-svg" viewbox="0 -6.8988 32 32" xmlns="http://www.w3.org/2000/svg">
-<g class="logo-line logo-line-1">
-<polygon fill="#FFFFFF" points="28.5 0 13.3 0 11.8 2.2 26.9 2.2 28.5 0"></polygon>
-</g>
-<g class="logo-line logo-line-2">
-<polygon fill="#FFFFFF" points="26.4 3 23.7 3 21 6.8 8.6 6.8 3.8 0 1.1 0 6.7 8 3.2 13 5.9 13 8.6 9.2 21 9.2 25.9 16 28.5 16 22.9 8 26.4 3"></polygon>
-</g>
-<g class="logo-line logo-line-3">
-<polygon fill="#FFFFFF" points="1.1 16 16.3 16 17.8 13.8 2.7 13.8 1.1 16"></polygon>
-</g>
-</svg>
-</a>
-<div class="svg-container">
-<svg id="main-svg" preserveaspectratio="xMidYMin meet" viewbox="0 0 1000 13550" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<lineargradient id="grad-main" x1="0%" x2="0%" y1="0%" y2="100%">
-<stop offset="0%" style="stop-color:#000;stop-opacity:0"></stop>
-<stop offset="10%" style="stop-color:#FFF;stop-opacity:0.3"></stop>
-<stop offset="90%" style="stop-color:#FFF;stop-opacity:0.3"></stop>
-<stop offset="100%" style="stop-color:#000;stop-opacity:0"></stop>
-</lineargradient>
-<lineargradient id="grad-gold" x1="0%" x2="100%" y1="0%" y2="0%">
-<stop offset="0%" style="stop-color:#FFF;stop-opacity:0"></stop>
-<stop offset="50%" style="stop-color:#FFF;stop-opacity:1"></stop>
-<stop offset="100%" style="stop-color:#FFF;stop-opacity:0"></stop>
-</lineargradient>
-<!-- Glow filter for active elements -->
-<filter height="200%" id="glow" width="200%" x="-50%" y="-50%">
-<fegaussianblur result="coloredBlur" stddeviation="4"></fegaussianblur>
-<femerge>
-<femergenode in="coloredBlur"></femergenode>
-<femergenode in="coloredBlur"></femergenode>
-<femergenode in="coloredBlur"></femergenode>
-<femergenode in="SourceGraphic"></femergenode>
-</femerge>
-</filter>
-</defs>
-<pattern height="50" id="grid" patternunits="userSpaceOnUse" width="50">
-<rect fill="#222" height="1" width="1"></rect>
-</pattern>
-<rect fill="url(#grid)" height="100%" width="100%"></rect>
-<!-- Central Axis -->
-<line class="axis-line" id="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="200" y2="13450"></line>
-<!-- HERO SECTION -->
-<g class="breathe">
-<text class="font-serif text-header" fill="#FFFFFF" text-anchor="middle" x="500" y="300">RYTUNYN</text>
-<text class="font-sans text-subheader" fill="#FFFFFF" text-anchor="middle" x="500" y="350">HAPPINESS ENGINEER</text>
-<line stroke="url(#grad-gold)" stroke-width="1" x1="300" x2="700" y1="380" y2="380"></line>
-<text class="font-sans text-stage center-side" fill="#888888" font-size="16" letter-spacing="0.3em" text-anchor="middle" x="500" y="410">THE ARCHITECT'S CANVAS</text>
-</g>
-<!-- Scroll Indicator -->
-<g class="center-side">
-<path d="M 500 500 L 500 550" opacity="0.5" stroke="#FFF" stroke-width="2"></path>
-<circle class="pulse" cx="500" cy="555" fill="#FFF" r="4"></circle>
-</g>
-<!-- STAGE 01 -->
-<!-- STAGE 02 -->
-<!-- STAGE 03 -->
-<!-- STAGE 04 -->
-<!-- STAGE 05 -->
-<!-- FOOTER -->
-<g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
-<circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
-<circle cx="500" cy="0" fill="#111" r="50"></circle>
-<text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5">HAPPINESS</text>
-<text class="font-sans" fill="#888" font-size="14" letter-spacing="0.2em" text-anchor="middle" x="500" y="45">NARRATIVE INTELLIGENCE</text>
-</g>
+    <!-- Fixed Logo -->
+    <a aria-label="RYTUNYN Home" class="fixed-logo" href="/">
+        <svg class="logo-svg" viewbox="0 -6.8988 32 32" xmlns="http://www.w3.org/2000/svg">
+            <g class="logo-line logo-line-1">
+                <polygon fill="#FFFFFF" points="28.5 0 13.3 0 11.8 2.2 26.9 2.2 28.5 0"></polygon>
+            </g>
+            <g class="logo-line logo-line-2">
+                <polygon fill="#FFFFFF"
+                    points="26.4 3 23.7 3 21 6.8 8.6 6.8 3.8 0 1.1 0 6.7 8 3.2 13 5.9 13 8.6 9.2 21 9.2 25.9 16 28.5 16 22.9 8 26.4 3">
+                </polygon>
+            </g>
+            <g class="logo-line logo-line-3">
+                <polygon fill="#FFFFFF" points="1.1 16 16.3 16 17.8 13.8 2.7 13.8 1.1 16"></polygon>
+            </g>
+        </svg>
+    </a>
+    <div class="svg-container">
+        <svg id="main-svg" preserveaspectratio="xMidYMin meet" viewbox="0 0 1000 13550"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <lineargradient id="grad-main" x1="0%" x2="0%" y1="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#000;stop-opacity:0"></stop>
+                    <stop offset="10%" style="stop-color:#FFF;stop-opacity:0.3"></stop>
+                    <stop offset="90%" style="stop-color:#FFF;stop-opacity:0.3"></stop>
+                    <stop offset="100%" style="stop-color:#000;stop-opacity:0"></stop>
+                </lineargradient>
+                <lineargradient id="grad-gold" x1="0%" x2="100%" y1="0%" y2="0%">
+                    <stop offset="0%" style="stop-color:#FFF;stop-opacity:0"></stop>
+                    <stop offset="50%" style="stop-color:#FFF;stop-opacity:1"></stop>
+                    <stop offset="100%" style="stop-color:#FFF;stop-opacity:0"></stop>
+                </lineargradient>
+                <!-- Glow filter for active elements -->
+                <filter height="200%" id="glow" width="200%" x="-50%" y="-50%">
+                    <fegaussianblur result="coloredBlur" stddeviation="4"></fegaussianblur>
+                    <femerge>
+                        <femergenode in="coloredBlur"></femergenode>
+                        <femergenode in="coloredBlur"></femergenode>
+                        <femergenode in="coloredBlur"></femergenode>
+                        <femergenode in="SourceGraphic"></femergenode>
+                    </femerge>
+                </filter>
+            </defs>
+            <pattern height="50" id="grid" patternunits="userSpaceOnUse" width="50">
+                <rect fill="#222" height="1" width="1"></rect>
+            </pattern>
+            <rect fill="url(#grid)" height="100%" width="100%"></rect>
+            <!-- Central Axis -->
+            <line class="axis-line" id="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="200"
+                y2="13450"></line>
+            <!-- HERO SECTION -->
+            <g class="breathe">
+                <text class="font-serif text-header" fill="#FFFFFF" text-anchor="middle" x="500" y="300">RYTUNYN</text>
+                <text class="font-sans text-subheader" fill="#FFFFFF" text-anchor="middle" x="500" y="350">HAPPINESS
+                    ENGINEER</text>
+                <line stroke="url(#grad-gold)" stroke-width="1" x1="300" x2="700" y1="380" y2="380"></line>
+                <text class="font-sans text-stage center-side" fill="#888888" font-size="16" letter-spacing="0.3em"
+                    text-anchor="middle" x="500" y="410">THE ARCHITECT'S CANVAS</text>
+            </g>
+            <!-- Scroll Indicator -->
+            <g class="center-side">
+                <path d="M 500 500 L 500 550" opacity="0.5" stroke="#FFF" stroke-width="2"></path>
+                <circle class="pulse" cx="500" cy="555" fill="#FFF" r="4"></circle>
+            </g>
+            <!-- STAGE 01 -->
+            <!-- STAGE 02 -->
+            <!-- STAGE 03 -->
+            <!-- STAGE 04 -->
+            <!-- STAGE 05 -->
+            <!-- FOOTER -->
+            <g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
+                <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
+                <circle cx="500" cy="0" fill="#111" r="50"></circle>
+                <text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500"
+                    y="5">HAPPINESS</text>
+                <text class="font-sans" fill="#888" font-size="14" letter-spacing="0.2em" text-anchor="middle" x="500"
+                    y="45">NARRATIVE INTELLIGENCE</text>
+            </g>
 
-<g id="stage-1" transform="translate(0, 700)">
-<line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-<text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 1: IDENTITY SHOCK</text>
-<line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
-<g class="sequence-item left-side" data-index="1" data-y="50">
-<line x1="500" x2="450" y1="50" y2="50"></line>
-<circle cx="500" cy="50" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Shattering the Algorithmic Illusion to Reclaim the Throne</text>
-</g>
-<g class="sequence-item right-side" data-index="2" data-y="150">
-<line x1="500" x2="550" y1="150" y2="150"></line>
-<circle cx="500" cy="150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="158">The Unforgiving Mirror</text>
-</g>
-<g class="sequence-item left-side" data-index="3" data-y="250">
-<line x1="500" x2="450" y1="250" y2="250"></line>
-<circle cx="500" cy="250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="258">The Burden of Judgment</text>
-</g>
-<g class="sequence-item right-side" data-index="4" data-y="350">
-<line x1="500" x2="550" y1="350" y2="350"></line>
-<circle cx="500" cy="350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="358">The Ghost in the Machine</text>
-</g>
-<g class="sequence-item left-side" data-index="5" data-y="450">
-<line x1="500" x2="450" y1="450" y2="450"></line>
-<circle cx="500" cy="450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="458">Reclaiming the Throne</text>
-</g>
-<g class="sequence-item right-side" data-index="6" data-y="550">
-<line x1="500" x2="550" y1="550" y2="550"></line>
-<circle cx="500" cy="550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">The Semantic Monopoly</text>
-</g>
-<g class="sequence-item left-side" data-index="7" data-y="650">
-<line x1="500" x2="450" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="658">The Art of Unlearning</text>
-</g>
-<g class="sequence-item right-side" data-index="8" data-y="750">
-<line x1="500" x2="550" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="758">Breaking the Attention Trap</text>
-</g>
-<g class="sequence-item left-side" data-index="9" data-y="850">
-<line x1="500" x2="450" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="858">Escaping the Strange Loop</text>
-</g>
-<g class="sequence-item right-side" data-index="10" data-y="950">
-<line x1="500" x2="550" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="958">The Irreplaceable Core</text>
-</g>
-<g class="sequence-item left-side" data-index="11" data-y="1050">
-<line x1="500" x2="450" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Authority of Choice</text>
-</g>
-<g class="sequence-item right-side" data-index="12" data-y="1150">
-<line x1="500" x2="550" y1="1150" y2="1150"></line>
-<circle cx="500" cy="1150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1158">The Truth Filter</text>
-</g>
-<g class="sequence-item left-side" data-index="13" data-y="1250">
-<line x1="500" x2="450" y1="1250" y2="1250"></line>
-<circle cx="500" cy="1250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1258">Transcending Syntax</text>
-</g>
-<g class="sequence-item right-side" data-index="14" data-y="1350">
-<line x1="500" x2="550" y1="1350" y2="1350"></line>
-<circle cx="500" cy="1350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1358">The Weight of Ethics</text>
-</g>
-<g class="sequence-item left-side" data-index="15" data-y="1450">
-<line x1="500" x2="450" y1="1450" y2="1450"></line>
-<circle cx="500" cy="1450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1458">Sovereign Identity</text>
-</g>
-<g class="sequence-item right-side" data-index="16" data-y="1550">
-<line x1="500" x2="550" y1="1550" y2="1550"></line>
-<circle cx="500" cy="1550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="1558">The Pact of Responsibility</text>
-</g>
-<g class="sequence-item left-side" data-index="17" data-y="1650">
-<line x1="500" x2="450" y1="1650" y2="1650"></line>
-<circle cx="500" cy="1650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1658">Attention Sovereignty</text>
-</g>
-<g class="sequence-item right-side" data-index="18" data-y="1750">
-<line x1="500" x2="550" y1="1750" y2="1750"></line>
-<circle cx="500" cy="1750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1758">The Human Bridge</text>
-</g>
-<g class="sequence-item left-side" data-index="19" data-y="1850">
-<line x1="500" x2="450" y1="1850" y2="1850"></line>
-<circle cx="500" cy="1850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1858">Beyond Utility</text>
-</g>
-<g class="sequence-item right-side" data-index="20" data-y="1950">
-<line x1="500" x2="550" y1="1950" y2="1950"></line>
-<circle cx="500" cy="1950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1958">The Compass of Values</text>
-</g>
-<g class="sequence-item left-side" data-index="21" data-y="2050">
-<line x1="500" x2="450" y1="2050" y2="2050"></line>
-<circle cx="500" cy="2050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="2058">The Tacit Bond</text>
-</g>
-</g><g id="stage-2" transform="translate(0, 3150)">
-<line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-<text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 2: THE HARNESS ARCHITECTURE</text>
-<line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
-<g class="sequence-item right-side" data-index="22" data-y="50">
-<line x1="500" x2="550" y1="50" y2="50"></line>
-<circle cx="500" cy="50" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="58">From Cog to Architect: Commanding the Digital Emissary</text>
-</g>
-<g class="sequence-item left-side" data-index="23" data-y="150">
-<line x1="500" x2="450" y1="150" y2="150"></line>
-<circle cx="500" cy="150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="158">From Cog to Architect</text>
-</g>
-<g class="sequence-item right-side" data-index="24" data-y="250">
-<line x1="500" x2="550" y1="250" y2="250"></line>
-<circle cx="500" cy="250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="258">The Executive Loop</text>
-</g>
-<g class="sequence-item left-side" data-index="25" data-y="350">
-<line x1="500" x2="450" y1="350" y2="350"></line>
-<circle cx="500" cy="350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="358">The Asymmetric Leverage</text>
-</g>
-<g class="sequence-item right-side" data-index="26" data-y="450">
-<line x1="500" x2="550" y1="450" y2="450"></line>
-<circle cx="500" cy="450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="458">The Intuitive Edge</text>
-</g>
-<g class="sequence-item left-side" data-index="27" data-y="550">
-<line x1="500" x2="450" y1="550" y2="550"></line>
-<circle cx="500" cy="550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="558">Commanding the Emissary</text>
-</g>
-<g class="sequence-item right-side" data-index="28" data-y="650">
-<line x1="500" x2="550" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="658">Calculated Risk</text>
-</g>
-<g class="sequence-item left-side" data-index="29" data-y="750">
-<line x1="500" x2="450" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="758">The Modern Polymath</text>
-</g>
-<g class="sequence-item right-side" data-index="30" data-y="850">
-<line x1="500" x2="550" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="858">Buying Back Time</text>
-</g>
-<g class="sequence-item left-side" data-index="31" data-y="950">
-<line x1="500" x2="450" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="958">Building Digital Fortresses</text>
-</g>
-<g class="sequence-item right-side" data-index="32" data-y="1050">
-<line x1="500" x2="550" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="1058">Unleashing the Creator</text>
-</g>
-<g class="sequence-item left-side" data-index="33" data-y="1150">
-<line x1="500" x2="450" y1="1150" y2="1150"></line>
-<circle cx="500" cy="1150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1158">Cognitive Offloading</text>
-</g>
-<g class="sequence-item right-side" data-index="34" data-y="1250">
-<line x1="500" x2="550" y1="1250" y2="1250"></line>
-<circle cx="500" cy="1250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1258">Automating the Mundane</text>
-</g>
-<g class="sequence-item left-side" data-index="35" data-y="1350">
-<line x1="500" x2="450" y1="1350" y2="1350"></line>
-<circle cx="500" cy="1350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1358">The Engine of Execution</text>
-</g>
-<g class="sequence-item right-side" data-index="36" data-y="1450">
-<line x1="500" x2="550" y1="1450" y2="1450"></line>
-<circle cx="500" cy="1450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1458">The Authentic Voice</text>
-</g>
-<g class="sequence-item left-side" data-index="37" data-y="1550">
-<line x1="500" x2="450" y1="1550" y2="1550"></line>
-<circle cx="500" cy="1550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1558">Mapping Meaning</text>
-</g>
-<g class="sequence-item right-side" data-index="38" data-y="1650">
-<line x1="500" x2="550" y1="1650" y2="1650"></line>
-<circle cx="500" cy="1650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1658">The Bias for Action</text>
-</g>
-<g class="sequence-item left-side" data-index="39" data-y="1750">
-<line x1="500" x2="450" y1="1750" y2="1750"></line>
-<circle cx="500" cy="1750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1758">Proactive Framing</text>
-</g>
-<g class="sequence-item right-side" data-index="40" data-y="1850">
-<line x1="500" x2="550" y1="1850" y2="1850"></line>
-<circle cx="500" cy="1850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1858">The Mirror's Reflection</text>
-</g>
-<g class="sequence-item left-side" data-index="41" data-y="1950">
-<line x1="500" x2="450" y1="1950" y2="1950"></line>
-<circle cx="500" cy="1950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1958">Liberating Constraints</text>
-</g>
-<g class="sequence-item right-side" data-index="42" data-y="2050">
-<line x1="500" x2="550" y1="2050" y2="2050"></line>
-<circle cx="500" cy="2050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="2058">The Data Ratchet</text>
-</g>
-</g><g id="stage-3" transform="translate(0, 5600)">
-<line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-<text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 3: THE HUMAN CONNECTION</text>
-<line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
-<g class="sequence-item left-side" data-index="43" data-y="50">
-<line x1="500" x2="450" y1="50" y2="50"></line>
-<circle cx="500" cy="50" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Recovering Humanity Through Radical Connection</text>
-</g>
-<g class="sequence-item right-side" data-index="44" data-y="150">
-<line x1="500" x2="550" y1="150" y2="150"></line>
-<circle cx="500" cy="150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="158">Resonance Over Connection</text>
-</g>
-<g class="sequence-item left-side" data-index="45" data-y="250">
-<line x1="500" x2="450" y1="250" y2="250"></line>
-<circle cx="500" cy="250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="258">Shared Intentionality</text>
-</g>
-<g class="sequence-item right-side" data-index="46" data-y="350">
-<line x1="500" x2="550" y1="350" y2="350"></line>
-<circle cx="500" cy="350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="358">The Emotional Texture</text>
-</g>
-<g class="sequence-item left-side" data-index="47" data-y="450">
-<line x1="500" x2="450" y1="450" y2="450"></line>
-<circle cx="500" cy="450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="458">Objectivity via the Other</text>
-</g>
-<g class="sequence-item right-side" data-index="48" data-y="550">
-<line x1="500" x2="550" y1="550" y2="550"></line>
-<circle cx="500" cy="550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">The Narrative Continuity</text>
-</g>
-<g class="sequence-item left-side" data-index="49" data-y="650">
-<line x1="500" x2="450" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="658">The Privilege of Failure</text>
-</g>
-<g class="sequence-item right-side" data-index="50" data-y="750">
-<line x1="500" x2="550" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="758">Defying the Algorithm</text>
-</g>
-<g class="sequence-item left-side" data-index="51" data-y="850">
-<line x1="500" x2="450" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="858">Soul-to-Soul Resonance</text>
-</g>
-<g class="sequence-item right-side" data-index="52" data-y="950">
-<line x1="500" x2="550" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="958">Visualizing the Inner Self</text>
-</g>
-<g class="sequence-item left-side" data-index="53" data-y="1050">
-<line x1="500" x2="450" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Timeless Narrative</text>
-</g>
-<g class="sequence-item right-side" data-index="54" data-y="1150">
-<line x1="500" x2="550" y1="1150" y2="1150"></line>
-<circle cx="500" cy="1150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1158">Intelligence Embodied</text>
-</g>
-<g class="sequence-item left-side" data-index="55" data-y="1250">
-<line x1="500" x2="450" y1="1250" y2="1250"></line>
-<circle cx="500" cy="1250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1258">Restoring Soft Fascination</text>
-</g>
-<g class="sequence-item right-side" data-index="56" data-y="1350">
-<line x1="500" x2="550" y1="1350" y2="1350"></line>
-<circle cx="500" cy="1350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1358">The Intuitive Processor</text>
-</g>
-<g class="sequence-item left-side" data-index="57" data-y="1450">
-<line x1="500" x2="450" y1="1450" y2="1450"></line>
-<circle cx="500" cy="1450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1458">Strategic Idleness</text>
-</g>
-<g class="sequence-item right-side" data-index="58" data-y="1550">
-<line x1="500" x2="550" y1="1550" y2="1550"></line>
-<circle cx="500" cy="1550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="1558">The Human Tempo</text>
-</g>
-<g class="sequence-item left-side" data-index="59" data-y="1650">
-<line x1="500" x2="450" y1="1650" y2="1650"></line>
-<circle cx="500" cy="1650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1658">Beyond Hierarchy</text>
-</g>
-<g class="sequence-item right-side" data-index="60" data-y="1750">
-<line x1="500" x2="550" y1="1750" y2="1750"></line>
-<circle cx="500" cy="1750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1758">The Empathetic Sherpa</text>
-</g>
-<g class="sequence-item left-side" data-index="61" data-y="1850">
-<line x1="500" x2="450" y1="1850" y2="1850"></line>
-<circle cx="500" cy="1850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1858">Reclaiming Focus</text>
-</g>
-<g class="sequence-item right-side" data-index="62" data-y="1950">
-<line x1="500" x2="550" y1="1950" y2="1950"></line>
-<circle cx="500" cy="1950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1958">Unlearning Speed</text>
-</g>
-<g class="sequence-item left-side" data-index="63" data-y="2050">
-<line x1="500" x2="450" y1="2050" y2="2050"></line>
-<circle cx="500" cy="2050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="2058">The Finitude Paradox</text>
-</g>
-</g><g id="stage-4" transform="translate(0, 8050)">
-<line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-<text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 4: PROJECT ARCHITECTING</text>
-<line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
-<g class="sequence-item right-side" data-index="64" data-y="50">
-<line x1="500" x2="550" y1="50" y2="50"></line>
-<circle cx="500" cy="50" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="58">Architecting the World via Sovereign Mission</text>
-</g>
-<g class="sequence-item left-side" data-index="65" data-y="150">
-<line x1="500" x2="450" y1="150" y2="150"></line>
-<circle cx="500" cy="150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="158">The Pattern Seeker</text>
-</g>
-<g class="sequence-item right-side" data-index="66" data-y="250">
-<line x1="500" x2="550" y1="250" y2="250"></line>
-<circle cx="500" cy="250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="258">Visionary Exploration</text>
-</g>
-<g class="sequence-item left-side" data-index="67" data-y="350">
-<line x1="500" x2="450" y1="350" y2="350"></line>
-<circle cx="500" cy="350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="358">Inquiry of Value</text>
-</g>
-<g class="sequence-item right-side" data-index="68" data-y="450">
-<line x1="500" x2="550" y1="450" y2="450"></line>
-<circle cx="500" cy="450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="458">Transcending IQ</text>
-</g>
-<g class="sequence-item left-side" data-index="69" data-y="550">
-<line x1="500" x2="450" y1="550" y2="550"></line>
-<circle cx="500" cy="550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="558">The Courage to Discard</text>
-</g>
-<g class="sequence-item right-side" data-index="70" data-y="650">
-<line x1="500" x2="550" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="658">Metacognitive Control</text>
-</g>
-<g class="sequence-item left-side" data-index="71" data-y="750">
-<line x1="500" x2="450" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="758">The Decisive Moment</text>
-</g>
-<g class="sequence-item right-side" data-index="72" data-y="850">
-<line x1="500" x2="550" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="858">Reframing Perspective</text>
-</g>
-<g class="sequence-item left-side" data-index="73" data-y="950">
-<line x1="500" x2="450" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="958">Creation in Motion</text>
-</g>
-<g class="sequence-item right-side" data-index="74" data-y="1050">
-<line x1="500" x2="550" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="1058">The Hybrid Advantage</text>
-</g>
-<g class="sequence-item left-side" data-index="75" data-y="1150">
-<line x1="500" x2="450" y1="1150" y2="1150"></line>
-<circle cx="500" cy="1150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1158">The Algorithmic Delegate</text>
-</g>
-<g class="sequence-item right-side" data-index="76" data-y="1250">
-<line x1="500" x2="550" y1="1250" y2="1250"></line>
-<circle cx="500" cy="1250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1258">Curating Meaning</text>
-</g>
-<g class="sequence-item left-side" data-index="77" data-y="1350">
-<line x1="500" x2="450" y1="1350" y2="1350"></line>
-<circle cx="500" cy="1350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1358">Fail Forward</text>
-</g>
-<g class="sequence-item right-side" data-index="78" data-y="1450">
-<line x1="500" x2="550" y1="1450" y2="1450"></line>
-<circle cx="500" cy="1450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1458">Collaborative Spirit</text>
-</g>
-<g class="sequence-item left-side" data-index="79" data-y="1550">
-<line x1="500" x2="450" y1="1550" y2="1550"></line>
-<circle cx="500" cy="1550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1558">Architecting Space</text>
-</g>
-<g class="sequence-item right-side" data-index="80" data-y="1650">
-<line x1="500" x2="550" y1="1650" y2="1650"></line>
-<circle cx="500" cy="1650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1658">The Signature Style</text>
-</g>
-<g class="sequence-item left-side" data-index="81" data-y="1750">
-<line x1="500" x2="450" y1="1750" y2="1750"></line>
-<circle cx="500" cy="1750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1758">The Grand Blueprint</text>
-</g>
-<g class="sequence-item right-side" data-index="82" data-y="1850">
-<line x1="500" x2="550" y1="1850" y2="1850"></line>
-<circle cx="500" cy="1850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="1858">Sharpening Logic</text>
-</g>
-<g class="sequence-item left-side" data-index="83" data-y="1950">
-<line x1="500" x2="450" y1="1950" y2="1950"></line>
-<circle cx="500" cy="1950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="1958">The Soul's Imprint</text>
-</g>
-<g class="sequence-item right-side" data-index="84" data-y="2050">
-<line x1="500" x2="550" y1="2050" y2="2050"></line>
-<circle cx="500" cy="2050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="2058">Orchestrating Harmony</text>
-</g>
-<g class="sequence-item left-side" data-index="85" data-y="2150">
-<line x1="500" x2="450" y1="2150" y2="2150"></line>
-<circle cx="500" cy="2150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="2158">Unique Semantics</text>
-</g>
-<g class="sequence-item right-side" data-index="86" data-y="2250">
-<line x1="500" x2="550" y1="2250" y2="2250"></line>
-<circle cx="500" cy="2250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="2258">Portfolio of Life</text>
-</g>
-<g class="sequence-item left-side" data-index="87" data-y="2350">
-<line x1="500" x2="450" y1="2350" y2="2350"></line>
-<circle cx="500" cy="2350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="2358">Trust Protocol</text>
-</g>
-<g class="sequence-item right-side" data-index="88" data-y="2450">
-<line x1="500" x2="550" y1="2450" y2="2450"></line>
-<circle cx="500" cy="2450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="2458">Human Asset Management</text>
-</g>
-<g class="sequence-item left-side" data-index="89" data-y="2550">
-<line x1="500" x2="450" y1="2550" y2="2550"></line>
-<circle cx="500" cy="2550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="2558">Voting with Values</text>
-</g>
-<g class="sequence-item right-side" data-index="90" data-y="2650">
-<line x1="500" x2="550" y1="2650" y2="2650"></line>
-<circle cx="500" cy="2650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="2658">Outsourcing the Reckoning</text>
-</g>
-<g class="sequence-item left-side" data-index="91" data-y="2750">
-<line x1="500" x2="450" y1="2750" y2="2750"></line>
-<circle cx="500" cy="2750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="2758">The Ethical Vote</text>
-</g>
-<g class="sequence-item right-side" data-index="92" data-y="2850">
-<line x1="500" x2="550" y1="2850" y2="2850"></line>
-<circle cx="500" cy="2850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="2858">The Reciprocity Loop</text>
-</g>
-<g class="sequence-item left-side" data-index="93" data-y="2950">
-<line x1="500" x2="450" y1="2950" y2="2950"></line>
-<circle cx="500" cy="2950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="2958">Living Legacy</text>
-</g>
-<g class="sequence-item right-side" data-index="94" data-y="3050">
-<line x1="500" x2="550" y1="3050" y2="3050"></line>
-<circle cx="500" cy="3050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="3058">The Scarcity of Commitment</text>
-</g>
-</g><g id="stage-5" transform="translate(0, 11500)">
-<line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-<text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 5: ENGINEERING HAPPINESS</text>
-<line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
-<g class="sequence-item left-side" data-index="95" data-y="50">
-<line x1="500" x2="450" y1="50" y2="50"></line>
-<circle cx="500" cy="50" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Engineering Eternal Happiness as a System</text>
-</g>
-<g class="sequence-item right-side" data-index="96" data-y="150">
-<line x1="500" x2="550" y1="150" y2="150"></line>
-<circle cx="500" cy="150" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="158">The Spark of Sentience</text>
-</g>
-<g class="sequence-item left-side" data-index="97" data-y="250">
-<line x1="500" x2="450" y1="250" y2="250"></line>
-<circle cx="500" cy="250" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="258">The Cultural Ratchet</text>
-</g>
-<g class="sequence-item right-side" data-index="98" data-y="350">
-<line x1="500" x2="550" y1="350" y2="350"></line>
-<circle cx="500" cy="350" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="358">The Loudest Silence</text>
-</g>
-<g class="sequence-item left-side" data-index="99" data-y="450">
-<line x1="500" x2="450" y1="450" y2="450"></line>
-<circle cx="500" cy="450" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="458">The Cosmic Perspective</text>
-</g>
-<g class="sequence-item right-side" data-index="100" data-y="550">
-<line x1="500" x2="550" y1="550" y2="550"></line>
-<circle cx="500" cy="550" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">Rewiring the Heart</text>
-</g>
-<g class="sequence-item left-side" data-index="101" data-y="650">
-<line x1="500" x2="450" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="658">Archetypal Meaning</text>
-</g>
-<g class="sequence-item right-side" data-index="102" data-y="750">
-<line x1="500" x2="550" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="758">The Intergenerational Pact</text>
-</g>
-<g class="sequence-item left-side" data-index="103" data-y="850">
-<line x1="500" x2="450" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="858">The Beauty of Flaws</text>
-</g>
-<g class="sequence-item right-side" data-index="104" data-y="950">
-<line x1="500" x2="550" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="958">The Great Surrender</text>
-</g>
-<g class="sequence-item left-side" data-index="105" data-y="1050">
-<line x1="500" x2="450" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Ultimate Convergence</text>
-</g>
-</g><g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
-<circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
-<circle cx="500" cy="0" fill="#111" r="50"></circle>
-<text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5">HAPPINESS</text>
-<text class="font-sans" fill="#888" font-size="14" letter-spacing="0.2em" text-anchor="middle" x="500" y="45">NARRATIVE INTELLIGENCE</text>
-</g>
-<g id="footer-group" transform="translate(0, 13250)">
-<line opacity="0.6" stroke="url(#grad-gold)" stroke-width="1" x1="300" x2="700" y1="0" y2="0"></line>
-<text class="font-sans footer-text" fill="#555" font-size="11" letter-spacing="0.15em" text-anchor="middle" x="500" y="45">RYTUNYN 2026</text>
-<a class="footer-email" href="mailto:rytunyn@rytunyn.com">
-<text class="font-sans footer-text footer-link" fill="#666" font-size="10" letter-spacing="0.1em" text-anchor="middle" x="500" y="75">rytunyn@rytunyn.com</text>
-</a>
-<line opacity="0.4" stroke="#333" stroke-width="1" x1="420" x2="580" y1="100" y2="100"></line>
-</g>
-</svg>
-</div>
-<!-- GSAP & ScrollTrigger -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        
-        gsap.registerPlugin(ScrollTrigger);
-        
-        const items = document.querySelectorAll('.sequence-item');
-        
-        // 터치 디바이스 감지
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-        
-        if (isTouchDevice) {
-            // 터치 디바이스: IntersectionObserver 사용 (네이티브 스크롤 이벤트와 완벽 호환)
-            console.log('Touch device detected: Using IntersectionObserver fallback');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    } else {
-                        entry.target.classList.remove('active');
+            <g id="stage-1" transform="translate(0, 700)">
+                <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 1: IDENTITY SHOCK</text>
+                <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
+                <g class="sequence-item left-side" data-index="1" data-y="50">
+                    <line x1="500" x2="450" y1="50" y2="50"></line>
+                    <circle cx="500" cy="50" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Shattering the Algorithmic
+                        Illusion to Reclaim the Throne</text>
+                </g>
+                <g class="sequence-item right-side" data-index="2" data-y="150">
+                    <line x1="500" x2="550" y1="150" y2="150"></line>
+                    <circle cx="500" cy="150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="158">The Unforgiving Mirror</text>
+                </g>
+                <g class="sequence-item left-side" data-index="3" data-y="250">
+                    <line x1="500" x2="450" y1="250" y2="250"></line>
+                    <circle cx="500" cy="250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="258">The Burden of Judgment</text>
+                </g>
+                <g class="sequence-item right-side" data-index="4" data-y="350">
+                    <line x1="500" x2="550" y1="350" y2="350"></line>
+                    <circle cx="500" cy="350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="358">The Ghost in the
+                        Machine</text>
+                </g>
+                <g class="sequence-item left-side" data-index="5" data-y="450">
+                    <line x1="500" x2="450" y1="450" y2="450"></line>
+                    <circle cx="500" cy="450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="458">Reclaiming the Throne</text>
+                </g>
+                <g class="sequence-item right-side" data-index="6" data-y="550">
+                    <line x1="500" x2="550" y1="550" y2="550"></line>
+                    <circle cx="500" cy="550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">The Semantic
+                        Monopoly</text>
+                </g>
+                <g class="sequence-item left-side" data-index="7" data-y="650">
+                    <line x1="500" x2="450" y1="650" y2="650"></line>
+                    <circle cx="500" cy="650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="658">The Art of Unlearning</text>
+                </g>
+                <g class="sequence-item right-side" data-index="8" data-y="750">
+                    <line x1="500" x2="550" y1="750" y2="750"></line>
+                    <circle cx="500" cy="750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="758">Breaking the Attention
+                        Trap</text>
+                </g>
+                <g class="sequence-item left-side" data-index="9" data-y="850">
+                    <line x1="500" x2="450" y1="850" y2="850"></line>
+                    <circle cx="500" cy="850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="858">Escaping the Strange Loop</text>
+                </g>
+                <g class="sequence-item right-side" data-index="10" data-y="950">
+                    <line x1="500" x2="550" y1="950" y2="950"></line>
+                    <circle cx="500" cy="950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="958">The Irreplaceable Core</text>
+                </g>
+                <g class="sequence-item left-side" data-index="11" data-y="1050">
+                    <line x1="500" x2="450" y1="1050" y2="1050"></line>
+                    <circle cx="500" cy="1050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Authority of
+                        Choice</text>
+                </g>
+                <g class="sequence-item right-side" data-index="12" data-y="1150">
+                    <line x1="500" x2="550" y1="1150" y2="1150"></line>
+                    <circle cx="500" cy="1150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1158">The Truth Filter</text>
+                </g>
+                <g class="sequence-item left-side" data-index="13" data-y="1250">
+                    <line x1="500" x2="450" y1="1250" y2="1250"></line>
+                    <circle cx="500" cy="1250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1258">Transcending Syntax</text>
+                </g>
+                <g class="sequence-item right-side" data-index="14" data-y="1350">
+                    <line x1="500" x2="550" y1="1350" y2="1350"></line>
+                    <circle cx="500" cy="1350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1358">The Weight of Ethics</text>
+                </g>
+                <g class="sequence-item left-side" data-index="15" data-y="1450">
+                    <line x1="500" x2="450" y1="1450" y2="1450"></line>
+                    <circle cx="500" cy="1450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1458">Sovereign Identity</text>
+                </g>
+                <g class="sequence-item right-side" data-index="16" data-y="1550">
+                    <line x1="500" x2="550" y1="1550" y2="1550"></line>
+                    <circle cx="500" cy="1550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="1558">The Pact of
+                        Responsibility</text>
+                </g>
+                <g class="sequence-item left-side" data-index="17" data-y="1650">
+                    <line x1="500" x2="450" y1="1650" y2="1650"></line>
+                    <circle cx="500" cy="1650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1658">Attention Sovereignty</text>
+                </g>
+                <g class="sequence-item right-side" data-index="18" data-y="1750">
+                    <line x1="500" x2="550" y1="1750" y2="1750"></line>
+                    <circle cx="500" cy="1750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1758">The Human Bridge</text>
+                </g>
+                <g class="sequence-item left-side" data-index="19" data-y="1850">
+                    <line x1="500" x2="450" y1="1850" y2="1850"></line>
+                    <circle cx="500" cy="1850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1858">Beyond Utility</text>
+                </g>
+                <g class="sequence-item right-side" data-index="20" data-y="1950">
+                    <line x1="500" x2="550" y1="1950" y2="1950"></line>
+                    <circle cx="500" cy="1950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1958">The Compass of Values</text>
+                </g>
+                <g class="sequence-item left-side" data-index="21" data-y="2050">
+                    <line x1="500" x2="450" y1="2050" y2="2050"></line>
+                    <circle cx="500" cy="2050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="2058">The Tacit Bond</text>
+                </g>
+            </g>
+            <g id="stage-2" transform="translate(0, 3150)">
+                <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 2: THE HARNESS
+                    ARCHITECTURE</text>
+                <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
+                <g class="sequence-item right-side" data-index="22" data-y="50">
+                    <line x1="500" x2="550" y1="50" y2="50"></line>
+                    <circle cx="500" cy="50" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="58">From Cog to Architect:
+                        Commanding the Digital Emissary</text>
+                </g>
+                <g class="sequence-item left-side" data-index="23" data-y="150">
+                    <line x1="500" x2="450" y1="150" y2="150"></line>
+                    <circle cx="500" cy="150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="158">From Cog to Architect</text>
+                </g>
+                <g class="sequence-item right-side" data-index="24" data-y="250">
+                    <line x1="500" x2="550" y1="250" y2="250"></line>
+                    <circle cx="500" cy="250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="258">The Executive Loop</text>
+                </g>
+                <g class="sequence-item left-side" data-index="25" data-y="350">
+                    <line x1="500" x2="450" y1="350" y2="350"></line>
+                    <circle cx="500" cy="350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="358">The Asymmetric Leverage</text>
+                </g>
+                <g class="sequence-item right-side" data-index="26" data-y="450">
+                    <line x1="500" x2="550" y1="450" y2="450"></line>
+                    <circle cx="500" cy="450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="458">The Intuitive Edge</text>
+                </g>
+                <g class="sequence-item left-side" data-index="27" data-y="550">
+                    <line x1="500" x2="450" y1="550" y2="550"></line>
+                    <circle cx="500" cy="550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="558">Commanding the
+                        Emissary</text>
+                </g>
+                <g class="sequence-item right-side" data-index="28" data-y="650">
+                    <line x1="500" x2="550" y1="650" y2="650"></line>
+                    <circle cx="500" cy="650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="658">Calculated Risk</text>
+                </g>
+                <g class="sequence-item left-side" data-index="29" data-y="750">
+                    <line x1="500" x2="450" y1="750" y2="750"></line>
+                    <circle cx="500" cy="750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="758">The Modern Polymath</text>
+                </g>
+                <g class="sequence-item right-side" data-index="30" data-y="850">
+                    <line x1="500" x2="550" y1="850" y2="850"></line>
+                    <circle cx="500" cy="850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="858">Buying Back Time</text>
+                </g>
+                <g class="sequence-item left-side" data-index="31" data-y="950">
+                    <line x1="500" x2="450" y1="950" y2="950"></line>
+                    <circle cx="500" cy="950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="958">Building Digital
+                        Fortresses</text>
+                </g>
+                <g class="sequence-item right-side" data-index="32" data-y="1050">
+                    <line x1="500" x2="550" y1="1050" y2="1050"></line>
+                    <circle cx="500" cy="1050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="1058">Unleashing the
+                        Creator</text>
+                </g>
+                <g class="sequence-item left-side" data-index="33" data-y="1150">
+                    <line x1="500" x2="450" y1="1150" y2="1150"></line>
+                    <circle cx="500" cy="1150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1158">Cognitive Offloading</text>
+                </g>
+                <g class="sequence-item right-side" data-index="34" data-y="1250">
+                    <line x1="500" x2="550" y1="1250" y2="1250"></line>
+                    <circle cx="500" cy="1250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1258">Automating the Mundane</text>
+                </g>
+                <g class="sequence-item left-side" data-index="35" data-y="1350">
+                    <line x1="500" x2="450" y1="1350" y2="1350"></line>
+                    <circle cx="500" cy="1350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1358">The Engine of Execution</text>
+                </g>
+                <g class="sequence-item right-side" data-index="36" data-y="1450">
+                    <line x1="500" x2="550" y1="1450" y2="1450"></line>
+                    <circle cx="500" cy="1450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1458">The Authentic Voice</text>
+                </g>
+                <g class="sequence-item left-side" data-index="37" data-y="1550">
+                    <line x1="500" x2="450" y1="1550" y2="1550"></line>
+                    <circle cx="500" cy="1550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="1558">Mapping Meaning</text>
+                </g>
+                <g class="sequence-item right-side" data-index="38" data-y="1650">
+                    <line x1="500" x2="550" y1="1650" y2="1650"></line>
+                    <circle cx="500" cy="1650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1658">The Bias for Action</text>
+                </g>
+                <g class="sequence-item left-side" data-index="39" data-y="1750">
+                    <line x1="500" x2="450" y1="1750" y2="1750"></line>
+                    <circle cx="500" cy="1750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1758">Proactive Framing</text>
+                </g>
+                <g class="sequence-item right-side" data-index="40" data-y="1850">
+                    <line x1="500" x2="550" y1="1850" y2="1850"></line>
+                    <circle cx="500" cy="1850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1858">The Mirror's
+                        Reflection</text>
+                </g>
+                <g class="sequence-item left-side" data-index="41" data-y="1950">
+                    <line x1="500" x2="450" y1="1950" y2="1950"></line>
+                    <circle cx="500" cy="1950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1958">Liberating Constraints</text>
+                </g>
+                <g class="sequence-item right-side" data-index="42" data-y="2050">
+                    <line x1="500" x2="550" y1="2050" y2="2050"></line>
+                    <circle cx="500" cy="2050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="2058">The Data Ratchet</text>
+                </g>
+            </g>
+            <g id="stage-3" transform="translate(0, 5600)">
+                <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 3: THE HUMAN
+                    CONNECTION</text>
+                <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
+                <g class="sequence-item left-side" data-index="43" data-y="50">
+                    <line x1="500" x2="450" y1="50" y2="50"></line>
+                    <circle cx="500" cy="50" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Recovering Humanity Through
+                        Radical Connection</text>
+                </g>
+                <g class="sequence-item right-side" data-index="44" data-y="150">
+                    <line x1="500" x2="550" y1="150" y2="150"></line>
+                    <circle cx="500" cy="150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="158">Resonance Over
+                        Connection</text>
+                </g>
+                <g class="sequence-item left-side" data-index="45" data-y="250">
+                    <line x1="500" x2="450" y1="250" y2="250"></line>
+                    <circle cx="500" cy="250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="258">Shared Intentionality</text>
+                </g>
+                <g class="sequence-item right-side" data-index="46" data-y="350">
+                    <line x1="500" x2="550" y1="350" y2="350"></line>
+                    <circle cx="500" cy="350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="358">The Emotional Texture</text>
+                </g>
+                <g class="sequence-item left-side" data-index="47" data-y="450">
+                    <line x1="500" x2="450" y1="450" y2="450"></line>
+                    <circle cx="500" cy="450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="458">Objectivity via the Other</text>
+                </g>
+                <g class="sequence-item right-side" data-index="48" data-y="550">
+                    <line x1="500" x2="550" y1="550" y2="550"></line>
+                    <circle cx="500" cy="550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">The Narrative
+                        Continuity</text>
+                </g>
+                <g class="sequence-item left-side" data-index="49" data-y="650">
+                    <line x1="500" x2="450" y1="650" y2="650"></line>
+                    <circle cx="500" cy="650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="658">The Privilege of Failure</text>
+                </g>
+                <g class="sequence-item right-side" data-index="50" data-y="750">
+                    <line x1="500" x2="550" y1="750" y2="750"></line>
+                    <circle cx="500" cy="750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="758">Defying the Algorithm</text>
+                </g>
+                <g class="sequence-item left-side" data-index="51" data-y="850">
+                    <line x1="500" x2="450" y1="850" y2="850"></line>
+                    <circle cx="500" cy="850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="858">Soul-to-Soul Resonance</text>
+                </g>
+                <g class="sequence-item right-side" data-index="52" data-y="950">
+                    <line x1="500" x2="550" y1="950" y2="950"></line>
+                    <circle cx="500" cy="950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="958">Visualizing the Inner
+                        Self</text>
+                </g>
+                <g class="sequence-item left-side" data-index="53" data-y="1050">
+                    <line x1="500" x2="450" y1="1050" y2="1050"></line>
+                    <circle cx="500" cy="1050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Timeless
+                        Narrative</text>
+                </g>
+                <g class="sequence-item right-side" data-index="54" data-y="1150">
+                    <line x1="500" x2="550" y1="1150" y2="1150"></line>
+                    <circle cx="500" cy="1150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1158">Intelligence Embodied</text>
+                </g>
+                <g class="sequence-item left-side" data-index="55" data-y="1250">
+                    <line x1="500" x2="450" y1="1250" y2="1250"></line>
+                    <circle cx="500" cy="1250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1258">Restoring Soft
+                        Fascination</text>
+                </g>
+                <g class="sequence-item right-side" data-index="56" data-y="1350">
+                    <line x1="500" x2="550" y1="1350" y2="1350"></line>
+                    <circle cx="500" cy="1350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1358">The Intuitive
+                        Processor</text>
+                </g>
+                <g class="sequence-item left-side" data-index="57" data-y="1450">
+                    <line x1="500" x2="450" y1="1450" y2="1450"></line>
+                    <circle cx="500" cy="1450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1458">Strategic Idleness</text>
+                </g>
+                <g class="sequence-item right-side" data-index="58" data-y="1550">
+                    <line x1="500" x2="550" y1="1550" y2="1550"></line>
+                    <circle cx="500" cy="1550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="1558">The Human Tempo</text>
+                </g>
+                <g class="sequence-item left-side" data-index="59" data-y="1650">
+                    <line x1="500" x2="450" y1="1650" y2="1650"></line>
+                    <circle cx="500" cy="1650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1658">Beyond Hierarchy</text>
+                </g>
+                <g class="sequence-item right-side" data-index="60" data-y="1750">
+                    <line x1="500" x2="550" y1="1750" y2="1750"></line>
+                    <circle cx="500" cy="1750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1758">The Empathetic Sherpa</text>
+                </g>
+                <g class="sequence-item left-side" data-index="61" data-y="1850">
+                    <line x1="500" x2="450" y1="1850" y2="1850"></line>
+                    <circle cx="500" cy="1850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1858">Reclaiming Focus</text>
+                </g>
+                <g class="sequence-item right-side" data-index="62" data-y="1950">
+                    <line x1="500" x2="550" y1="1950" y2="1950"></line>
+                    <circle cx="500" cy="1950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1958">Unlearning Speed</text>
+                </g>
+                <g class="sequence-item left-side" data-index="63" data-y="2050">
+                    <line x1="500" x2="450" y1="2050" y2="2050"></line>
+                    <circle cx="500" cy="2050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="2058">The Finitude
+                        Paradox</text>
+                </g>
+            </g>
+            <g id="stage-4" transform="translate(0, 8050)">
+                <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 4: PROJECT
+                    ARCHITECTING</text>
+                <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
+                <g class="sequence-item right-side" data-index="64" data-y="50">
+                    <line x1="500" x2="550" y1="50" y2="50"></line>
+                    <circle cx="500" cy="50" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="58">Architecting the World via
+                        Sovereign Mission</text>
+                </g>
+                <g class="sequence-item left-side" data-index="65" data-y="150">
+                    <line x1="500" x2="450" y1="150" y2="150"></line>
+                    <circle cx="500" cy="150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="158">The Pattern Seeker</text>
+                </g>
+                <g class="sequence-item right-side" data-index="66" data-y="250">
+                    <line x1="500" x2="550" y1="250" y2="250"></line>
+                    <circle cx="500" cy="250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="258">Visionary Exploration</text>
+                </g>
+                <g class="sequence-item left-side" data-index="67" data-y="350">
+                    <line x1="500" x2="450" y1="350" y2="350"></line>
+                    <circle cx="500" cy="350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="358">Inquiry of Value</text>
+                </g>
+                <g class="sequence-item right-side" data-index="68" data-y="450">
+                    <line x1="500" x2="550" y1="450" y2="450"></line>
+                    <circle cx="500" cy="450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="458">Transcending IQ</text>
+                </g>
+                <g class="sequence-item left-side" data-index="69" data-y="550">
+                    <line x1="500" x2="450" y1="550" y2="550"></line>
+                    <circle cx="500" cy="550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="558">The Courage to
+                        Discard</text>
+                </g>
+                <g class="sequence-item right-side" data-index="70" data-y="650">
+                    <line x1="500" x2="550" y1="650" y2="650"></line>
+                    <circle cx="500" cy="650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="658">Metacognitive Control</text>
+                </g>
+                <g class="sequence-item left-side" data-index="71" data-y="750">
+                    <line x1="500" x2="450" y1="750" y2="750"></line>
+                    <circle cx="500" cy="750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="758">The Decisive Moment</text>
+                </g>
+                <g class="sequence-item right-side" data-index="72" data-y="850">
+                    <line x1="500" x2="550" y1="850" y2="850"></line>
+                    <circle cx="500" cy="850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="858">Reframing Perspective</text>
+                </g>
+                <g class="sequence-item left-side" data-index="73" data-y="950">
+                    <line x1="500" x2="450" y1="950" y2="950"></line>
+                    <circle cx="500" cy="950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="958">Creation in Motion</text>
+                </g>
+                <g class="sequence-item right-side" data-index="74" data-y="1050">
+                    <line x1="500" x2="550" y1="1050" y2="1050"></line>
+                    <circle cx="500" cy="1050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="1058">The Hybrid
+                        Advantage</text>
+                </g>
+                <g class="sequence-item left-side" data-index="75" data-y="1150">
+                    <line x1="500" x2="450" y1="1150" y2="1150"></line>
+                    <circle cx="500" cy="1150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1158">The Algorithmic Delegate</text>
+                </g>
+                <g class="sequence-item right-side" data-index="76" data-y="1250">
+                    <line x1="500" x2="550" y1="1250" y2="1250"></line>
+                    <circle cx="500" cy="1250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1258">Curating Meaning</text>
+                </g>
+                <g class="sequence-item left-side" data-index="77" data-y="1350">
+                    <line x1="500" x2="450" y1="1350" y2="1350"></line>
+                    <circle cx="500" cy="1350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1358">Fail Forward</text>
+                </g>
+                <g class="sequence-item right-side" data-index="78" data-y="1450">
+                    <line x1="500" x2="550" y1="1450" y2="1450"></line>
+                    <circle cx="500" cy="1450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1458">Collaborative Spirit</text>
+                </g>
+                <g class="sequence-item left-side" data-index="79" data-y="1550">
+                    <line x1="500" x2="450" y1="1550" y2="1550"></line>
+                    <circle cx="500" cy="1550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="1558">Architecting Space</text>
+                </g>
+                <g class="sequence-item right-side" data-index="80" data-y="1650">
+                    <line x1="500" x2="550" y1="1650" y2="1650"></line>
+                    <circle cx="500" cy="1650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1658">The Signature Style</text>
+                </g>
+                <g class="sequence-item left-side" data-index="81" data-y="1750">
+                    <line x1="500" x2="450" y1="1750" y2="1750"></line>
+                    <circle cx="500" cy="1750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1758">The Grand Blueprint</text>
+                </g>
+                <g class="sequence-item right-side" data-index="82" data-y="1850">
+                    <line x1="500" x2="550" y1="1850" y2="1850"></line>
+                    <circle cx="500" cy="1850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="1858">Sharpening Logic</text>
+                </g>
+                <g class="sequence-item left-side" data-index="83" data-y="1950">
+                    <line x1="500" x2="450" y1="1950" y2="1950"></line>
+                    <circle cx="500" cy="1950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="1958">The Soul's Imprint</text>
+                </g>
+                <g class="sequence-item right-side" data-index="84" data-y="2050">
+                    <line x1="500" x2="550" y1="2050" y2="2050"></line>
+                    <circle cx="500" cy="2050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="2058">Orchestrating
+                        Harmony</text>
+                </g>
+                <g class="sequence-item left-side" data-index="85" data-y="2150">
+                    <line x1="500" x2="450" y1="2150" y2="2150"></line>
+                    <circle cx="500" cy="2150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="2158">Unique Semantics</text>
+                </g>
+                <g class="sequence-item right-side" data-index="86" data-y="2250">
+                    <line x1="500" x2="550" y1="2250" y2="2250"></line>
+                    <circle cx="500" cy="2250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="2258">Portfolio of Life</text>
+                </g>
+                <g class="sequence-item left-side" data-index="87" data-y="2350">
+                    <line x1="500" x2="450" y1="2350" y2="2350"></line>
+                    <circle cx="500" cy="2350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="2358">Trust Protocol</text>
+                </g>
+                <g class="sequence-item right-side" data-index="88" data-y="2450">
+                    <line x1="500" x2="550" y1="2450" y2="2450"></line>
+                    <circle cx="500" cy="2450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="2458">Human Asset Management</text>
+                </g>
+                <g class="sequence-item left-side" data-index="89" data-y="2550">
+                    <line x1="500" x2="450" y1="2550" y2="2550"></line>
+                    <circle cx="500" cy="2550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="2558">Voting with Values</text>
+                </g>
+                <g class="sequence-item right-side" data-index="90" data-y="2650">
+                    <line x1="500" x2="550" y1="2650" y2="2650"></line>
+                    <circle cx="500" cy="2650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="2658">Outsourcing the
+                        Reckoning</text>
+                </g>
+                <g class="sequence-item left-side" data-index="91" data-y="2750">
+                    <line x1="500" x2="450" y1="2750" y2="2750"></line>
+                    <circle cx="500" cy="2750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="2758">The Ethical Vote</text>
+                </g>
+                <g class="sequence-item right-side" data-index="92" data-y="2850">
+                    <line x1="500" x2="550" y1="2850" y2="2850"></line>
+                    <circle cx="500" cy="2850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="2858">The Reciprocity Loop</text>
+                </g>
+                <g class="sequence-item left-side" data-index="93" data-y="2950">
+                    <line x1="500" x2="450" y1="2950" y2="2950"></line>
+                    <circle cx="500" cy="2950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="2958">Living Legacy</text>
+                </g>
+                <g class="sequence-item right-side" data-index="94" data-y="3050">
+                    <line x1="500" x2="550" y1="3050" y2="3050"></line>
+                    <circle cx="500" cy="3050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="3058">The Scarcity of
+                        Commitment</text>
+                </g>
+            </g>
+            <g id="stage-5" transform="translate(0, 11500)">
+                <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 5: ENGINEERING
+                    HAPPINESS</text>
+                <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
+                <g class="sequence-item left-side" data-index="95" data-y="50">
+                    <line x1="500" x2="450" y1="50" y2="50"></line>
+                    <circle cx="500" cy="50" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="58">Engineering Eternal
+                        Happiness as a System</text>
+                </g>
+                <g class="sequence-item right-side" data-index="96" data-y="150">
+                    <line x1="500" x2="550" y1="150" y2="150"></line>
+                    <circle cx="500" cy="150" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="158">The Spark of Sentience</text>
+                </g>
+                <g class="sequence-item left-side" data-index="97" data-y="250">
+                    <line x1="500" x2="450" y1="250" y2="250"></line>
+                    <circle cx="500" cy="250" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="258">The Cultural Ratchet</text>
+                </g>
+                <g class="sequence-item right-side" data-index="98" data-y="350">
+                    <line x1="500" x2="550" y1="350" y2="350"></line>
+                    <circle cx="500" cy="350" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="358">The Loudest Silence</text>
+                </g>
+                <g class="sequence-item left-side" data-index="99" data-y="450">
+                    <line x1="500" x2="450" y1="450" y2="450"></line>
+                    <circle cx="500" cy="450" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="458">The Cosmic Perspective</text>
+                </g>
+                <g class="sequence-item right-side" data-index="100" data-y="550">
+                    <line x1="500" x2="550" y1="550" y2="550"></line>
+                    <circle cx="500" cy="550" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">Rewiring the Heart</text>
+                </g>
+                <g class="sequence-item left-side" data-index="101" data-y="650">
+                    <line x1="500" x2="450" y1="650" y2="650"></line>
+                    <circle cx="500" cy="650" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="658">Archetypal Meaning</text>
+                </g>
+                <g class="sequence-item right-side" data-index="102" data-y="750">
+                    <line x1="500" x2="550" y1="750" y2="750"></line>
+                    <circle cx="500" cy="750" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="758">The Intergenerational
+                        Pact</text>
+                </g>
+                <g class="sequence-item left-side" data-index="103" data-y="850">
+                    <line x1="500" x2="450" y1="850" y2="850"></line>
+                    <circle cx="500" cy="850" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="end" x="440" y="858">The Beauty of Flaws</text>
+                </g>
+                <g class="sequence-item right-side" data-index="104" data-y="950">
+                    <line x1="500" x2="550" y1="950" y2="950"></line>
+                    <circle cx="500" cy="950" r="3"></circle>
+                    <text class="font-sans text-item" text-anchor="start" x="560" y="958">The Great Surrender</text>
+                </g>
+                <g class="sequence-item left-side" data-index="105" data-y="1050">
+                    <line x1="500" x2="450" y1="1050" y2="1050"></line>
+                    <circle cx="500" cy="1050" r="4"></circle>
+                    <text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Ultimate
+                        Convergence</text>
+                </g>
+            </g>
+            <g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
+                <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
+                <circle cx="500" cy="0" fill="#111" r="50"></circle>
+                <text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500"
+                    y="5">HAPPINESS</text>
+                <text class="font-sans" fill="#888" font-size="14" letter-spacing="0.2em" text-anchor="middle" x="500"
+                    y="45">NARRATIVE INTELLIGENCE</text>
+            </g>
+            <g id="footer-group" transform="translate(0, 13250)">
+                <line opacity="0.6" stroke="url(#grad-gold)" stroke-width="1" x1="300" x2="700" y1="0" y2="0"></line>
+                <text class="font-sans footer-text" fill="#555" font-size="11" letter-spacing="0.15em"
+                    text-anchor="middle" x="500" y="45">RYTUNYN 2026</text>
+                <a class="footer-email" href="mailto:rytunyn@rytunyn.com">
+                    <text class="font-sans footer-text footer-link" fill="#666" font-size="10" letter-spacing="0.1em"
+                        text-anchor="middle" x="500" y="75">rytunyn@rytunyn.com</text>
+                </a>
+                <line opacity="0.4" stroke="#333" stroke-width="1" x1="420" x2="580" y1="100" y2="100"></line>
+            </g>
+        </svg>
+    </div>
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            gsap.registerPlugin(ScrollTrigger);
+
+            const items = document.querySelectorAll('.sequence-item');
+
+            // 터치 디바이스 감지
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+            if (isTouchDevice) {
+                // 터치 디바이스: IntersectionObserver 사용 (네이티브 스크롤 이벤트와 완벽 호환)
+                console.log('Touch device detected: Using IntersectionObserver fallback');
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                        } else {
+                            entry.target.classList.remove('active');
+                        }
+                    });
+                }, {
+                    threshold: 0.3,  // 30% 이상 보이면 활성화
+                    rootMargin: '-10% 0px -10% 0px'  // 뷰포트 상하 10% 마진
+                });
+
+                items.forEach(item => observer.observe(item));
+            } else {
+                // 비터치 디바이스: GSAP ScrollTrigger 사용
+                items.forEach(item => {
+                    ScrollTrigger.create({
+                        trigger: item,
+                        start: "top 60%", // Activate when element top hits 60% of viewport height (slightly below center)
+                        end: "bottom 40%", // Deactivate when element bottom hits 40% of viewport height (slightly above center)
+                        toggleClass: "active",
+                        invalidateOnRefresh: true
+                    });
+                });
+            }
+
+            console.log('Scroll animation initialized. Items found:', items.length, '| Touch device:', isTouchDevice);
+
+            /* 모바일 흐르는 연결선 생성 함수 */
+            function addFlowConnectors(svg, centerX) {
+                const items = svg.querySelectorAll('.sequence-item');
+                const flowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                flowGroup.setAttribute('id', 'flow-connectors');
+
+                items.forEach((item, index) => {
+                    // 6개마다 하나씩만 선 표시 (더욱 여유롭게)
+                    if (index % 6 !== 0) return;
+
+                    const currentRect = item.getBoundingClientRect();
+                    const nextIndex = Math.min(index + 6, items.length - 1);
+                    const nextItem = items[nextIndex];
+                    const nextRect = nextItem.getBoundingClientRect();
+
+                    // SVG 좌표계로 변환
+                    const svgRect = svg.getBoundingClientRect();
+                    const viewBox = svg.viewBox.baseVal;
+                    const scaleY = viewBox.height / svgRect.height;
+
+                    const y1 = (currentRect.bottom - svgRect.top) * scaleY;
+                    const y2 = (nextRect.top - svgRect.top) * scaleY;
+
+                    // 연결선 길이가 충분할 때만 추가
+                    if (y2 - y1 > 30) {
+                        // 흐르는 점선 (여백 증가: 80px)
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', centerX);
+                        line.setAttribute('y1', y1 + 80);
+                        line.setAttribute('x2', centerX);
+                        line.setAttribute('y2', y2 - 80);
+                        line.classList.add('flow-connector');
+                        flowGroup.appendChild(line);
+
+                        // 움직이는 점 (3개로 증가 - 더 자주 분포)
+                        const lineLength = y2 - y1 - 160;
+                        for (let i = 0; i < 3; i++) {
+                            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                            dot.setAttribute('cx', centerX);
+                            dot.setAttribute('cy', y1 + 100 + (i * (lineLength / 4)));
+                            dot.setAttribute('r', '4');
+                            dot.classList.add('flow-dot');
+                            dot.style.animationDelay = `${i * 0.8}s`;
+                            flowGroup.appendChild(dot);
+                        }
                     }
                 });
-            }, {
-                threshold: 0.3,  // 30% 이상 보이면 활성화
-                rootMargin: '-10% 0px -10% 0px'  // 뷰포트 상하 10% 마진
-            });
-            
-            items.forEach(item => observer.observe(item));
-        } else {
-            // 비터치 디바이스: GSAP ScrollTrigger 사용
-            items.forEach(item => {
-                ScrollTrigger.create({
-                    trigger: item,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    toggleClass: "active",
-                    invalidateOnRefresh: true
-                });
-            });
-        }
-        
-        console.log('Scroll animation initialized. Items found:', items.length, '| Touch device:', isTouchDevice);
 
-        /* 모바일 흐르는 연결선 생성 함수 */
-        function addFlowConnectors(svg, centerX) {
-            const items = svg.querySelectorAll('.sequence-item');
-            const flowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-            flowGroup.setAttribute('id', 'flow-connectors');
-            
-            items.forEach((item, index) => {
-                // 6개마다 하나씩만 선 표시 (더욱 여유롭게)
-                if (index % 6 !== 0) return;
-                
-                const currentRect = item.getBoundingClientRect();
-                const nextIndex = Math.min(index + 6, items.length - 1);
-                const nextItem = items[nextIndex];
-                const nextRect = nextItem.getBoundingClientRect();
-                
-                // SVG 좌표계로 변환
-                const svgRect = svg.getBoundingClientRect();
-                const viewBox = svg.viewBox.baseVal;
-                const scaleY = viewBox.height / svgRect.height;
-                
-                const y1 = (currentRect.bottom - svgRect.top) * scaleY;
-                const y2 = (nextRect.top - svgRect.top) * scaleY;
-                
-                // 연결선 길이가 충분할 때만 추가
-                if (y2 - y1 > 30) {
-                    // 흐르는 점선 (여백 증가: 80px)
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', centerX);
-                    line.setAttribute('y1', y1 + 80);
-                    line.setAttribute('x2', centerX);
-                    line.setAttribute('y2', y2 - 80);
-                    line.classList.add('flow-connector');
-                    flowGroup.appendChild(line);
-                    
-                    // 움직이는 점 (3개로 증가 - 더 자주 분포)
-                    const lineLength = y2 - y1 - 160;
-                    for (let i = 0; i < 3; i++) {
-                        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                        dot.setAttribute('cx', centerX);
-                        dot.setAttribute('cy', y1 + 100 + (i * (lineLength / 4)));
-                        dot.setAttribute('r', '4');
-                        dot.classList.add('flow-dot');
-                        dot.style.animationDelay = `${i * 0.8}s`;
-                        flowGroup.appendChild(dot);
-                    }
-                }
-            });
-            
-            // 기존 연결선 그룹 제거 후 새로 추가
-            const existing = svg.querySelector('#flow-connectors');
-            if (existing) existing.remove();
-            svg.appendChild(flowGroup);
-        }
+                // 기존 연결선 그룹 제거 후 새로 추가
+                const existing = svg.querySelector('#flow-connectors');
+                if (existing) existing.remove();
+                svg.appendChild(flowGroup);
+            }
 
-        /* 2. LAYOUT ENGINE (Mobile Centering) */
-        function optimizeLayoutForMobile() {
-            if (window.innerWidth <= 600) {
-                console.log("Layout Engine: Applying Center Penetration for Mobile...");
-                
-                const svg = document.getElementById('main-svg');
-                const axisLine = document.getElementById('axis-line');
-                const footer = document.getElementById('footer-group');
-                
-                // Center all elements to x=400 (for viewBox 800)
-                const MOBILE_CENTER = 400;
-                
-                // 1. Center the axis line
-                axisLine.setAttribute('x1', MOBILE_CENTER);
-                axisLine.setAttribute('x2', MOBILE_CENTER);
-                
-                // 2. Center HERO section texts
-                svg.querySelectorAll('.breathe text').forEach(el => {
-                    el.setAttribute('x', MOBILE_CENTER);
-                });
-                svg.querySelectorAll('.breathe line').forEach(el => {
-                    el.setAttribute('x1', MOBILE_CENTER - 100);
-                    el.setAttribute('x2', MOBILE_CENTER + 100);
-                });
-                
-                // 3. Center scroll indicator
-                const scrollPath = svg.querySelector('.center-side path');
-                if (scrollPath) {
-                    scrollPath.setAttribute('d', `M ${MOBILE_CENTER} 500 L ${MOBILE_CENTER} 550`);
-                }
-                const scrollCircle = svg.querySelector('.center-side .pulse');
-                if (scrollCircle) {
-                    scrollCircle.setAttribute('cx', MOBILE_CENTER);
-                }
-                
-                // Hyper-Spacing Configuration
-                const MOBILE_ITEM_GAP = 400;
-                const MOBILE_STAGE_PAD = 600; 
+            /* 2. LAYOUT ENGINE (Mobile Centering) */
+            function optimizeLayoutForMobile() {
+                if (window.innerWidth <= 600) {
+                    console.log("Layout Engine: Applying Center Penetration for Mobile...");
 
-                let currentY = 900; 
+                    const svg = document.getElementById('main-svg');
+                    const axisLine = document.getElementById('axis-line');
+                    const footer = document.getElementById('footer-group');
 
-                const stages = [1, 2, 3, 4, 5];
-                
-                stages.forEach(stageNum => {
-                    const stageGroup = document.getElementById(`stage-${stageNum}`);
-                    if (!stageGroup) return;
+                    // Center all elements to x=400 (for viewBox 800)
+                    const MOBILE_CENTER = 400;
 
-                    // Move Stage
-                    stageGroup.setAttribute('transform', `translate(0, ${currentY})`);
-                    
-                    // Center stage title
-                    const stageTitle = stageGroup.querySelector('.text-stage');
-                    if (stageTitle) {
-                        stageTitle.setAttribute('x', MOBILE_CENTER);
-                    }
-                    
-                    // Center stage axis lines
-                    stageGroup.querySelectorAll('.axis-line').forEach(line => {
-                        line.setAttribute('x1', MOBILE_CENTER);
-                        line.setAttribute('x2', MOBILE_CENTER);
+                    // 1. Center the axis line
+                    axisLine.setAttribute('x1', MOBILE_CENTER);
+                    axisLine.setAttribute('x2', MOBILE_CENTER);
+
+                    // 2. Center HERO section texts
+                    svg.querySelectorAll('.breathe text').forEach(el => {
+                        el.setAttribute('x', MOBILE_CENTER);
+                    });
+                    svg.querySelectorAll('.breathe line').forEach(el => {
+                        el.setAttribute('x1', MOBILE_CENTER - 100);
+                        el.setAttribute('x2', MOBILE_CENTER + 100);
                     });
 
-                    // Adjust items
-                    const stageItems = stageGroup.querySelectorAll('.sequence-item');
-                    let maxItemY = 0;
+                    // 3. Center scroll indicator
+                    const scrollPath = svg.querySelector('.center-side path');
+                    if (scrollPath) {
+                        scrollPath.setAttribute('d', `M ${MOBILE_CENTER} 500 L ${MOBILE_CENTER} 550`);
+                    }
+                    const scrollCircle = svg.querySelector('.center-side .pulse');
+                    if (scrollCircle) {
+                        scrollCircle.setAttribute('cx', MOBILE_CENTER);
+                    }
 
-                    stageItems.forEach((item, index) => {
-                        let newItemY;
-                        
-                        if (item.getAttribute('data-index') === '31') {
-                            // HAPPINESS node needs extra spacing from last item
-                            newItemY = (stageItems.length - 1) * MOBILE_ITEM_GAP + 500;
-                        } else {
-                            newItemY = 100 + (index * MOBILE_ITEM_GAP);
+                    // Hyper-Spacing Configuration
+                    const MOBILE_ITEM_GAP = 400;
+                    const MOBILE_STAGE_PAD = 600;
+
+                    let currentY = 900;
+
+                    const stages = [1, 2, 3, 4, 5];
+
+                    stages.forEach(stageNum => {
+                        const stageGroup = document.getElementById(`stage-${stageNum}`);
+                        if (!stageGroup) return;
+
+                        // Move Stage
+                        stageGroup.setAttribute('transform', `translate(0, ${currentY})`);
+
+                        // Center stage title
+                        const stageTitle = stageGroup.querySelector('.text-stage');
+                        if (stageTitle) {
+                            stageTitle.setAttribute('x', MOBILE_CENTER);
                         }
 
-                        const originalY = parseInt(item.getAttribute('data-y') || 0);
-                        const shiftY = newItemY - originalY;
-                        
-                        // Center all text elements
-                        item.querySelectorAll('text').forEach(textEl => {
-                            textEl.setAttribute('x', MOBILE_CENTER);
-                            textEl.setAttribute('text-anchor', 'middle');
-                        });
-                        
-                        // Center circles
-                        item.querySelectorAll('circle').forEach(circle => {
-                            circle.setAttribute('cx', MOBILE_CENTER);
+                        // Center stage axis lines
+                        stageGroup.querySelectorAll('.axis-line').forEach(line => {
+                            line.setAttribute('x1', MOBILE_CENTER);
+                            line.setAttribute('x2', MOBILE_CENTER);
                         });
 
-                        item.setAttribute('transform', `translate(0, ${shiftY})`);
-                        
-                        if (newItemY > maxItemY) maxItemY = newItemY;
+                        // Adjust items
+                        const stageItems = stageGroup.querySelectorAll('.sequence-item');
+                        let maxItemY = 0;
+
+                        stageItems.forEach((item, index) => {
+                            let newItemY;
+
+                            if (item.getAttribute('data-index') === '31') {
+                                // HAPPINESS node needs extra spacing from last item
+                                newItemY = (stageItems.length - 1) * MOBILE_ITEM_GAP + 500;
+                            } else {
+                                newItemY = 100 + (index * MOBILE_ITEM_GAP);
+                            }
+
+                            const originalY = parseInt(item.getAttribute('data-y') || 0);
+                            const shiftY = newItemY - originalY;
+
+                            // Center all text elements
+                            item.querySelectorAll('text').forEach(textEl => {
+                                textEl.setAttribute('x', MOBILE_CENTER);
+                                textEl.setAttribute('text-anchor', 'middle');
+                            });
+
+                            // Center circles
+                            item.querySelectorAll('circle').forEach(circle => {
+                                circle.setAttribute('cx', MOBILE_CENTER);
+                            });
+
+                            item.setAttribute('transform', `translate(0, ${shiftY})`);
+
+                            if (newItemY > maxItemY) maxItemY = newItemY;
+                        });
+
+                        currentY += maxItemY + MOBILE_STAGE_PAD;
                     });
 
-                    currentY += maxItemY + MOBILE_STAGE_PAD;
-                });
+                    // 모바일 전용: 흐르는 연결선 추가
+                    addFlowConnectors(svg, MOBILE_CENTER);
 
-                // 모바일 전용: 흐르는 연결선 추가
-                addFlowConnectors(svg, MOBILE_CENTER);
+                    // Footer는 마지막 항목과 더 가까이 배치 (MOBILE_STAGE_PAD 대신 작은 간격)
+                    const MOBILE_FOOTER_GAP = 80;
+                    const footerY = currentY - MOBILE_STAGE_PAD + MOBILE_FOOTER_GAP;
 
-                // Footer는 마지막 항목과 더 가까이 배치 (MOBILE_STAGE_PAD 대신 작은 간격)
-                const MOBILE_FOOTER_GAP = 80;
-                const footerY = currentY - MOBILE_STAGE_PAD + MOBILE_FOOTER_GAP;
-                
-                // Center footer elements
-                footer.setAttribute('transform', `translate(0, ${footerY})`);
-                footer.querySelectorAll('text').forEach(el => {
-                    el.setAttribute('x', MOBILE_CENTER);
-                });
-                footer.querySelectorAll('line').forEach(el => {
-                    el.setAttribute('x1', MOBILE_CENTER - 100);
-                    el.setAttribute('x2', MOBILE_CENTER + 100);
-                });
+                    // Center footer elements
+                    footer.setAttribute('transform', `translate(0, ${footerY})`);
+                    footer.querySelectorAll('text').forEach(el => {
+                        el.setAttribute('x', MOBILE_CENTER);
+                    });
+                    footer.querySelectorAll('line').forEach(el => {
+                        el.setAttribute('x1', MOBILE_CENTER - 100);
+                        el.setAttribute('x2', MOBILE_CENTER + 100);
+                    });
 
-                const totalHeight = currentY + 500;
-                axisLine.setAttribute('y2', totalHeight);
-                svg.setAttribute('viewBox', `0 0 800 ${totalHeight}`);
+                    const totalHeight = currentY + 500;
+                    axisLine.setAttribute('y2', totalHeight);
+                    svg.setAttribute('viewBox', `0 0 800 ${totalHeight}`);
+                }
             }
-        }
 
-        optimizeLayoutForMobile();
-        
-        // 모바일 레이아웃 변경 후 ScrollTrigger 재계산
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-            console.log('ScrollTrigger refreshed');
-        }, 200);
-    });
-</script>
-</body></html>
+            optimizeLayoutForMobile();
+
+            // 모바일 레이아웃 변경 후 ScrollTrigger 재계산
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+                console.log('ScrollTrigger refreshed');
+            }, 200);
+        });
+    </script>
+</body>
+
+</html>
