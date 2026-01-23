@@ -30,13 +30,19 @@
             display: flex;
             justify-content: center;
             background: #000000;
+            overflow: visible;
         }
 
         svg {
-            width: 100%;
-            max-width: 800px;
+            width: 100vw;
+            max-width: none;
             height: auto;
             display: block;
+            overflow: visible;
+        }
+
+        #main-svg {
+            overflow: visible;
         }
 
         /* * ANIMATION ENGINE */
@@ -186,6 +192,14 @@
             filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.7)) !important;
         }
 
+        /* Stage Title Active State */
+        .text-stage.active {
+            fill: #FFFFFF !important;
+            opacity: 1 !important;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.5)) !important;
+            transition: all 0.3s ease;
+        }
+
         /* Fonts */
         .font-serif {
             font-family: 'Cinzel', serif;
@@ -197,38 +211,38 @@
         }
 
         .text-header {
-            font-size: 60px;
+            font-size: clamp(20px, 3vw, 30px);
             letter-spacing: 0.1em;
             font-weight: 700;
         }
 
         .text-subheader {
-            font-size: 24px;
+            font-size: clamp(10px, 1.2vw, 14px);
             letter-spacing: 0.2em;
             font-weight: 400;
         }
 
         .text-stage {
-            font-size: 14px;
+            font-size: clamp(8px, 0.95vw, 10px);
             letter-spacing: 0.3em;
             fill: #666;
             font-weight: 600;
         }
 
         .text-item {
-            font-size: 20px;
+            font-size: clamp(9px, 1.1vw, 12px);
             letter-spacing: 0.05em;
             font-weight: 400;
         }
 
         .text-item-bold {
-            font-size: 28px;
+            font-size: clamp(10px, 1.4vw, 15px);
             letter-spacing: -0.02em;
             font-weight: 700;
         }
 
         .text-footer {
-            font-size: 24px;
+            font-size: clamp(10px, 1.2vw, 14px);
             letter-spacing: 0.1em;
         }
 
@@ -472,7 +486,7 @@
 
             <g id="stage-1" transform="translate(0, 700)">
                 <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 1: IDENTITY SHOCK</text>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">Stage 1: Identity Shock</text>
                 <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
                 <g class="sequence-item left-side" data-index="1" data-y="50">
                     <line x1="500" x2="450" y1="50" y2="50"></line>
@@ -588,8 +602,7 @@
             </g>
             <g id="stage-2" transform="translate(0, 3150)">
                 <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 2: THE HARNESS
-                    ARCHITECTURE</text>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">Stage 2: The Harness Architecture</text>
                 <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
                 <g class="sequence-item right-side" data-index="22" data-y="50">
                     <line x1="500" x2="550" y1="50" y2="50"></line>
@@ -704,8 +717,7 @@
             </g>
             <g id="stage-3" transform="translate(0, 5600)">
                 <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 3: THE HUMAN
-                    CONNECTION</text>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">Stage 3: The Human Connection</text>
                 <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
                 <g class="sequence-item left-side" data-index="43" data-y="50">
                     <line x1="500" x2="450" y1="50" y2="50"></line>
@@ -823,8 +835,7 @@
             </g>
             <g id="stage-4" transform="translate(0, 8050)">
                 <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 4: PROJECT
-                    ARCHITECTING</text>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">Stage 4: Project Architecting</text>
                 <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
                 <g class="sequence-item right-side" data-index="64" data-y="50">
                     <line x1="500" x2="550" y1="50" y2="50"></line>
@@ -990,8 +1001,7 @@
             </g>
             <g id="stage-5" transform="translate(0, 11500)">
                 <line class="stage-line" stroke="#333" stroke-width="1" x1="500" x2="600" y1="-50" y2="-50"></line>
-                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">STAGE 5: ENGINEERING
-                    HAPPINESS</text>
+                <text class="font-sans text-stage" text-anchor="middle" x="500" y="-30">Stage 5: Engineering Happiness</text>
                 <line class="axis-line" stroke="#FFF" stroke-width="1" x1="500" x2="500" y1="-20" y2="0"></line>
                 <g class="sequence-item left-side" data-index="95" data-y="50">
                     <line x1="500" x2="450" y1="50" y2="50"></line>
@@ -1083,39 +1093,76 @@
             // ScrollTrigger 초기화 함수 (레이아웃 최적화 후 호출됨)
             function initScrollAnimation() {
                 const items = document.querySelectorAll('.sequence-item');
+                const stageTexts = document.querySelectorAll('.text-stage');
 
                 // 터치 디바이스 감지
                 const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-                if (isTouchDevice) {
-                    // 터치 디바이스: IntersectionObserver 사용 (Center Focus)
-                    console.log('Touch device detected: Using IntersectionObserver fallback');
-
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('active');
-                            } else {
-                                entry.target.classList.remove('active');
-                            }
-                        });
-                    }, {
-                        threshold: 0.1,
-                        rootMargin: '-10% 0px -30% 0px'  // Active zone: 10% from top to 70% (covers 30%-90% visually)
-                    });
-
-                    items.forEach(item => observer.observe(item));
-                } else {
-                    // 비터치 디바이스: GSAP ScrollTrigger 사용 (Center Focus)
+                // 공통 활성화 체크 함수 (모든 디바이스에서 동일하게 작동)
+                function checkActiveItems() {
+                    const viewportHeight = window.innerHeight;
+                    const activeZoneTop = viewportHeight * 0.30;  // 30%
+                    const activeZoneBottom = viewportHeight * 0.70;  // 70%
+                    
+                    let activeCount = 0;
+                    
                     items.forEach(item => {
-                        ScrollTrigger.create({
-                            trigger: item,
-                            start: "center 90%", // Activate when element CENTER hits 90% of viewport
-                            end: "center 30%", // Deactivate when element CENTER hits 30% of viewport
-                            toggleClass: "active",
-                            invalidateOnRefresh: true
-                        });
+                        // SVG 내부 circle 요소의 실제 화면 위치를 가져옴
+                        const circle = item.querySelector('circle');
+                        if (circle) {
+                            const rect = circle.getBoundingClientRect();
+                            const itemY = rect.top + rect.height / 2;
+                            
+                            if (itemY >= activeZoneTop && itemY <= activeZoneBottom) {
+                                if (!item.classList.contains('active')) {
+                                    item.classList.add('active');
+                                    activeCount++;
+                                }
+                            } else {
+                                if (item.classList.contains('active')) {
+                                    item.classList.remove('active');
+                                }
+                            }
+                        }
                     });
+                    
+                    stageTexts.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        const itemY = rect.top + rect.height / 2;
+                        
+                        if (itemY >= activeZoneTop && itemY <= activeZoneBottom) {
+                            if (!item.classList.contains('active')) {
+                                item.classList.add('active');
+                                activeCount++;
+                            }
+                        } else {
+                            if (item.classList.contains('active')) {
+                                item.classList.remove('active');
+                            }
+                        }
+                    });
+                }
+
+                if (isTouchDevice) {
+                    // 터치 디바이스: 스크롤 기반 감지
+                    console.log('Touch device detected: Using scroll-based detection');
+                    
+                    window.addEventListener('scroll', checkActiveItems, { passive: true });
+                    window.addEventListener('resize', checkActiveItems, { passive: true });
+                    
+                    // 초기 체크 및 주기적 체크
+                    checkActiveItems();
+                    setInterval(checkActiveItems, 16); // ~60fps
+                } else {
+                    // 비터치 디바이스: 스크롤 기반 감지 (GSAP 대신 동일한 로직 사용)
+                    console.log('Non-touch device detected: Using scroll-based detection');
+                    
+                    window.addEventListener('scroll', checkActiveItems, { passive: true });
+                    window.addEventListener('resize', checkActiveItems, { passive: true });
+                    
+                    // 초기 체크 및 주기적 체크
+                    checkActiveItems();
+                    setInterval(checkActiveItems, 16); // ~60fps
                 }
 
                 console.log('Scroll animation initialized. Items found:', items.length, '| Touch device:', isTouchDevice);
