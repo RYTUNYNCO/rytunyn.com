@@ -703,6 +703,12 @@
         }
 
         optimizeLayoutForMobile();
+        
+        // 모바일 레이아웃 변경 후 ScrollTrigger 위치 재계산
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+            console.log('ScrollTrigger refreshed for mobile layout');
+        }, 100);
     });
 </script>
 
