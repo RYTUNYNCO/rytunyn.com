@@ -550,92 +550,101 @@
         
         gsap.registerPlugin(ScrollTrigger);
         
-        const items = document.querySelectorAll('.sequence-item');
-        
-        items.forEach(item => {
-            const texts = item.querySelectorAll('text');
-            const circles = item.querySelectorAll('circle');
-            const lines = item.querySelectorAll('line');
+        // ScrollTrigger 초기화 함수 (레이아웃 변경 후 재호출 가능)
+        function initScrollTriggers() {
+            // 기존 트리거 모두 제거
+            ScrollTrigger.getAll().forEach(t => t.kill());
             
-            // Set initial state
-            gsap.set(texts, { attr: { fill: '#555', opacity: 0.3 } });
-            gsap.set(circles, { attr: { fill: '#333' } });
-            gsap.set(lines, { attr: { stroke: '#333', 'stroke-width': 1 } });
+            const items = document.querySelectorAll('.sequence-item');
             
-            ScrollTrigger.create({
-                trigger: item,
-                start: "top 70%",
-                end: "bottom 30%",
-                onEnter: () => {
-                    gsap.to(texts, { 
-                        attr: { fill: '#FFFFFF', opacity: 1 }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    gsap.to(circles, { 
-                        attr: { fill: '#FFFFFF' }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    gsap.to(lines, { 
-                        attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    item.classList.add('active');
-                },
-                onLeave: () => {
-                    gsap.to(texts, { 
-                        attr: { fill: '#555', opacity: 0.3 }, 
-                        duration: 0.4 
-                    });
-                    gsap.to(circles, { 
-                        attr: { fill: '#333' }, 
-                        duration: 0.4 
-                    });
-                    gsap.to(lines, { 
-                        attr: { stroke: '#333', 'stroke-width': 1 }, 
-                        duration: 0.4 
-                    });
-                    item.classList.remove('active');
-                },
-                onEnterBack: () => {
-                    gsap.to(texts, { 
-                        attr: { fill: '#FFFFFF', opacity: 1 }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    gsap.to(circles, { 
-                        attr: { fill: '#FFFFFF' }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    gsap.to(lines, { 
-                        attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
-                        duration: 0.4,
-                        ease: "power2.out"
-                    });
-                    item.classList.add('active');
-                },
-                onLeaveBack: () => {
-                    gsap.to(texts, { 
-                        attr: { fill: '#555', opacity: 0.3 }, 
-                        duration: 0.4 
-                    });
-                    gsap.to(circles, { 
-                        attr: { fill: '#333' }, 
-                        duration: 0.4 
-                    });
-                    gsap.to(lines, { 
-                        attr: { stroke: '#333', 'stroke-width': 1 }, 
-                        duration: 0.4 
-                    });
-                    item.classList.remove('active');
-                }
+            items.forEach(item => {
+                const texts = item.querySelectorAll('text');
+                const circles = item.querySelectorAll('circle');
+                const lines = item.querySelectorAll('line');
+                
+                // Set initial state
+                gsap.set(texts, { attr: { fill: '#555', opacity: 0.3 } });
+                gsap.set(circles, { attr: { fill: '#333' } });
+                gsap.set(lines, { attr: { stroke: '#333', 'stroke-width': 1 } });
+                
+                ScrollTrigger.create({
+                    trigger: item,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    invalidateOnRefresh: true,
+                    onEnter: () => {
+                        gsap.to(texts, { 
+                            attr: { fill: '#FFFFFF', opacity: 1 }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        gsap.to(circles, { 
+                            attr: { fill: '#FFFFFF' }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        gsap.to(lines, { 
+                            attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        item.classList.add('active');
+                    },
+                    onLeave: () => {
+                        gsap.to(texts, { 
+                            attr: { fill: '#555', opacity: 0.3 }, 
+                            duration: 0.4 
+                        });
+                        gsap.to(circles, { 
+                            attr: { fill: '#333' }, 
+                            duration: 0.4 
+                        });
+                        gsap.to(lines, { 
+                            attr: { stroke: '#333', 'stroke-width': 1 }, 
+                            duration: 0.4 
+                        });
+                        item.classList.remove('active');
+                    },
+                    onEnterBack: () => {
+                        gsap.to(texts, { 
+                            attr: { fill: '#FFFFFF', opacity: 1 }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        gsap.to(circles, { 
+                            attr: { fill: '#FFFFFF' }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        gsap.to(lines, { 
+                            attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                        item.classList.add('active');
+                    },
+                    onLeaveBack: () => {
+                        gsap.to(texts, { 
+                            attr: { fill: '#555', opacity: 0.3 }, 
+                            duration: 0.4 
+                        });
+                        gsap.to(circles, { 
+                            attr: { fill: '#333' }, 
+                            duration: 0.4 
+                        });
+                        gsap.to(lines, { 
+                            attr: { stroke: '#333', 'stroke-width': 1 }, 
+                            duration: 0.4 
+                        });
+                        item.classList.remove('active');
+                    }
+                });
             });
-        });
-        
-        console.log('GSAP ScrollTrigger initialized. Items found:', items.length);
+            
+            console.log('GSAP ScrollTrigger initialized. Items found:', items.length);
+        }
+
+        initScrollTriggers();
 
         /* 2. LAYOUT ENGINE (Mobile Centering) */
         function optimizeLayoutForMobile() {
@@ -704,11 +713,12 @@
 
         optimizeLayoutForMobile();
         
-        // 모바일 레이아웃 변경 후 ScrollTrigger 위치 재계산
+        // 레이아웃 변경 후 ScrollTrigger 재초기화 (모바일에서 필수)
         setTimeout(() => {
-            ScrollTrigger.refresh();
-            console.log('ScrollTrigger refreshed for mobile layout');
-        }, 100);
+            initScrollTriggers();
+            ScrollTrigger.refresh(true);
+            console.log('ScrollTrigger re-initialized after mobile layout');
+        }, 200);
     });
 </script>
 
