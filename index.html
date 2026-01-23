@@ -550,101 +550,102 @@
         
         gsap.registerPlugin(ScrollTrigger);
         
-        // ScrollTrigger 초기화 함수 (레이아웃 변경 후 재호출 가능)
-        function initScrollTriggers() {
-            // 기존 트리거 모두 제거
-            ScrollTrigger.getAll().forEach(t => t.kill());
+        const items = document.querySelectorAll('.sequence-item');
+        
+        // 활성화/비활성화 함수
+        function activateItem(item) {
+            if (item.classList.contains('active')) return;
             
-            const items = document.querySelectorAll('.sequence-item');
+            const texts = item.querySelectorAll('text');
+            const circles = item.querySelectorAll('circle');
+            const lines = item.querySelectorAll('line');
+            
+            gsap.to(texts, { 
+                attr: { fill: '#FFFFFF', opacity: 1 }, 
+                duration: 0.4,
+                ease: "power2.out"
+            });
+            gsap.to(circles, { 
+                attr: { fill: '#FFFFFF' }, 
+                duration: 0.4,
+                ease: "power2.out"
+            });
+            gsap.to(lines, { 
+                attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
+                duration: 0.4,
+                ease: "power2.out"
+            });
+            item.classList.add('active');
+        }
+        
+        function deactivateItem(item) {
+            if (!item.classList.contains('active')) return;
+            
+            const texts = item.querySelectorAll('text');
+            const circles = item.querySelectorAll('circle');
+            const lines = item.querySelectorAll('line');
+            
+            gsap.to(texts, { 
+                attr: { fill: '#555', opacity: 0.3 }, 
+                duration: 0.4 
+            });
+            gsap.to(circles, { 
+                attr: { fill: '#333' }, 
+                duration: 0.4 
+            });
+            gsap.to(lines, { 
+                attr: { stroke: '#333', 'stroke-width': 1 }, 
+                duration: 0.4 
+            });
+            item.classList.remove('active');
+        }
+        
+        // 초기 상태 설정
+        items.forEach(item => {
+            const texts = item.querySelectorAll('text');
+            const circles = item.querySelectorAll('circle');
+            const lines = item.querySelectorAll('line');
+            
+            gsap.set(texts, { attr: { fill: '#555', opacity: 0.3 } });
+            gsap.set(circles, { attr: { fill: '#333' } });
+            gsap.set(lines, { attr: { stroke: '#333', 'stroke-width': 1 } });
+        });
+        
+        // 스크롤 기반 활성화 (SVG 요소용 커스텀 로직)
+        function updateActiveItems() {
+            const viewportCenter = window.innerHeight / 2;
+            const activationRange = window.innerHeight * 0.35;
             
             items.forEach(item => {
-                const texts = item.querySelectorAll('text');
-                const circles = item.querySelectorAll('circle');
-                const lines = item.querySelectorAll('line');
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height / 2;
+                const distance = Math.abs(itemCenter - viewportCenter);
                 
-                // Set initial state
-                gsap.set(texts, { attr: { fill: '#555', opacity: 0.3 } });
-                gsap.set(circles, { attr: { fill: '#333' } });
-                gsap.set(lines, { attr: { stroke: '#333', 'stroke-width': 1 } });
-                
-                ScrollTrigger.create({
-                    trigger: item,
-                    start: "top 80%",
-                    end: "bottom 20%",
-                    invalidateOnRefresh: true,
-                    onEnter: () => {
-                        gsap.to(texts, { 
-                            attr: { fill: '#FFFFFF', opacity: 1 }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        gsap.to(circles, { 
-                            attr: { fill: '#FFFFFF' }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        gsap.to(lines, { 
-                            attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        item.classList.add('active');
-                    },
-                    onLeave: () => {
-                        gsap.to(texts, { 
-                            attr: { fill: '#555', opacity: 0.3 }, 
-                            duration: 0.4 
-                        });
-                        gsap.to(circles, { 
-                            attr: { fill: '#333' }, 
-                            duration: 0.4 
-                        });
-                        gsap.to(lines, { 
-                            attr: { stroke: '#333', 'stroke-width': 1 }, 
-                            duration: 0.4 
-                        });
-                        item.classList.remove('active');
-                    },
-                    onEnterBack: () => {
-                        gsap.to(texts, { 
-                            attr: { fill: '#FFFFFF', opacity: 1 }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        gsap.to(circles, { 
-                            attr: { fill: '#FFFFFF' }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        gsap.to(lines, { 
-                            attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
-                            duration: 0.4,
-                            ease: "power2.out"
-                        });
-                        item.classList.add('active');
-                    },
-                    onLeaveBack: () => {
-                        gsap.to(texts, { 
-                            attr: { fill: '#555', opacity: 0.3 }, 
-                            duration: 0.4 
-                        });
-                        gsap.to(circles, { 
-                            attr: { fill: '#333' }, 
-                            duration: 0.4 
-                        });
-                        gsap.to(lines, { 
-                            attr: { stroke: '#333', 'stroke-width': 1 }, 
-                            duration: 0.4 
-                        });
-                        item.classList.remove('active');
-                    }
-                });
+                if (distance < activationRange) {
+                    activateItem(item);
+                } else {
+                    deactivateItem(item);
+                }
             });
-            
-            console.log('GSAP ScrollTrigger initialized. Items found:', items.length);
         }
-
-        initScrollTriggers();
+        
+        // 스크롤 이벤트 (throttle 적용)
+        let ticking = false;
+        function onScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateActiveItems();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', updateActiveItems, { passive: true });
+        window.addEventListener('touchmove', onScroll, { passive: true });
+        
+        console.log('Custom scroll animation initialized. Items found:', items.length);
 
         /* 2. LAYOUT ENGINE (Mobile Centering) */
         function optimizeLayoutForMobile() {
@@ -713,11 +714,10 @@
 
         optimizeLayoutForMobile();
         
-        // 레이아웃 변경 후 ScrollTrigger 재초기화 (모바일에서 필수)
+        // 레이아웃 변경 후 초기 스크롤 체크
         setTimeout(() => {
-            initScrollTriggers();
-            ScrollTrigger.refresh(true);
-            console.log('ScrollTrigger re-initialized after mobile layout');
+            updateActiveItems();
+            console.log('Initial scroll check completed');
         }, 200);
     });
 </script>
