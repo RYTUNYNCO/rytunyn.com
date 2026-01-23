@@ -36,6 +36,34 @@ def parse_key_file(filepath):
     print(f"Found {len(stages)} stages.")
     return stages
 
+def wrap_text(text, max_chars=30):
+    """Split text into lines if it exceeds max_chars. Returns list of lines."""
+    if len(text) <= max_chars:
+        return [text]
+    
+    words = text.split()
+    lines = []
+    current_line = []
+    current_len = 0
+    
+    for word in words:
+        if current_len + len(word) + (1 if current_line else 0) > max_chars:
+            if current_line:
+                lines.append(' '.join(current_line))
+                current_line = [word]
+                current_len = len(word)
+            else:
+                lines.append(word)
+                current_len = 0
+        else:
+            current_line.append(word)
+            current_len += len(word) + (1 if len(current_line) > 1 else 0)
+    
+    if current_line:
+        lines.append(' '.join(current_line))
+    
+    return lines
+
 def create_svg_content(stages):
     print("Creating SVG content...")
     CENTER_X = 500
@@ -55,7 +83,7 @@ def create_svg_content(stages):
         stage_group.append(f'''
         <g id="stage-{stage_idx+1}" transform="translate(0, {curr_y})">
             <line x1="{CENTER_X}" y1="-50" x2="{CENTER_X+100}" y2="-50" stroke="#333" stroke-width="1" class="stage-line"></line>
-            <text x="{CENTER_X}" y="-30" text-anchor="middle" class="font-sans text-stage">{stage['title'].upper()}</text>
+            <text x="{CENTER_X}" y="-30" text-anchor="middle" class="font-sans text-stage">{stage['title']}</text>
             <line class="axis-line" x1="{CENTER_X}" y1="-20" x2="{CENTER_X}" y2="0" stroke="#FFF" stroke-width="1"></line>
         ''')
         
@@ -73,11 +101,24 @@ def create_svg_content(stages):
             text_class = "text-item-bold" if is_bold else "text-item"
             circle_r = 4 if is_bold else 3
             
+            # Wrap long text
+            text_lines = wrap_text(item_text, 30)
+            
+            if len(text_lines) == 1:
+                text_content = f'<text x="{text_x}" y="{local_y + 8}" text-anchor="{text_anchor}" class="font-sans {text_class}">{text_lines[0]}</text>'
+            else:
+                # Multi-line with tspan
+                tspans = []
+                for line_idx, line in enumerate(text_lines):
+                    dy = "0" if line_idx == 0 else "1.2em"
+                    tspans.append(f'<tspan x="{text_x}" dy="{dy}">{line}</tspan>')
+                text_content = f'<text x="{text_x}" y="{local_y + 8}" text-anchor="{text_anchor}" class="font-sans {text_class}">{"".join(tspans)}</text>'
+            
             item_html = f'''
             <g class="sequence-item {side_class}" data-index="{total_items}" data-y="{local_y}">
                 <line x1="{CENTER_X}" y1="{local_y}" x2="{line_x2}" y2="{local_y}"></line>
                 <circle cx="{CENTER_X}" cy="{local_y}" r="{circle_r}"></circle>
-                <text x="{text_x}" y="{local_y + 8}" text-anchor="{text_anchor}" class="font-sans {text_class}">{item_text}</text>
+                {text_content}
             </g>
             '''
             stage_group.append(item_html)

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크롤 중앙 영역 디버깅</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        /* 화면 중앙 영역 표시 (30%-70%) */
+        #viewport-indicator {
+            position: fixed;
+            left: 0;
+            top: 30%;
+            width: 100%;
+            height: 40%; /* 30%-70% = 40% */
+            background: rgba(0, 255, 0, 0.1);
+            border-top: 2px solid lime;
+            border-bottom: 2px solid lime;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        #viewport-indicator::before {
+            content: '활성화 영역 (30%-70%)';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 255, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        /* 테스트 아이템들 */
+        .test-section {
+            height: 300vh;
+            padding: 50px 0;
+        }
+        
+        .test-item {
+            margin: 150px auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            background: rgba(50, 50, 50, 0.5);
+            border: 2px solid #666;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .test-item.active {
+            background: rgba(255, 215, 0, 0.3);
+            border-color: gold;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .test-item h2 {
+            margin-bottom: 10px;
+        }
+        
+        .test-item .position-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* 디버그 정보 패널 */
+        #debug-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 10000;
+            max-width: 300px;
+        }
+        
+        #debug-panel div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="viewport-indicator"></div>
+    
+    <div id="debug-panel">
+        <div><strong>디버그 정보</strong></div>
+        <div>뷰포트 높이: <span id="viewport-height">-</span>px</div>
+        <div>30% 지점: <span id="pos-30">-</span>px</div>
+        <div>70% 지점: <span id="pos-70">-</span>px</div>
+        <div>스크롤 위치: <span id="scroll-pos">-</span>px</div>
+    </div>
+    
+    <div class="test-section">
+        <h1 style="text-align: center; margin: 50px 0;">스크롤 중앙 영역 테스트</h1>
+        
+        <div class="test-item" data-index="1">
+            <h2>테스트 아이템 1</h2>
+            <p>이 아이템이 녹색 영역(30%-70%)에 들어오면 금색으로 빛납니다.</p>
+            <div class="position-info">위치: <span class="item-pos">-</span></div>
+        </div>
+        
+        <div class="test-item" data-index="2">
+            <h2>테스트 아이템 2</h2>
+            <p>IntersectionObserver로 감지됩니다.</p>
+            <div class="position-info">위치: <span class="item-pos">-</span></div>
+        </div>
+        
+        <div class="test-item" data-index="3">
+            <h2>테스트 아이템 3</h2>
+            <p>rootMargin: '-30% 0px -30% 0px'</p>
+            <div class="position-info">위치: <span class="item-pos">-</span></div>
+        </div>
+        
+        <div class="test-item" data-index="4">
+            <h2>테스트 아이템 4</h2>
+            <p>빠른 스크롤 테스트</p>
+            <div class="position-info">위치: <span class="item-pos">-</span></div>
+        </div>
+        
+        <div class="test-item" data-index="5">
+            <h2>테스트 아이템 5</h2>
+            <p>마지막 테스트 아이템</p>
+            <div class="position-info">위치: <span class="item-pos">-</span></div>
+        </div>
+    </div>
+    
+    <script>
+        // 디버그 정보 업데이트
+        function updateDebugInfo() {
+            const viewportHeight = window.innerHeight;
+            const scrollPos = window.scrollY;
+            
+            document.getElementById('viewport-height').textContent = viewportHeight;
+            document.getElementById('pos-30').textContent = Math.round(viewportHeight * 0.3);
+            document.getElementById('pos-70').textContent = Math.round(viewportHeight * 0.7);
+            document.getElementById('scroll-pos').textContent = Math.round(scrollPos);
+            
+            // 각 아이템의 위치 표시
+            document.querySelectorAll('.test-item').forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const center = rect.top + rect.height / 2;
+                const posInfo = item.querySelector('.item-pos');
+                posInfo.textContent = `중앙: ${Math.round(center)}px (뷰포트 ${Math.round(center / viewportHeight * 100)}%)`;
+            });
+        }
+        
+        // IntersectionObserver 설정 (현재 코드와 동일)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                console.log(`아이템 ${entry.target.dataset.index}: ${entry.isIntersecting ? '활성화' : '비활성화'}`);
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, {
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+            rootMargin: '-30% 0px -30% 0px'  // 현재 설정
+        });
+        
+        // 모든 테스트 아이템 관찰
+        document.querySelectorAll('.test-item').forEach(item => {
+            observer.observe(item);
+        });
+        
+        // 스크롤 이벤트
+        window.addEventListener('scroll', updateDebugInfo);
+        window.addEventListener('resize', updateDebugInfo);
+        
+        // 초기 업데이트
+        updateDebugInfo();
+    </script>
+</body>
+</html>
