@@ -59,8 +59,8 @@
             }
 
             50% {
-                transform: scale(1.02);
-                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+                transform: scale(1.006);
+                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
             }
         }
 
@@ -1293,7 +1293,7 @@
                     });
 
                     // Final HAPPINESS node (center-side) alignment and placement
-                    const MOBILE_HAPPINESS_GAP = 220;
+                    const MOBILE_HAPPINESS_GAP = MOBILE_ITEM_GAP;
                     const happinessY = currentY - MOBILE_STAGE_PAD + MOBILE_HAPPINESS_GAP;
                     const happinessNodes = svg.querySelectorAll('.sequence-item.center-side[data-index="106"]');
                     happinessNodes.forEach(node => {
