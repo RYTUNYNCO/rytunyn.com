@@ -1170,15 +1170,17 @@
                         line.classList.add('flow-connector');
                         flowGroup.appendChild(line);
 
-                        // 움직이는 점 (3개로 증가 - 더 자주 분포)
+                        // 움직이는 점 (더 많은 점으로 밀도 증가)
                         const lineLength = y2 - y1 - 160;
-                        for (let i = 0; i < 3; i++) {
+                        const dotCount = 7;
+                        const segmentCount = dotCount + 1;
+                        for (let i = 0; i < dotCount; i++) {
                             const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                             dot.setAttribute('cx', centerX);
-                            dot.setAttribute('cy', y1 + 100 + (i * (lineLength / 4)));
+                            dot.setAttribute('cy', y1 + 100 + (i * (lineLength / segmentCount)));
                             dot.setAttribute('r', '4');
                             dot.classList.add('flow-dot');
-                            dot.style.animationDelay = `${i * 0.8}s`;
+                            dot.style.animationDelay = `${i * 0.5}s`;
                             flowGroup.appendChild(dot);
                         }
                     }
