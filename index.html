@@ -1099,7 +1099,7 @@
                     });
                 }, {
                     threshold: 0.1,
-                    rootMargin: '-50% 0px -15% 0px'  // Bottom Half Focus: Top is cutoff at 50%
+                    rootMargin: '-30% 0px -30% 0px'  // Center Focus: Active in middle 40% of viewport
                 });
 
                 items.forEach(item => observer.observe(item));
@@ -1108,8 +1108,8 @@
                 items.forEach(item => {
                     ScrollTrigger.create({
                         trigger: item,
-                        start: "top 85%",
-                        end: "bottom 50%", // Deactivate EXACTLY at center
+                        start: "center 70%", // Activate when element CENTER hits 70% of viewport (lower-middle)
+                        end: "center 30%", // Deactivate when element CENTER hits 30% of viewport (upper-middle)
                         toggleClass: "active",
                         invalidateOnRefresh: true
                     });
