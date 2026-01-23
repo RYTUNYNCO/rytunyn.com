@@ -306,6 +306,30 @@
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
         }
 
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.55);
+            color: #FFF;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .lang-toggle:hover {
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+        }
+
         .logo-svg {
             width: 100%;
             height: 100%;
@@ -425,6 +449,13 @@
                 top: 12px;
                 left: 12px;
             }
+
+            .lang-toggle {
+                top: 12px;
+                right: 12px;
+                font-size: 11px;
+                padding: 6px 12px;
+            }
         }
     </style>
 </head>
@@ -444,6 +475,7 @@
 </g>
 </svg>
 </a>
+<button class="lang-toggle" id="lang-toggle" type="button" aria-label="Toggle language">KR</button>
 <div class="svg-container">
 <svg id="main-svg" preserveaspectratio="xMidYMin meet" viewbox="0 0 1000 13550" xmlns="http://www.w3.org/2000/svg">
 <defs>
@@ -1038,31 +1070,6 @@
 <circle cx="500" cy="550" r="4"></circle>
 <text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">Rewiring the Heart</text>
 </g>
-<g class="sequence-item left-side" data-index="101" data-y="650">
-<line x1="500" x2="450" y1="650" y2="650"></line>
-<circle cx="500" cy="650" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="658">Archetypal Meaning</text>
-</g>
-<g class="sequence-item right-side" data-index="102" data-y="750">
-<line x1="500" x2="550" y1="750" y2="750"></line>
-<circle cx="500" cy="750" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="758">The Intergenerational Pact</text>
-</g>
-<g class="sequence-item left-side" data-index="103" data-y="850">
-<line x1="500" x2="450" y1="850" y2="850"></line>
-<circle cx="500" cy="850" r="3"></circle>
-<text class="font-sans text-item" text-anchor="end" x="440" y="858">The Beauty of Flaws</text>
-</g>
-<g class="sequence-item right-side" data-index="104" data-y="950">
-<line x1="500" x2="550" y1="950" y2="950"></line>
-<circle cx="500" cy="950" r="3"></circle>
-<text class="font-sans text-item" text-anchor="start" x="560" y="958">The Great Surrender</text>
-</g>
-<g class="sequence-item left-side" data-index="105" data-y="1050">
-<line x1="500" x2="450" y1="1050" y2="1050"></line>
-<circle cx="500" cy="1050" r="4"></circle>
-<text class="font-sans text-item-bold" text-anchor="end" x="440" y="1058">The Ultimate Convergence</text>
-</g>
 </g><g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
 <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
 <circle cx="500" cy="0" fill="#111" r="50"></circle>
@@ -1086,6 +1093,301 @@
         document.addEventListener("DOMContentLoaded", () => {
 
             gsap.registerPlugin(ScrollTrigger);
+
+            const langToggle = document.getElementById('lang-toggle');
+            const storedLang = localStorage.getItem('lang');
+            const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+            let currentLang = storedLang || (browserLang.startsWith('ko') ? 'ko' : 'en');
+
+            const enStageTitles = [
+                "Phase 1: Deconstruction & Awakening (Identity Shock)",
+                "Phase 2: Instrumental Armament (The Harness Architecture)",
+                "Phase 3: Empathy & Symbiosis (The Human Connection)",
+                "Phase 4: Design & Creation (Project Architecting)",
+                "Phase 5: System & Transcendence (Engineering Happiness)"
+            ];
+
+            const koStageTitles = [
+                "1단계: 해체와 자각 (Identity Shock)",
+                "2단계: 도구적 무장 (The Harness Architecture)",
+                "3단계: 공감과 공생 (The Human Connection)",
+                "4단계: 설계와 창조 (Project Architecting)",
+                "5단계: 시스템과 초월 (Engineering Happiness)"
+            ];
+
+            const koItems = {
+                1: "거울의 역설",
+                2: "데이터 대 지혜",
+                3: "디지털 이형증",
+                4: "중년의 재발견",
+                5: "감정의 입자도",
+                6: "탈학습 프로토콜",
+                7: "지루함의 용기",
+                8: "알고리즘 자아 분리",
+                9: "취약함이라는 API",
+                10: "질문하는 인간",
+                11: "신뢰의 위기",
+                12: "공감 결핍의 사회",
+                13: "알고리즘 편향에 맞서기",
+                14: "프라이버시의 역설",
+                15: "디지털 시민권",
+                16: "주목 경제",
+                17: "디지털 마을 회관",
+                18: "보편적 기본 의미",
+                19: "도구의 주인 vs 노예",
+                20: "글로컬라이제이션",
+                21: "직업의 종말",
+                22: "게으른 천재의 시대",
+                23: "허락받지 않는 권력",
+                24: "진정성 프리미엄",
+                25: "외계인과의 협업",
+                26: "안전지대의 위험성",
+                27: "전문가의 죽음",
+                28: "자동화와 딥 워크",
+                29: "레거시 빌딩",
+                30: "창작의 민주화",
+                31: "세컨드 브레인",
+                32: "자동화 아니면 도태",
+                33: "체크리스트 선언",
+                34: "보이스 퍼스트",
+                35: "비가시의 시각화",
+                36: "완료의 미학",
+                37: "비동기 커뮤니케이션",
+                38: "주간 리뷰의 힘",
+                39: "제약의 혁신",
+                40: "무한 아카이브",
+                41: "필터 버블 가족",
+                42: "우정의 불황",
+                43: "디지털 미니멀리즘",
+                44: "AI 중재자",
+                45: "세대 간 디지털 통역",
+                46: "안티 프래자일 육아",
+                47: "경청의 기술",
+                48: "데이트 알고리즘 해킹",
+                49: "내면 아이 재양육",
+                50: "디지털 유산",
+                51: "소매틱 앵커링",
+                52: "도파민 단식",
+                53: "정량화 vs 직관",
+                54: "블루라이트 수면법",
+                55: "걷기의 철학",
+                56: "비교의 덫",
+                57: "AI 주치의",
+                58: "자연이라는 리셋",
+                59: "중년의 신경가소성",
+                60: "메멘토 모리",
+                61: "유사성의 힘",
+                62: "호기심의 나침반",
+                63: "소크라테스 AI",
+                64: "마이크로 러닝",
+                65: "40세의 인턴",
+                66: "가르치며 배우기",
+                67: "큐레이션이 창조다",
+                68: "편향의 탈학습",
+                69: "메이커 교육",
+                70: "연결 지능(CQ)",
+                71: "빈 페이지의 공포",
+                72: "취향이 재능이다",
+                73: "오류의 미학",
+                74: "리믹스 컬처",
+                75: "3D 스토리텔링",
+                76: "단 한 명의 관객",
+                77: "방구석 유니버스",
+                78: "피드백 루프",
+                79: "저작권과 독창성",
+                80: "효율의 미학",
+                81: "롱테일 경제",
+                82: "수동적 소득의 진실",
+                83: "크리에이터 이코노미",
+                84: "가장 높은 ROI",
+                85: "디지털 미니멀 소비",
+                86: "자동화된 재무",
+                87: "가치 소비",
+                88: "선물 경제",
+                89: "은퇴의 종말",
+                90: "풍요의 마인드셋",
+                91: "기계 속의 유령",
+                92: "디지털 불멸",
+                93: "명상 2.0",
+                94: "조망 효과",
+                95: "감사의 알고리즘",
+                96: "영웅의 여정",
+                97: "미래를 위한 봉사",
+                98: "급진적 수용",
+                99: "위대한 전개",
+                100: "최후의 연결"
+            };
+
+            const enItems = {
+                1: "The Mirror Paradox",
+                2: "Data vs. Wisdom",
+                3: "Digital Dysmorphia",
+                4: "The Midlife Renaissance",
+                5: "Emotional Granularity",
+                6: "The Unlearning Protocol",
+                7: "The Courage to be Bored",
+                8: "Decoupling the Algorithmic Self",
+                9: "Vulnerability as an API",
+                10: "The Questioning Human",
+                11: "The Crisis of Trust",
+                12: "Empathy Deficit Disorder",
+                13: "Countering Algorithmic Bias",
+                14: "The Privacy Paradox",
+                15: "Digital Citizenship",
+                16: "The Attention Economy",
+                17: "The Digital Town Hall",
+                18: "Universal Basic Meaning",
+                19: "Master of Tools vs. Slave to Tools",
+                20: "Glocalization",
+                21: "The End of Jobs",
+                22: "Era of the Lazy Genius",
+                23: "Permissionless Power",
+                24: "The Authenticity Premium",
+                25: "Collaborating with Alien Intelligence",
+                26: "The Danger of Comfort Zones",
+                27: "The Death of the \"Expert\"",
+                28: "Automation & Deep Work",
+                29: "Legacy Building",
+                30: "Democratization of Creation",
+                31: "Building a Second Brain",
+                32: "Automate or Die",
+                33: "The Checklist Manifesto",
+                34: "Voice-First Interface",
+                35: "Visualizing the Invisible",
+                36: "The Aesthetics of Completion",
+                37: "Asynchronous Communication",
+                38: "The Power of Weekly Review",
+                39: "Innovation via Constraints",
+                40: "The Infinite Archive",
+                41: "The Filter Bubble Family",
+                42: "The Friendship Recession",
+                43: "Digital Minimalism",
+                44: "The AI Mediator",
+                45: "Intergenerational Digital Translation",
+                46: "Antifragile Parenting",
+                47: "The Art of Active Listening",
+                48: "Hacking the Dating Algorithm",
+                49: "Reparenting the Inner Child",
+                50: "Digital Legacy",
+                51: "Somatic Anchoring",
+                52: "Dopamine Fasting",
+                53: "Quantified Self vs. Intuition",
+                54: "Blue-Light Sleep Protocol",
+                55: "The Philosophy of Walking",
+                56: "The Comparison Trap",
+                57: "The AI Physician",
+                58: "Nature as a Reset Button",
+                59: "Midlife Neuroplasticity",
+                60: "Memento Mori",
+                61: "The Power of Similarity",
+                62: "The Compass of Curiosity",
+                63: "Socratic AI",
+                64: "Micro-Learning",
+                65: "The 40-Year-Old Intern",
+                66: "Learning by Teaching",
+                67: "Curation is Creation",
+                68: "Unlearning Bias",
+                69: "Maker Education",
+                70: "Connection Intelligence (CQ)",
+                71: "Fear of the Blank Page",
+                72: "Taste is Talent",
+                73: "The Aesthetics of Error",
+                74: "Remix Culture",
+                75: "3D Storytelling",
+                76: "Audience of One",
+                77: "The Bedroom Universe",
+                78: "The Feedback Loop",
+                79: "Copyright & Originality",
+                80: "The Aesthetics of Efficiency",
+                81: "The Long Tail Economy",
+                82: "The Truth About Passive Income",
+                83: "The Creator Economy",
+                84: "The Highest ROI",
+                85: "Digital Minimal Consumption",
+                86: "Automated Finance",
+                87: "Value-Based Consumption",
+                88: "The Gift Economy",
+                89: "The End of Retirement",
+                90: "Abundance Mindset",
+                91: "Ghost in the Machine",
+                92: "Digital Immortality",
+                93: "Meditation 2.0",
+                94: "The Overview Effect",
+                95: "The Algorithm of Gratitude",
+                96: "The Hero's Journey",
+                97: "Service for the Future",
+                98: "Radical Acceptance",
+                99: "The Grand Unfolding",
+                100: "The Final Connection"
+            };
+
+            function applyKoreanContent() {
+                const stageTitles = document.querySelectorAll('[id^="stage-"] .text-stage');
+                stageTitles.forEach((titleEl, index) => {
+                    if (koStageTitles[index]) {
+                        titleEl.textContent = koStageTitles[index];
+                    }
+                });
+
+                const items = document.querySelectorAll('.sequence-item[data-index]');
+                items.forEach(item => {
+                    const index = Number(item.getAttribute('data-index'));
+                    const textValue = koItems[index];
+                    if (!textValue) return;
+
+                    const textEl = item.querySelector('text');
+                    if (!textEl) return;
+
+                    while (textEl.firstChild) {
+                        textEl.removeChild(textEl.firstChild);
+                    }
+                    textEl.textContent = textValue;
+                });
+            }
+
+            function applyEnglishContent() {
+                const stageTitles = document.querySelectorAll('[id^="stage-"] .text-stage');
+                stageTitles.forEach(titleEl => {
+                    const index = Array.from(stageTitles).indexOf(titleEl);
+                    if (enStageTitles[index]) {
+                        titleEl.textContent = enStageTitles[index];
+                    }
+                });
+
+                const items = document.querySelectorAll('.sequence-item[data-index]');
+                items.forEach(item => {
+                    const textEl = item.querySelector('text');
+                    if (!textEl) return;
+                    const index = Number(item.getAttribute('data-index'));
+                    const textValue = enItems[index];
+                    if (!textValue) return;
+
+                    while (textEl.firstChild) {
+                        textEl.removeChild(textEl.firstChild);
+                    }
+                    textEl.textContent = textValue;
+                });
+            }
+
+            function setLanguage(lang) {
+                currentLang = lang;
+                localStorage.setItem('lang', lang);
+                if (lang === 'ko') {
+                    applyKoreanContent();
+                    if (langToggle) langToggle.textContent = 'EN';
+                } else {
+                    applyEnglishContent();
+                    if (langToggle) langToggle.textContent = 'KR';
+                }
+            }
+
+            setLanguage(currentLang);
+
+            if (langToggle) {
+                langToggle.addEventListener('click', () => {
+                    setLanguage(currentLang === 'ko' ? 'en' : 'ko');
+                });
+            }
 
             // ScrollTrigger 초기화 함수 (레이아웃 최적화 후 호출됨)
             function initScrollAnimation() {
