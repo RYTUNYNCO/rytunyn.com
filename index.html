@@ -1096,8 +1096,20 @@
 
             const langToggle = document.getElementById('lang-toggle');
             const storedLang = localStorage.getItem('lang');
-            const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-            let currentLang = storedLang || (browserLang.startsWith('ko') ? 'ko' : 'en');
+
+            function detectBrowserLang() {
+                const rawLangs = (navigator.languages && navigator.languages.length)
+                    ? navigator.languages
+                    : [navigator.language || navigator.userLanguage || 'en'];
+                const normalized = rawLangs.map(lang => String(lang).toLowerCase());
+                const match = normalized.find(lang => lang.startsWith('ko') || lang.startsWith('en'));
+                return match && match.startsWith('ko') ? 'ko' : 'en';
+            }
+
+            const initialLang = (storedLang === 'ko' || storedLang === 'en')
+                ? storedLang
+                : detectBrowserLang();
+            let currentLang = initialLang;
 
             const enStageTitles = [
                 "Phase 1: Deconstruction & Awakening (Identity Shock)",
@@ -1372,6 +1384,7 @@
             function setLanguage(lang) {
                 currentLang = lang;
                 localStorage.setItem('lang', lang);
+                document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
                 if (lang === 'ko') {
                     applyKoreanContent();
                     if (langToggle) langToggle.textContent = 'EN';
