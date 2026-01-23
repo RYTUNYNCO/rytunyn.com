@@ -1,6 +1,7 @@
 <html lang="en" data-google-analytics-opt-out=""><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>RYTUNYN : ARCHITECT OF HAPPINESS</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@200;400;600;800&display=swap');
@@ -80,22 +81,34 @@
             stroke-width: 1;
         }
 
-        /* Active State */
-        .sequence-item.active text,
-        .sequence-item:hover text {
+        /* Active State - High Specificity */
+        svg .sequence-item.active text,
+        svg .sequence-item:hover text,
+        svg g.sequence-item.active text,
+        svg g.sequence-item:hover text {
             fill: #FFFFFF !important;
             opacity: 1 !important;
-            text-shadow: 
-                0 0 10px rgba(0,0,0, 1), /* Strong outline against axis line */
-                0 0 20px rgba(255, 255, 255, 0.6); /* Glow */
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) 
+                    drop-shadow(0 0 25px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 50px rgba(255, 255, 255, 0.4)) !important;
             letter-spacing: 0.05em;
         }
         
-        .sequence-item.active circle,
-        .sequence-item:hover circle {
-            r: 8; /* Larger nodes on active */
-            fill: #FFFFFF;
-            filter: drop-shadow(0 0 15px #FFF);
+        svg .sequence-item.active circle,
+        svg .sequence-item:hover circle,
+        svg g.sequence-item.active circle,
+        svg g.sequence-item:hover circle {
+            fill: #FFFFFF !important;
+            filter: drop-shadow(0 0 15px #FFF) drop-shadow(0 0 35px rgba(255,255,255,0.6)) !important;
+        }
+        
+        svg .sequence-item.active line,
+        svg .sequence-item:hover line,
+        svg g.sequence-item.active line,
+        svg g.sequence-item:hover line {
+            stroke: #FFFFFF !important;
+            stroke-width: 2 !important;
+            filter: drop-shadow(0 0 12px rgba(255,255,255,0.7)) !important;
         }
 
         /* Fonts */
@@ -108,6 +121,53 @@
         .text-item { font-size: 20px; letter-spacing: 0.05em; font-weight: 400; }
         .text-item-bold { font-size: 28px; letter-spacing: -0.02em; font-weight: 700; }
         .text-footer { font-size: 24px; letter-spacing: 0.1em; }
+
+        /* Footer Styles */
+        .footer-text {
+            transition: all 0.3s ease;
+        }
+        .footer-link {
+            cursor: pointer;
+        }
+        .footer-email:hover .footer-link {
+            fill: #FFFFFF !important;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.5));
+        }
+        #footer-group text:hover {
+            fill: #FFFFFF !important;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.5));
+        }
+
+        /* Fixed Logo Styles */
+        .fixed-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 50px;
+            height: 50px;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .fixed-logo:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.6));
+        }
+        .logo-svg {
+            width: 100%;
+            height: 100%;
+        }
+        .logo-line {
+            opacity: 0;
+            animation: logo-draw 0.5s ease forwards;
+        }
+        .logo-line-1 { animation-delay: 0.2s; }
+        .logo-line-2 { animation-delay: 0.5s; }
+        .logo-line-3 { animation-delay: 0.8s; }
+        @keyframes logo-draw {
+            0% { opacity: 0; transform: translateX(-10px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
 
         .stage-line {
             stroke-dasharray: 10;
@@ -174,7 +234,6 @@
             .text-footer { font-size: 24px !important; }
             
             /* Animation */
-            .sequence-item.active text {
                 transform: scale(1.05); 
                 transition: transform 0.5s ease;
             }
@@ -182,6 +241,21 @@
     </style>
 </head>
 <body>
+
+<!-- Fixed Logo -->
+<a href="/" class="fixed-logo" aria-label="RYTUNYN Home">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -6.8988 32 32" class="logo-svg">
+        <g class="logo-line logo-line-1">
+            <polygon points="28.5 0 13.3 0 11.8 2.2 26.9 2.2 28.5 0" fill="#FFFFFF"/>
+        </g>
+        <g class="logo-line logo-line-2">
+            <polygon points="26.4 3 23.7 3 21 6.8 8.6 6.8 3.8 0 1.1 0 6.7 8 3.2 13 5.9 13 8.6 9.2 21 9.2 25.9 16 28.5 16 22.9 8 26.4 3" fill="#FFFFFF"/>
+        </g>
+        <g class="logo-line logo-line-3">
+            <polygon points="1.1 16 16.3 16 17.8 13.8 2.7 13.8 1.1 16" fill="#FFFFFF"/>
+        </g>
+    </svg>
+</a>
 
 <div class="svg-container">
     <svg id="main-svg" viewBox="0 0 800 4200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
@@ -198,6 +272,16 @@
                 <stop offset="50%" style="stop-color:#FFF;stop-opacity:1"></stop>
                 <stop offset="100%" style="stop-color:#FFF;stop-opacity:0"></stop>
             </linearGradient>
+            <!-- Glow filter for active elements -->
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
         </defs>
 
         <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
@@ -439,38 +523,119 @@
 
         <!-- FOOTER -->
         <g id="footer-group" transform="translate(0, 4100)">
-            <line x1="350" y1="0" x2="450" y2="0" stroke="#555" stroke-width="1"></line>
-            <text x="400" y="30" text-anchor="middle" fill="#444" font-size="24" class="font-sans text-footer">RYTUNYN © 2026</text>
-            <a href="mailto:rytunyn@rytunyn.com" style="cursor: pointer;">
-                <text x="400" y="60" text-anchor="middle" fill="#666" font-size="24" class="font-sans text-footer" letter-spacing="0.1em">rytunyn@rytunyn.com</text>
+            <!-- Decorative Line -->
+            <line x1="200" y1="0" x2="600" y2="0" stroke="url(#grad-gold)" stroke-width="1" opacity="0.6"></line>
+            
+            <!-- Copyright -->
+            <text x="400" y="45" text-anchor="middle" fill="#555" font-size="11" class="font-sans footer-text" letter-spacing="0.15em">RYTUNYN 2026</text>
+            
+            <!-- Email Link -->
+            <a href="mailto:rytunyn@rytunyn.com" class="footer-email">
+                <text x="400" y="75" text-anchor="middle" fill="#666" font-size="10" class="font-sans footer-text footer-link" letter-spacing="0.1em">rytunyn@rytunyn.com</text>
             </a>
+            
+            <!-- Bottom decorative line -->
+            <line x1="320" y1="100" x2="480" y2="100" stroke="#333" stroke-width="1" opacity="0.4"></line>
         </g>
 
     </svg>
 </div>
 
+<!-- GSAP & ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         
-        /* 1. INTERACTION ENGINE */
-        const observerOptions = {
-            root: null,
-            rootMargin: "-45% 0px -45% 0px",
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
+        gsap.registerPlugin(ScrollTrigger);
+        
+        const items = document.querySelectorAll('.sequence-item');
+        
+        items.forEach(item => {
+            const texts = item.querySelectorAll('text');
+            const circles = item.querySelectorAll('circle');
+            const lines = item.querySelectorAll('line');
+            
+            // Set initial state
+            gsap.set(texts, { attr: { fill: '#555', opacity: 0.3 } });
+            gsap.set(circles, { attr: { fill: '#333' } });
+            gsap.set(lines, { attr: { stroke: '#333', 'stroke-width': 1 } });
+            
+            ScrollTrigger.create({
+                trigger: item,
+                start: "top 70%",
+                end: "bottom 30%",
+                onEnter: () => {
+                    gsap.to(texts, { 
+                        attr: { fill: '#FFFFFF', opacity: 1 }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    gsap.to(circles, { 
+                        attr: { fill: '#FFFFFF' }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    gsap.to(lines, { 
+                        attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    item.classList.add('active');
+                },
+                onLeave: () => {
+                    gsap.to(texts, { 
+                        attr: { fill: '#555', opacity: 0.3 }, 
+                        duration: 0.4 
+                    });
+                    gsap.to(circles, { 
+                        attr: { fill: '#333' }, 
+                        duration: 0.4 
+                    });
+                    gsap.to(lines, { 
+                        attr: { stroke: '#333', 'stroke-width': 1 }, 
+                        duration: 0.4 
+                    });
+                    item.classList.remove('active');
+                },
+                onEnterBack: () => {
+                    gsap.to(texts, { 
+                        attr: { fill: '#FFFFFF', opacity: 1 }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    gsap.to(circles, { 
+                        attr: { fill: '#FFFFFF' }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    gsap.to(lines, { 
+                        attr: { stroke: '#FFFFFF', 'stroke-width': 2 }, 
+                        duration: 0.4,
+                        ease: "power2.out"
+                    });
+                    item.classList.add('active');
+                },
+                onLeaveBack: () => {
+                    gsap.to(texts, { 
+                        attr: { fill: '#555', opacity: 0.3 }, 
+                        duration: 0.4 
+                    });
+                    gsap.to(circles, { 
+                        attr: { fill: '#333' }, 
+                        duration: 0.4 
+                    });
+                    gsap.to(lines, { 
+                        attr: { stroke: '#333', 'stroke-width': 1 }, 
+                        duration: 0.4 
+                    });
+                    item.classList.remove('active');
                 }
             });
-        }, observerOptions);
-
-        const items = document.querySelectorAll('.sequence-item');
-        items.forEach(item => observer.observe(item));
+        });
+        
+        console.log('GSAP ScrollTrigger initialized. Items found:', items.length);
 
         /* 2. LAYOUT ENGINE (Mobile Centering) */
         function optimizeLayoutForMobile() {
