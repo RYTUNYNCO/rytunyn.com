@@ -1080,43 +1080,48 @@
 
             gsap.registerPlugin(ScrollTrigger);
 
-            const items = document.querySelectorAll('.sequence-item');
+            // ScrollTrigger 초기화 함수 (레이아웃 최적화 후 호출됨)
+            function initScrollAnimation() {
+                const items = document.querySelectorAll('.sequence-item');
 
-            // 터치 디바이스 감지
-            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                // 터치 디바이스 감지
+                const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-            if (isTouchDevice) {
-                // 터치 디바이스: IntersectionObserver 사용 (Balanced Focus)
-                console.log('Touch device detected: Using IntersectionObserver fallback (Balanced)');
+                if (isTouchDevice) {
+                    // 터치 디바이스: IntersectionObserver 사용 (Center Focus)
+                    console.log('Touch device detected: Using IntersectionObserver fallback');
 
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('active');
-                        } else {
-                            entry.target.classList.remove('active');
-                        }
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                            } else {
+                                entry.target.classList.remove('active');
+                            }
+                        });
+                    }, {
+                        threshold: 0.1,
+                        rootMargin: '-20% 0px -20% 0px'  // Center Focus: Active in middle 60% of viewport
                     });
-                }, {
-                    threshold: 0.1,
-                    rootMargin: '-20% 0px -20% 0px'  // Center Focus: Active in middle 60% of viewport
-                });
 
-                items.forEach(item => observer.observe(item));
-            } else {
-                // 비터치 디바이스: GSAP ScrollTrigger 사용 (Balanced Focus)
-                items.forEach(item => {
-                    ScrollTrigger.create({
-                        trigger: item,
-                        start: "center 80%", // Activate when element CENTER hits 80% of viewport
-                        end: "center 20%", // Deactivate when element CENTER hits 20% of viewport
-                        toggleClass: "active",
-                        invalidateOnRefresh: true
+                    items.forEach(item => observer.observe(item));
+                } else {
+                    // 비터치 디바이스: GSAP ScrollTrigger 사용 (Center Focus)
+                    items.forEach(item => {
+                        ScrollTrigger.create({
+                            trigger: item,
+                            start: "center 80%", // Activate when element CENTER hits 80% of viewport
+                            end: "center 20%", // Deactivate when element CENTER hits 20% of viewport
+                            toggleClass: "active",
+                            invalidateOnRefresh: true
+                        });
                     });
-                });
+                }
+
+                console.log('Scroll animation initialized. Items found:', items.length, '| Touch device:', isTouchDevice);
             }
 
-            console.log('Scroll animation initialized. Items found:', items.length, '| Touch device:', isTouchDevice);
+            // initScrollAnimation은 레이아웃 최적화 후 호출됨 (아래에서 setTimeout으로 호출)
 
             /* 모바일 흐르는 연결선 생성 함수 */
             function addFlowConnectors(svg, centerX) {
@@ -1295,11 +1300,12 @@
 
             optimizeLayoutForMobile();
 
-            // 모바일 레이아웃 변경 후 ScrollTrigger 재계산
+            // 모바일 레이아웃 변경 후 ScrollTrigger 초기화
             setTimeout(() => {
+                initScrollAnimation();  // 레이아웃 완료 후 초기화
                 ScrollTrigger.refresh();
-                console.log('ScrollTrigger refreshed');
-            }, 200);
+                console.log('Layout complete, ScrollTrigger initialized and refreshed');
+            }, 300);
         });
     </script>
 </body>
