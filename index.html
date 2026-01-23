@@ -1244,6 +1244,7 @@
                         const stageTitle = stageGroup.querySelector('.text-stage');
                         if (stageTitle) {
                             stageTitle.setAttribute('x', MOBILE_CENTER);
+                            stageTitle.setAttribute('text-anchor', 'middle');
                         }
 
                         // Center stage axis lines
@@ -1269,10 +1270,13 @@
                             const originalY = parseInt(item.getAttribute('data-y') || 0);
                             const shiftY = newItemY - originalY;
 
-                            // Center all text elements
+                            // Center all text elements (including multi-line tspans)
                             item.querySelectorAll('text').forEach(textEl => {
                                 textEl.setAttribute('x', MOBILE_CENTER);
                                 textEl.setAttribute('text-anchor', 'middle');
+                                textEl.querySelectorAll('tspan').forEach(tspan => {
+                                    tspan.setAttribute('x', MOBILE_CENTER);
+                                });
                             });
 
                             // Center circles
@@ -1288,12 +1292,30 @@
                         currentY += maxItemY + MOBILE_STAGE_PAD;
                     });
 
+                    // Final HAPPINESS node (center-side) alignment and placement
+                    const MOBILE_HAPPINESS_GAP = 220;
+                    const happinessY = currentY - MOBILE_STAGE_PAD + MOBILE_HAPPINESS_GAP;
+                    const happinessNodes = svg.querySelectorAll('.sequence-item.center-side[data-index="106"]');
+                    happinessNodes.forEach(node => {
+                        node.setAttribute('transform', `translate(0, ${happinessY})`);
+                        node.querySelectorAll('text').forEach(textEl => {
+                            textEl.setAttribute('x', MOBILE_CENTER);
+                            textEl.setAttribute('text-anchor', 'middle');
+                            textEl.querySelectorAll('tspan').forEach(tspan => {
+                                tspan.setAttribute('x', MOBILE_CENTER);
+                            });
+                        });
+                        node.querySelectorAll('circle').forEach(circle => {
+                            circle.setAttribute('cx', MOBILE_CENTER);
+                        });
+                    });
+
                     // 모바일 전용: 흐르는 연결선 추가
                     addFlowConnectors(svg, MOBILE_CENTER);
 
-                    // Footer는 마지막 항목과 더 가까이 배치 (MOBILE_STAGE_PAD 대신 작은 간격)
-                    const MOBILE_FOOTER_GAP = 80;
-                    const footerY = currentY - MOBILE_STAGE_PAD + MOBILE_FOOTER_GAP;
+                    // Footer는 HAPPINESS 아래에 배치
+                    const MOBILE_FOOTER_GAP = 180;
+                    const footerY = happinessY + MOBILE_FOOTER_GAP;
 
                     // Center footer elements
                     footer.setAttribute('transform', `translate(0, ${footerY})`);
