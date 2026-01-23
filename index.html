@@ -532,7 +532,7 @@
 <!-- STAGE 04 -->
 <!-- STAGE 05 -->
 <!-- FOOTER -->
-<g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
+<g class="sequence-item center-side" data-index="106" data-y="12150" transform="translate(0, 12150)">
 <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
 <circle cx="500" cy="0" fill="#111" r="50"></circle>
 <text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5">HAPPINESS</text>
@@ -543,7 +543,7 @@
 
 
 
-<g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
+<g class="sequence-item center-side" data-index="106" data-y="12150" transform="translate(0, 12150)">
 <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
 <circle cx="500" cy="0" fill="#111" r="50"></circle>
 <text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5">HAPPINESS</text>
@@ -1070,7 +1070,7 @@
 <circle cx="500" cy="550" r="4"></circle>
 <text class="font-sans text-item-bold" text-anchor="start" x="560" y="558">Rewiring the Heart</text>
 </g>
-</g><g class="sequence-item center-side" data-index="106" data-y="12850" transform="translate(0, 12850)">
+</g><g class="sequence-item center-side" data-index="106" data-y="12150" transform="translate(0, 12150)">
 <circle class="breathe" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
 <circle cx="500" cy="0" fill="#111" r="50"></circle>
 <text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5">HAPPINESS</text>
@@ -1589,6 +1589,8 @@
                     const MOBILE_STAGE_PAD = 600;
 
                     let currentY = 900;
+                    let lastStageBaseY = 0;
+                    let lastStageMaxItemY = 0;
 
                     const stages = [1, 2, 3, 4, 5];
 
@@ -1598,6 +1600,9 @@
 
                         // Move Stage
                         stageGroup.setAttribute('transform', `translate(0, ${currentY})`);
+                        if (stageNum === stages[stages.length - 1]) {
+                            lastStageBaseY = currentY;
+                        }
 
                         // Center stage title
                         const stageTitle = stageGroup.querySelector('.text-stage');
@@ -1648,12 +1653,16 @@
                             if (newItemY > maxItemY) maxItemY = newItemY;
                         });
 
+                        if (stageNum === stages[stages.length - 1]) {
+                            lastStageMaxItemY = maxItemY;
+                        }
+
                         currentY += maxItemY + MOBILE_STAGE_PAD;
                     });
 
                     // Final HAPPINESS node (center-side) alignment and placement
                     const MOBILE_HAPPINESS_GAP = MOBILE_ITEM_GAP;
-                    const happinessY = currentY - MOBILE_STAGE_PAD + MOBILE_HAPPINESS_GAP;
+                    const happinessY = lastStageBaseY + lastStageMaxItemY + MOBILE_HAPPINESS_GAP;
                     const happinessNodes = svg.querySelectorAll('.sequence-item.center-side[data-index="106"]');
                     happinessNodes.forEach(node => {
                         node.setAttribute('transform', `translate(0, ${happinessY})`);
