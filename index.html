@@ -1086,8 +1086,8 @@
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
             if (isTouchDevice) {
-                // 터치 디바이스: IntersectionObserver 사용 (Wide Center Focus)
-                console.log('Touch device detected: Using IntersectionObserver fallback (Wide Center)');
+                // 터치 디바이스: IntersectionObserver 사용 (Balanced Focus)
+                console.log('Touch device detected: Using IntersectionObserver fallback (Balanced)');
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -1099,17 +1099,17 @@
                     });
                 }, {
                     threshold: 0.1,
-                    rootMargin: '-30% 0px -30% 0px'  // Wide Center focus: Active in the middle 40%
+                    rootMargin: '-25% 0px -25% 0px'  // Balanced focus: Active in middle 50%
                 });
 
                 items.forEach(item => observer.observe(item));
             } else {
-                // 비터치 디바이스: GSAP ScrollTrigger 사용 (Wide Center Focus)
+                // 비터치 디바이스: GSAP ScrollTrigger 사용 (Balanced Focus)
                 items.forEach(item => {
                     ScrollTrigger.create({
                         trigger: item,
-                        start: "top 70%", // Activate earlier (lower on screen)
-                        end: "bottom 30%", // Deactivate later (higher on screen)
+                        start: "top 85%", // Activate early (near bottom)
+                        end: "bottom 35%", // Deactivate late (upper-middle)
                         toggleClass: "active",
                         invalidateOnRefresh: true
                     });
