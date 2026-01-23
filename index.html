@@ -1086,8 +1086,8 @@
             const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
             if (isTouchDevice) {
-                // 터치 디바이스: IntersectionObserver 사용 (네이티브 스크롤 이벤트와 완벽 호환)
-                console.log('Touch device detected: Using IntersectionObserver fallback');
+                // 터치 디바이스: IntersectionObserver 사용 (Centered Focus)
+                console.log('Touch device detected: Using IntersectionObserver fallback (Centered)');
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -1098,18 +1098,18 @@
                         }
                     });
                 }, {
-                    threshold: 0.3,  // 30% 이상 보이면 활성화
-                    rootMargin: '-10% 0px -10% 0px'  // 뷰포트 상하 10% 마진
+                    threshold: 0.1,
+                    rootMargin: '-45% 0px -45% 0px'  // Center focus: Active only in the middle 10%
                 });
 
                 items.forEach(item => observer.observe(item));
             } else {
-                // 비터치 디바이스: GSAP ScrollTrigger 사용
+                // 비터치 디바이스: GSAP ScrollTrigger 사용 (Centered Focus)
                 items.forEach(item => {
                     ScrollTrigger.create({
                         trigger: item,
-                        start: "top 95%",
-                        end: "bottom 5%",
+                        start: "top 55%", // Activate slightly below center
+                        end: "bottom 45%", // Deactivate slightly above center
                         toggleClass: "active",
                         invalidateOnRefresh: true
                     });
