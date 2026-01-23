@@ -85,12 +85,23 @@
 
         /* 모바일 흐르는 연결선 애니메이션 */
         .flow-connector {
-            stroke: #FFF;
+            stroke: url(#grad-flow);
             stroke-width: 2;
-            opacity: 0.4;
+            opacity: 0.45;
             stroke-dasharray: 15 20;
+            stroke-linecap: round;
             animation: flow-dash 3s linear infinite;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+        }
+
+        .flow-connector-trail {
+            stroke: url(#grad-flow);
+            stroke-width: 6;
+            opacity: 0.18;
+            stroke-dasharray: 40 60;
+            stroke-linecap: round;
+            animation: flow-dash 3s linear infinite;
+            filter: blur(0.6px) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
         }
 
         @keyframes flow-dash {
@@ -102,21 +113,26 @@
         .flow-dot {
             fill: #FFF;
             opacity: 0;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
+            animation: flow-dot-anim 5s ease-in-out infinite, flow-dot-pulse 3.2s ease-in-out infinite;
         }
 
         .flow-dot:nth-child(odd) {
-            animation: flow-dot-anim 5s ease-in-out infinite;
+            opacity: 0.85;
+            animation-duration: 4.8s, 3.2s;
         }
 
         .flow-dot:nth-child(even) {
-            animation: flow-dot-anim 5s ease-in-out infinite 2.5s;
+            opacity: 0.7;
+            animation-duration: 5.4s, 3.6s;
         }
 
         @keyframes flow-dot-anim {
             0% {
                 opacity: 0;
-                transform: translateY(0);
+                transform: translateY(0) scale(0.9);
             }
 
             10% {
@@ -129,7 +145,16 @@
 
             100% {
                 opacity: 0;
-                transform: translateY(120px);
+                transform: translateY(120px) scale(1.05);
+            }
+        }
+
+        @keyframes flow-dot-pulse {
+            0%, 100% {
+                transform: scale(0.95);
+            }
+            50% {
+                transform: scale(1.08);
             }
         }
 
@@ -432,6 +457,12 @@
 <stop offset="0%" style="stop-color:#FFF;stop-opacity:0"></stop>
 <stop offset="50%" style="stop-color:#FFF;stop-opacity:1"></stop>
 <stop offset="100%" style="stop-color:#FFF;stop-opacity:0"></stop>
+</lineargradient>
+<lineargradient id="grad-flow" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#FFF;stop-opacity:0.05"></stop>
+<stop offset="45%" style="stop-color:#FFF;stop-opacity:0.35"></stop>
+<stop offset="55%" style="stop-color:#FFF;stop-opacity:0.35"></stop>
+<stop offset="100%" style="stop-color:#FFF;stop-opacity:0.05"></stop>
 </lineargradient>
 <!-- Glow filter for active elements -->
 <filter height="200%" id="glow" width="200%" x="-50%" y="-50%">
@@ -1142,6 +1173,9 @@
                 const flowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                 flowGroup.setAttribute('id', 'flow-connectors');
 
+                const isMobileFlow = window.innerWidth <= 600;
+                const dotRadius = isMobileFlow ? 4 : 2.5;
+
                 items.forEach((item, index) => {
                     // 6개마다 하나씩만 선 표시 (더욱 여유롭게)
                     if (index % 6 !== 0) return;
@@ -1162,6 +1196,14 @@
                     // 연결선 길이가 충분할 때만 추가
                     if (y2 - y1 > 30) {
                         // 흐르는 점선 (여백 증가: 80px)
+                        const trail = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        trail.setAttribute('x1', centerX);
+                        trail.setAttribute('y1', y1 + 80);
+                        trail.setAttribute('x2', centerX);
+                        trail.setAttribute('y2', y2 - 80);
+                        trail.classList.add('flow-connector-trail');
+                        flowGroup.appendChild(trail);
+
                         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                         line.setAttribute('x1', centerX);
                         line.setAttribute('y1', y1 + 80);
@@ -1178,7 +1220,7 @@
                             const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                             dot.setAttribute('cx', centerX);
                             dot.setAttribute('cy', y1 + 100 + (i * (lineLength / segmentCount)));
-                            dot.setAttribute('r', '4');
+                            dot.setAttribute('r', String(dotRadius));
                             dot.classList.add('flow-dot');
                             dot.style.animationDelay = `${i * 0.5}s`;
                             flowGroup.appendChild(dot);
@@ -1332,6 +1374,10 @@
                     const totalHeight = currentY + 500;
                     axisLine.setAttribute('y2', totalHeight);
                     svg.setAttribute('viewBox', `0 0 800 ${totalHeight}`);
+                } else {
+                    const svg = document.getElementById('main-svg');
+                    const DESKTOP_CENTER = 500;
+                    addFlowConnectors(svg, DESKTOP_CENTER);
                 }
             }
 
