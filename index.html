@@ -89,99 +89,36 @@
             }
         }
 
-        .pulse {
-            animation: pulse-anim 4s infinite ease-in-out;
-        }
 
-        @keyframes pulse-anim {
-
-            0%,
-            100% {
-                r: 3;
-                opacity: 0.5;
-            }
-
-            50% {
-                r: 5;
-                opacity: 1;
-                stroke-width: 2px;
-            }
-        }
-
-        /* 모바일 흐르는 연결선 애니메이션 */
-        .flow-connector {
-            stroke: url(#grad-flow);
-            stroke-width: 2;
-            opacity: 0.45;
-            stroke-dasharray: 15 20;
+        .flow-line {
+            stroke: #FFF;
+            stroke-width: 1;
+            opacity: 0.75;
             stroke-linecap: round;
-            animation: flow-dash 3s linear infinite;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
-        }
-
-        .flow-connector-trail {
-            stroke: url(#grad-flow);
-            stroke-width: 6;
-            opacity: 0.18;
-            stroke-dasharray: 40 60;
-            stroke-linecap: round;
-            animation: flow-dash 3s linear infinite;
-            filter: blur(0.6px) drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
-        }
-
-        @keyframes flow-dash {
-            to {
-                stroke-dashoffset: -70;
-            }
-        }
-
-        .flow-dot {
-            fill: #FFF;
-            opacity: 0;
-            transform-box: fill-box;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+            animation: flow-fade 2s ease-in-out infinite;
             transform-origin: center;
-            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
-            animation: flow-dot-anim 5s ease-in-out infinite, flow-dot-pulse 3.2s ease-in-out infinite;
         }
 
-        .flow-dot:nth-child(odd) {
-            opacity: 0.85;
-            animation-duration: 4.8s, 3.2s;
-        }
 
-        .flow-dot:nth-child(even) {
-            opacity: 0.7;
-            animation-duration: 5.4s, 3.6s;
-        }
-
-        @keyframes flow-dot-anim {
+        @keyframes flow-fade {
             0% {
                 opacity: 0;
-                transform: translateY(0) scale(0.9);
             }
-
-            10% {
-                opacity: 0.9;
-            }
-
-            90% {
-                opacity: 0.9;
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(120px) scale(1.05);
-            }
-        }
-
-        @keyframes flow-dot-pulse {
-            0%, 100% {
-                transform: scale(0.95);
+            25% {
+                opacity: 0.6;
             }
             50% {
-                transform: scale(1.08);
+                opacity: 0.9;
+            }
+            75% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
             }
         }
+
 
         @keyframes fall {
             from {
@@ -559,7 +496,6 @@
 <!-- Scroll Indicator -->
 <g class="center-side">
 <path d="M 500 500 L 500 550" opacity="0.5" stroke="#FFF" stroke-width="2"></path>
-<circle class="pulse" cx="500" cy="555" fill="#FFF" r="4"></circle>
 </g>
 <!-- STAGE 01 -->
 <!-- STAGE 02 -->
@@ -1639,22 +1575,24 @@
 
             /* 모바일 흐르는 연결선 생성 함수 */
             function addFlowConnectors(svg, centerX, stopAtY) {
-                const items = svg.querySelectorAll('.sequence-item');
+                const items = Array.from(svg.querySelectorAll('.sequence-item[data-index]'))
+                    .filter(item => {
+                        const index = Number(item.getAttribute('data-index'));
+                        return index >= 1 && index <= 100;
+                    });
                 const flowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                 flowGroup.setAttribute('id', 'flow-connectors');
 
                 const isMobileFlow = window.innerWidth <= 600;
-                const dotRadius = isMobileFlow ? 4 : 2.5;
+                const circleRadius = isMobileFlow ? 4 : 3;
                 const stopPadding = 140;
                 const effectiveStopY = typeof stopAtY === 'number' ? (stopAtY - stopPadding) : null;
 
                 items.forEach((item, index) => {
-                    // 6개마다 하나씩만 선 표시 (더욱 여유롭게)
-                    if (index % 6 !== 0) return;
+                    if (index === items.length - 1) return;
 
                     const currentRect = item.getBoundingClientRect();
-                    const nextIndex = Math.min(index + 6, items.length - 1);
-                    const nextItem = items[nextIndex];
+                    const nextItem = items[index + 1];
                     const nextRect = nextItem.getBoundingClientRect();
 
                     // SVG 좌표계로 변환
@@ -1671,37 +1609,18 @@
                     }
 
                     // 연결선 길이가 충분할 때만 추가
-                    if (y2 - y1 > 30) {
-                        // 흐르는 점선 (여백 증가: 80px)
-                        const trail = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        trail.setAttribute('x1', centerX);
-                        trail.setAttribute('y1', y1 + 80);
-                        trail.setAttribute('x2', centerX);
-                        trail.setAttribute('y2', y2 - 80);
-                        trail.classList.add('flow-connector-trail');
-                        flowGroup.appendChild(trail);
-
+                    if (y2 - y1 > 40) {
+                        const midY = (y1 + y2) / 2;
                         const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                         line.setAttribute('x1', centerX);
-                        line.setAttribute('y1', y1 + 80);
+                        line.setAttribute('y1', midY - 25);
                         line.setAttribute('x2', centerX);
-                        line.setAttribute('y2', y2 - 80);
-                        line.classList.add('flow-connector');
+                        line.setAttribute('y2', midY + 25);
+                        line.classList.add('flow-line');
+                        line.style.animationDelay = `${(index % 12) * 0.12}s`;
                         flowGroup.appendChild(line);
 
-                        // 움직이는 점 (더 많은 점으로 밀도 증가)
-                        const lineLength = y2 - y1 - 160;
-                        const dotCount = 7;
-                        const segmentCount = dotCount + 1;
-                        for (let i = 0; i < dotCount; i++) {
-                            const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                            dot.setAttribute('cx', centerX);
-                            dot.setAttribute('cy', y1 + 100 + (i * (lineLength / segmentCount)));
-                            dot.setAttribute('r', String(dotRadius));
-                            dot.classList.add('flow-dot');
-                            dot.style.animationDelay = `${i * 0.5}s`;
-                            flowGroup.appendChild(dot);
-                        }
+                        // 서클 제거: 선만 유지
                     }
                 });
 
@@ -1740,10 +1659,6 @@
                     const scrollPath = svg.querySelector('.center-side path');
                     if (scrollPath) {
                         scrollPath.setAttribute('d', `M ${MOBILE_CENTER} 500 L ${MOBILE_CENTER} 550`);
-                    }
-                    const scrollCircle = svg.querySelector('.center-side .pulse');
-                    if (scrollCircle) {
-                        scrollCircle.setAttribute('cx', MOBILE_CENTER);
                     }
 
                     // Hyper-Spacing Configuration
