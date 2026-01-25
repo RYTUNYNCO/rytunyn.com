@@ -23,13 +23,38 @@
             /* 모바일 터치 스크롤 방향 명시 */
         }
 
+        #bg-svg {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        .matrix-stream {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-weight: 600;
+            fill: #00F0FF;
+            font-size: 16px;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            user-select: none;
+            opacity: 0.8;
+            text-shadow: 0 0 5px rgba(0, 240, 255, 0.4), 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
         .svg-container {
             width: 100%;
             height: auto;
             display: flex;
             justify-content: center;
-            background: #000000;
+            background: transparent;
             overflow: visible;
+            position: relative;
+            z-index: 1;
         }
 
         svg {
@@ -155,6 +180,15 @@
             }
             50% {
                 transform: scale(1.08);
+            }
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(110vh);
             }
         }
 
@@ -460,6 +494,7 @@
     </style>
 </head>
 <body>
+<svg id="bg-svg" xmlns="http://www.w3.org/2000/svg"></svg>
 <!-- Fixed Logo -->
 <a aria-label="RYTUNYN Home" class="fixed-logo" href="/">
 <svg class="logo-svg" viewbox="0 -6.8988 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -1073,6 +1108,103 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const bgSvg = document.getElementById('bg-svg');
+            const BG_NS = "http://www.w3.org/2000/svg";
+            const keywords = [
+                "FLOW",
+                "DEEP",
+                "EGO",
+                "CORE",
+                "WHY",
+                "NOW",
+                "RISK",
+                "TRUST",
+                "HERO",
+                "META",
+                "VOID",
+                "ZONE"
+            ];
+            const bgFontSize = 16;
+            const density = 0.92;
+
+            function generateStreamContent(length) {
+                const hasKeyword = Math.random() > 0.7;
+                let streamText = "";
+                const keywordIndex = hasKeyword ? Math.floor(Math.random() * (length - 5)) : -1;
+
+                let i = 0;
+                while (i < length) {
+                    if (hasKeyword && i === keywordIndex) {
+                        const word = keywords[Math.floor(Math.random() * keywords.length)];
+                        streamText += word;
+                        i += word.length;
+                    } else {
+                        if (Math.random() > 0.15) {
+                            streamText += Math.random() > 0.5 ? '1' : '0';
+                        } else if (Math.random() > 0.8) {
+                            const symbols = "∑∏∆∇∫≠≈";
+                            streamText += symbols.charAt(Math.floor(Math.random() * symbols.length));
+                        } else {
+                            streamText += '\u00A0';
+                        }
+                        i++;
+                    }
+                }
+                return streamText;
+            }
+
+            function createRain() {
+                if (!bgSvg) return;
+                bgSvg.innerHTML = '';
+
+                const width = window.innerWidth;
+                const columns = Math.floor(width / bgFontSize);
+
+                for (let i = 0; i < columns; i++) {
+                    if (Math.random() > density) continue;
+
+                    const text = document.createElementNS(BG_NS, "text");
+                    const textLength = Math.floor(Math.random() * 40) + 20;
+                    const content = generateStreamContent(textLength);
+
+                    text.textContent = content;
+                    text.setAttribute("class", "matrix-stream");
+
+                    if (Math.random() > 0.9) {
+                        text.style.fill = "#FFFFFF";
+                        text.style.opacity = "1.0";
+                        text.style.textShadow = "0 0 10px rgba(255, 255, 255, 1)";
+                    }
+
+                    const xPos = i * bgFontSize + (Math.random() * 2);
+                    text.setAttribute("x", xPos);
+                    text.setAttribute("y", -500);
+
+                    const duration = Math.random() * 8 + 4;
+                    const delay = Math.random() * -15;
+
+                    text.style.animation = `fall ${duration}s linear infinite`;
+                    text.style.animationDelay = `${delay}s`;
+
+                    const sizeVar = Math.floor(Math.random() * 8 + 12);
+                    text.style.fontSize = `${sizeVar}px`;
+
+                    if (sizeVar < 14) {
+                        text.style.opacity = 0.4;
+                        text.style.fill = "#005577";
+                    }
+
+                    bgSvg.appendChild(text);
+                }
+            }
+
+            createRain();
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(createRain, 300);
+            });
 
             gsap.registerPlugin(ScrollTrigger);
 
