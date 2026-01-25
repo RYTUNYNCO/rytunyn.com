@@ -399,9 +399,9 @@
                 letter-spacing: 0.1em;
             }
 
-            /* 2. Axis Line - Visible but subtle */
+            /* 2. Axis Line - Hide on mobile to avoid overlap with centered text */
             .axis-line {
-                stroke-opacity: 0.4;
+                display: none;
             }
 
             /* 3. Stage Title: Centered & Big */
@@ -520,8 +520,11 @@
 <rect fill="#222" height="1" width="1"></rect>
 </pattern>
 <rect fill="url(#grid)" height="100%" width="100%"></rect>
-<!-- Central Axis -->
-<line class="axis-line" id="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="200" y2="13450"></line>
+<!-- Central Axis - Split to avoid Phase markers -->
+<line class="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="200" y2="700"></line>
+<line class="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="800" y2="4450"></line>
+<line class="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="4550" y2="6100"></line>
+<line class="axis-line" stroke="url(#grad-main)" stroke-width="2" x1="500" x2="500" y1="6200" y2="13450"></line>
 <!-- HERO SECTION -->
 <g class="breathe">
 <text class="font-serif text-header" fill="#FFFFFF" text-anchor="middle" x="500" y="300">RYTUNYN</text>
