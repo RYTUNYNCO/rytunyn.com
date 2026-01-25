@@ -100,6 +100,58 @@
             transform-origin: center;
         }
 
+        .scroll-indicator {
+            stroke: url(#grad-flow);
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            opacity: 0.85;
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
+            animation: mystic-pulse 3.6s ease-in-out infinite;
+        }
+
+        #humanity-node text {
+            opacity: 1 !important;
+            fill: #FFFFFF !important;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.6));
+        }
+
+        .humanity-ring,
+        .humanity-core {
+            animation: humanity-scale 4.5s ease-in-out infinite;
+            transform-box: fill-box;
+            transform-origin: center;
+            filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+        }
+
+        @keyframes humanity-scale {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.12);
+                opacity: 1;
+            }
+        }
+
+        @keyframes mystic-pulse {
+            0%, 100% {
+                opacity: 0.65;
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.35));
+            }
+            50% {
+                opacity: 1;
+                filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 36px rgba(255, 255, 255, 0.6));
+            }
+        }
+
+        .flow-end-dot {
+            fill: #FFF;
+            opacity: 0.65;
+            filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+        }
+
+
 
         @keyframes flow-fade {
             0% {
@@ -393,6 +445,12 @@
                 stroke-width: 1.6;
             }
 
+            .humanity-ring,
+            .humanity-core {
+                animation: humanity-scale 4.5s ease-in-out infinite;
+            }
+
+
             /* Force Text Center - Same style as PC */
             .sequence-item text {
                 text-anchor: middle !important;
@@ -499,7 +557,12 @@
 </g>
 <!-- Scroll Indicator -->
 <g class="center-side">
-<path d="M 500 500 L 500 550" opacity="0.5" stroke="#FFF" stroke-width="2"></path>
+<path class="scroll-indicator" d="M 500 500 L 500 550" fill="none"></path>
+</g>
+<g class="sequence-item center-side" id="humanity-node" data-index="0" data-y="580" transform="translate(0, 580)">
+<circle class="humanity-ring" cx="500" cy="0" fill="none" r="60" stroke="#FFF" stroke-width="0.5"></circle>
+<circle class="humanity-core" cx="500" cy="0" fill="#111" r="50"></circle>
+<text class="font-serif text-item-bold" fill="#FFF" font-size="20" text-anchor="middle" x="500" y="5"><tspan x="500" dy="0">인간다움</tspan><tspan x="500" dy="1.2em">Humanity</tspan></text>
 </g>
 <!-- STAGE 01 -->
 <!-- STAGE 02 -->
@@ -1389,6 +1452,8 @@
 
             const enHappinessLabel = "HAPPINESS";
             const koHappinessLabel = "행복";
+            const enHumanityLabel = "Humanity";
+            const koHumanityLabel = "인간다움";
 
             function setSvgTextWithOptionalEnglish(textEl, textValue) {
                 while (textEl.firstChild) {
@@ -1444,6 +1509,28 @@
                         texts[0].textContent = koHappinessLabel;
                     }
                 });
+
+                const humanityNode = document.getElementById('humanity-node');
+                if (humanityNode) {
+                    const textEl = humanityNode.querySelector('text');
+                    if (textEl) {
+                        while (textEl.firstChild) {
+                            textEl.removeChild(textEl.firstChild);
+                        }
+                        const firstLine = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                        firstLine.setAttribute('x', textEl.getAttribute('x') || '0');
+                        firstLine.setAttribute('dy', '0');
+                        firstLine.textContent = koHumanityLabel;
+
+                        const secondLine = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                        secondLine.setAttribute('x', textEl.getAttribute('x') || '0');
+                        secondLine.setAttribute('dy', '1.2em');
+                        secondLine.textContent = enHumanityLabel;
+
+                        textEl.appendChild(firstLine);
+                        textEl.appendChild(secondLine);
+                    }
+                }
             }
 
             function applyEnglishContent() {
@@ -1474,6 +1561,17 @@
                         texts[0].textContent = enHappinessLabel;
                     }
                 });
+
+                const humanityNode = document.getElementById('humanity-node');
+                if (humanityNode) {
+                    const textEl = humanityNode.querySelector('text');
+                    if (textEl) {
+                        while (textEl.firstChild) {
+                            textEl.removeChild(textEl.firstChild);
+                        }
+                        textEl.textContent = enHumanityLabel;
+                    }
+                }
             }
 
             function setLanguage(lang) {
@@ -1548,6 +1646,7 @@
                             }
                         }
                     });
+
                 }
 
                 if (isTouchDevice) {
@@ -1588,7 +1687,7 @@
                 flowGroup.setAttribute('id', 'flow-connectors');
 
                 const isMobileFlow = window.innerWidth <= 600;
-                const circleRadius = isMobileFlow ? 4 : 3;
+                const endDotRadius = isMobileFlow ? 1.4 : 1.0;
                 const stopPadding = 140;
                 const effectiveStopY = typeof stopAtY === 'number' ? (stopAtY - stopPadding) : null;
 
@@ -1643,8 +1742,17 @@
                         line.setAttribute('x2', centerX);
                         line.setAttribute('y2', midY + (lineLength / 2));
                         line.classList.add('flow-line');
-                        line.style.animationDelay = `${(index % 12) * 0.12}s`;
+                        const delayValue = `${-(Math.random() * 2).toFixed(2)}s`;
+                        line.style.animationDelay = delayValue;
                         flowGroup.appendChild(line);
+
+                        const endDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        endDot.setAttribute('cx', centerX);
+                        endDot.setAttribute('cy', midY + (lineLength / 2));
+                        endDot.setAttribute('r', String(endDotRadius));
+                        endDot.classList.add('flow-end-dot', 'flow-line');
+                        endDot.style.animationDelay = delayValue;
+                        flowGroup.appendChild(endDot);
 
                         // 서클 제거: 선만 유지
                     }
@@ -1685,6 +1793,22 @@
                     const scrollPath = svg.querySelector('.center-side path');
                     if (scrollPath) {
                         scrollPath.setAttribute('d', `M ${MOBILE_CENTER} 500 L ${MOBILE_CENTER} 550`);
+                    }
+
+                    const humanityNode = document.getElementById('humanity-node');
+                    if (humanityNode) {
+                        const humanityY = Number(humanityNode.getAttribute('data-y') || 650);
+                        humanityNode.setAttribute('transform', `translate(0, ${humanityY})`);
+                        humanityNode.querySelectorAll('text').forEach(textEl => {
+                            textEl.setAttribute('x', MOBILE_CENTER);
+                            textEl.setAttribute('text-anchor', 'middle');
+                            textEl.querySelectorAll('tspan').forEach(tspan => {
+                                tspan.setAttribute('x', MOBILE_CENTER);
+                            });
+                        });
+                        humanityNode.querySelectorAll('circle').forEach(circle => {
+                            circle.setAttribute('cx', MOBILE_CENTER);
+                        });
                     }
 
                     // Hyper-Spacing Configuration
