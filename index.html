@@ -1450,6 +1450,35 @@
             const enHappinessLabel = "HAPPINESS";
             const koHappinessLabel = "행복";
 
+            function setSvgTextWithOptionalEnglish(textEl, textValue) {
+                while (textEl.firstChild) {
+                    textEl.removeChild(textEl.firstChild);
+                }
+
+                const match = textValue.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+                if (!match) {
+                    textEl.textContent = textValue;
+                    return;
+                }
+
+                const baseText = match[1].trim();
+                const englishText = match[2].trim();
+                const x = textEl.getAttribute('x') || '0';
+
+                const firstLine = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                firstLine.setAttribute('x', x);
+                firstLine.setAttribute('dy', '0');
+                firstLine.textContent = baseText;
+
+                const secondLine = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                secondLine.setAttribute('x', x);
+                secondLine.setAttribute('dy', '1.2em');
+                secondLine.textContent = englishText;
+
+                textEl.appendChild(firstLine);
+                textEl.appendChild(secondLine);
+            }
+
             function applyKoreanContent() {
                 const stageTitles = document.querySelectorAll('[id^="stage-"] .text-stage');
                 stageTitles.forEach((titleEl, index) => {
@@ -1465,10 +1494,7 @@
                     const textEl = item.querySelector('text');
                     if (!textEl) return;
 
-                    while (textEl.firstChild) {
-                        textEl.removeChild(textEl.firstChild);
-                    }
-                    textEl.textContent = textValue;
+                    setSvgTextWithOptionalEnglish(textEl, textValue);
                 });
 
                 const happinessNodes = document.querySelectorAll('.sequence-item.center-side[data-index="106"]');
